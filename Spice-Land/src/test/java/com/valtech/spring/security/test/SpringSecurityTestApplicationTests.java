@@ -72,7 +72,7 @@ class SpringSecurityTestApplicationTests {
 	             
 	             }
 	             
-	             System.out.println("Id.............."+userIds.get(0));
+	             System.out.println("Id"+userIds.get(0));
 	            
 	             for (int i = 0; i < userIds.size(); i++) {
 	            	 
