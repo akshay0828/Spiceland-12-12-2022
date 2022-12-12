@@ -16,10 +16,6 @@ public interface OrderService {
 
 	Orders getById(Integer id);
 
-	
-
-	
-
 	void deletebyId(int id);
 
 }

@@ -8,13 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import com.valtech.spring.security.entity.User;
-import com.valtech.spring.security.service.ValtechUserDetailsService;
+import com.valtech.spring.security.service.UserDetailsService;
 
 @SpringBootTest
 public class UserTest {
 	
 	@Autowired
-	ValtechUserDetailsService service;
+	UserDetailsService service;
 	
 	
 	

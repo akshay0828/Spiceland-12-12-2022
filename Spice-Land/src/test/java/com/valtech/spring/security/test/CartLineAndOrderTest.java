@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.valtech.spring.security.entity.CartLine;
 import com.valtech.spring.security.entity.Products;
 import com.valtech.spring.security.service.CartLineService;
-import com.valtech.spring.security.service.product;
+import com.valtech.spring.security.service.ProductService;
 
 @SpringBootTest
 public class CartLineAndOrderTest {
@@ -21,7 +21,7 @@ public class CartLineAndOrderTest {
 	private CartLineService cartLineService;
 	
 	@Autowired
-	private product product;
+	private ProductService product;
 	
 	
 	@Test
@@ -39,7 +39,6 @@ public class CartLineAndOrderTest {
 				prodIds.add(prod.getId());
 			
 			}
-			
 			Products item=product.getProduct(prodIds.get(1));
 		
 		CartLine cartLine =new CartLine(item.getId(), item.getProductName(), item.getPrice());

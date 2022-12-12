@@ -26,17 +26,17 @@ import com.valtech.spring.security.repo.OrderRepository;
 import com.valtech.spring.security.repo.UserReopsitory;
 import com.valtech.spring.security.service.CartLineService;
 import com.valtech.spring.security.service.OrderService;
-import com.valtech.spring.security.service.ProductService;
-import com.valtech.spring.security.service.ValtechUserDetailsService;
+import com.valtech.spring.security.service.ProductServiceImpl;
+import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
 public class UserController {
 	
 	@Autowired
-	private ValtechUserDetailsService service;
+	private UserDetailsService service;
 
 	@Autowired
-	private ProductService productservice;
+	private ProductServiceImpl productservice;
 
 	int uid;
 
@@ -116,7 +116,7 @@ public class UserController {
 
 			CartLine check = cartLineService.findUserIdAndProdId(id, prod_id);
 
-			if (check_User_id == id && check_Prod_id == prod_id) {
+			if (check_User_id == id & check_Prod_id == prod_id) {
 
 				CartLine c = new CartLine(prod_id, p.getProductName(), p.getPrice(), p.getUserid(), id);
 

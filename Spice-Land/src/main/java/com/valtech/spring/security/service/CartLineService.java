@@ -6,27 +6,24 @@ import java.util.List;
 import com.valtech.spring.security.entity.CartLine;
 
 public interface CartLineService {
-	List<CartLine> findAll();
 
 	void createCartLine(CartLine cartline);
 
-
-
-	CartLine findByProId(int prodid);
+	List<CartLine> findAll();
 
 	CartLine findById(int id);
 
+	CartLine findByProId(int prodid);
+
 	void deleteCartLine(int id);
-
-
-
-List<CartLine> getAllordersByuserid(int userid);
-	
-	int findid(int id);
 
 	ArrayList<Integer> findAllId(int id);
 
 	ArrayList<Integer> findAllAdminId(int id);
+
+	int findid(int id);
+
+	List<CartLine> getAllordersByuserid(int userid);
 
 	int findUserIdAndProdId_onlyUserId(int userid, int prodid);
 
@@ -35,6 +32,5 @@ List<CartLine> getAllordersByuserid(int userid);
 	CartLine findUserIdAndProdId(int userid, int prodid);
 
 	Object EmptyCart(int userid);
-
 
 }
