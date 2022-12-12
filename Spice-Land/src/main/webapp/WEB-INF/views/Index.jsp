@@ -33,14 +33,13 @@
       <a href="/" class="logo">Spice<span class="yellow">Land</span></a> 
       <!-- <span class="yellow">roo</span> -->
 
-      <nav class="navbar bg-light">
+      <nav class="navbar">
         <a href="#home">Home</a>
         <a href="#services">Services</a>
         <a href="#aboutss">About Us</a>
         <a href="#contact">Contact Us</a>
-        
-         
-        <a href="/login" class="btn">Sign-In</a>
+          <a href="/login">Sign-In</a>
+        <a href="" class="btn">Make an Order</a>
       </nav>
 
       <!-- Hamburger -->

@@ -17,14 +17,8 @@ import com.valtech.spring.security.repo.CartLineRepo;
 import com.valtech.spring.security.repo.UserReopsitory;
 import com.valtech.spring.security.service.CartLineService;
 import com.valtech.spring.security.service.OrderService;
-import com.valtech.spring.security.service.ProductService;
-import com.valtech.spring.security.service.ValtechUserDetailsService;
-
-
-import com.twilio.Twilio;
-import com.twilio.exception.AuthenticationException;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.type.PhoneNumber;
+import com.valtech.spring.security.service.ProductServiceImpl;
+import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
 public class DeliveryController {
@@ -32,12 +26,11 @@ public class DeliveryController {
 	private UserReopsitory userRepository;
 
 	@Autowired
-	private ValtechUserDetailsService service;
+	private UserDetailsService service;
 
 
 	int uid;
-	/*public static final String ACCOUNT_SID = System.getenv("ACe165455b3f498dd288a7ffa8aa7a3d5c");
-    public static final String AUTH_TOKEN = System.getenv("a5f1275550e3371a92f0be7f1d060d6b");*/
+
 	
 
 	@Autowired
@@ -94,38 +87,12 @@ public class DeliveryController {
 
 	@PostMapping("/delivery/getOrders/{userid}/{orderid}/{customerid}")
 	public String DeleteProduct(Model model, @PathVariable("userid") int userid, @PathVariable("orderid") int id,
-			@PathVariable("customerid") int customerid) throws AuthenticationException{
+			@PathVariable("customerid") int customerid) {
 
 		orderService.deletebyId(id);
-		
-		try{
-		Twilio.init(
-			    System.getenv("ACe165455b3f498dd288a7ffa8aa7a3d5c"),
-			    System.getenv("fb15cddea6eef5d926a68048c72e4cd3"));
-	       
-	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"Where's Wallace?")
-	            .create();
-	        System.out.println("MESSAGE SENT");
-	        System.out.println(message.getSid());
-		
-		}
-		
-		catch(Exception e){
-			/*System.out.println("MESSAGE NOT SENT");
-			
-			Twilio.init(
-				    System.getenv("ACe165455b3f498dd288a7ffa8aa7a3d5c"),
-				    System.getenv("fb15cddea6eef5d926a68048c72e4cd3"));
-		       
-		        Message message = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"Where's Wallace?")
-		            .create();
-		        System.out.println("MESSAGE SENT");
-		        System.out.println(message.getSid());*/
-		        
-		        
+
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
-		}
-		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
+
 	}
 
 	/*
@@ -137,13 +104,6 @@ public class DeliveryController {
 	public String acceptorders(@PathVariable("id") int id, Model model, @PathVariable("userid") int userid) {
 		model.addAttribute("deliver", service.getByid(id));
 		model.addAttribute("user", service.getByid(userid));
-		
-		
-		
-		
-		
-		
-		
 
 		return "delivery/acceptorder";
 	}

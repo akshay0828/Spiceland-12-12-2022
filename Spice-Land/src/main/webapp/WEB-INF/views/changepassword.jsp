@@ -101,7 +101,7 @@ input[type="submit"]:hover{
     <div class="loginbox">
         <img class="logo" src="https://cdn1.iconfinder.com/data/icons/large-glossy-icons/512/User_login.png">
         <h1>Update Password</h1>
-        <form action="/admin/changepassword/${userna}" method="post">
+        <form action="/changepassword/${userna}" method="post">
             
             <label>Password</label>
             <input type="password" placeholder="Enter Password"  id="exampleInputPassword1" name="pass" required pattern="[A-Za-z0-9#@$&]{3,10}" title="Password must be between 3-10 characters and type only valid characters!!">

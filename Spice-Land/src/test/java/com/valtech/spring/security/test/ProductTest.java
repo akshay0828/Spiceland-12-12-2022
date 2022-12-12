@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.valtech.spring.security.entity.CartLine;
 import com.valtech.spring.security.entity.Products;
-import com.valtech.spring.security.service.product;
+import com.valtech.spring.security.service.ProductService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductTest {
 	
 	@Autowired
-	private product product;
+	private ProductService product;
 	
 	@Test
 	public void TestAddProducts(){

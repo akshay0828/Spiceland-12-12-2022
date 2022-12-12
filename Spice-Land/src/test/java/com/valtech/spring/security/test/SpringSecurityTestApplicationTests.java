@@ -72,7 +72,7 @@ class SpringSecurityTestApplicationTests {
 	             
 	             }
 	             
-	             System.out.println("Id............"+userIds.get(0));
+	             System.out.println("Id.............."+userIds.get(0));
 	            
 	             for (int i = 0; i < userIds.size(); i++) {
 	            	 
@@ -80,6 +80,7 @@ class SpringSecurityTestApplicationTests {
 				}
 	             
 	        
+	         
 	         
 	     }
 	     }
@@ -90,5 +91,47 @@ class SpringSecurityTestApplicationTests {
 		
 		
 		
+		
+		
+	/*	
+	@Test
+	@WithAnonymousUser
+	void testHelloWithAnanomus() throws Exception {
+		mvc.perform(get("/index")).andDo(print()).andExpect(content().string("register")).andExpect(status().isOk());
+	}
+
+	@Test
+	@WithAnonymousUser
+	void testUerWithAnanomusShoundRetuenUnauthorized() throws Exception {
+		mvc.perform(get("/user")).andDo(print()).andExpect(status().isUnauthorized());
+		
+	}
+
 	
+	@Test
+	@WithMockUser(roles="USER")
+	void testUserPageWithUser() throws Exception {
+		mvc.perform(get("/user")).andDo(print()).andExpect(content().string("Hello User")).andExpect(status().isOk());
+		
+	}
+	
+	@Test
+	@WithMockUser(roles="USER")
+	void testDeliveryPersonPageWithUser() throws Exception {
+		mvc.perform(get("/deliveryPerson")).andDo(print()).andExpect(content().string("Hello DeliveryPerson")).andExpect(status().isOk());
+		
+	}
+	
+	@Test
+	@WithMockUser(roles="USER")
+	void testAdminPageWithUserShouldReturnUnauthorized() throws Exception {
+		mvc.perform(get("/seller")).andDo(print()).andExpect(status().isOk());
+	}
+
+	@Test
+	@WithMockUser(roles="ADMIN")
+	void testAdminPageWithAdmin() throws Exception {
+		mvc.perform(get("/seller")).andDo(print()).andExpect(content().string("Hello seller")).andExpect(status().isOk());
+	}
+	*/
 }

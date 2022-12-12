@@ -20,26 +20,24 @@ public class WebSecurityConfig {
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 
-		http.authorizeRequests().antMatchers("/register", "/login", "/logout", "/index").anonymous()
-				/*.antMatchers("/user/**").hasAnyRole("USER")
-				.antMatchers("/admin/**").hasAnyRole("ADMIN")
-				.antMatchers("/delivery/**").hasAnyRole("DELIVERY")*/
-				.antMatchers("/register", "/login", "/logout", "/index").permitAll();
+		http.authorizeRequests().antMatchers("/register","/login").permitAll()
+				// .antMatchers("/user/**").hasAnyRole("USER")
+//				.antMatchers("/admin","/admin/**").hasAuthority("ADMIN")
+				.antMatchers("/register", "/login", "/logout", "/resetUsers").permitAll().antMatchers("/deliveryPerson")
+				.hasAnyRole("USER").and().httpBasic();
 
 		return http.build();
 	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 
 	@Bean
 	public UserDetailsManager userDetailsManager(PasswordEncoder passwordEncoder) {
 
 		InMemoryUserDetailsManager udm = new InMemoryUserDetailsManager();
-		
-		
 
 		udm.createUser(User.withUsername("scott").password(passwordEncoder.encode("tiger")).roles("USER").build());
 		udm.createUser(

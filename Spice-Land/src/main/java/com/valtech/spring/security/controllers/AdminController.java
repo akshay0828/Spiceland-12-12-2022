@@ -21,8 +21,8 @@ import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.CartLineRepo;
 import com.valtech.spring.security.repo.UserReopsitory;
 import com.valtech.spring.security.service.CartLineService;
-import com.valtech.spring.security.service.ProductService;
-import com.valtech.spring.security.service.ValtechUserDetailsService;
+import com.valtech.spring.security.service.ProductServiceImpl;
+import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
 public class AdminController {
@@ -31,20 +31,12 @@ public class AdminController {
 	private UserReopsitory userRepository;
 
 	@Autowired
-	private ValtechUserDetailsService service;
+	private UserDetailsService service;
 
 	@Autowired
-	private ProductService productservice;
+	private ProductServiceImpl productservice;
 
 	int uid;
-
-
-
-	
-
-	
-
-	
 
 	/*
 	 * Once the seller/admin login, It will navigate to the adminhome.
