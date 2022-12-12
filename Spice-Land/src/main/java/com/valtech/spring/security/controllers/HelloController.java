@@ -1,5 +1,7 @@
 package com.valtech.spring.security.controllers;
 
+import java.util.Arrays;
+
 import javax.jws.soap.SOAPBinding;
 
 import org.hibernate.exception.ConstraintViolationException;
@@ -70,8 +72,9 @@ public class HelloController {
 	 * should not be repititive if so it displays error message. password and
 	 * confirmpassword should be same else error message is displayed.
 	 */
+	
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username,@RequestParam("pass")String pass, Model model) {
+	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username, @RequestParam("role") String role ,@RequestParam("pass")String pass, Model model) {
 
 		// user.setRole(user.getRole());
 		String u;
@@ -80,6 +83,10 @@ public class HelloController {
 
 			if (user.getPass().equals(user.getCnfmpass())) {
 				user.setPass(passwordEncoder().encode(pass));
+				
+				user.setRoles(Arrays.asList(role));
+				user.setEnabled(true);
+				
 				service.createUser(user);
 				return "redirect:/login";
 			} else {
@@ -92,6 +99,7 @@ public class HelloController {
 		return "register";
 	}
 
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";

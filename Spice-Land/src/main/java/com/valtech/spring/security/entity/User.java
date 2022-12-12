@@ -26,7 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,11 +41,13 @@ public class User {
 	private boolean enabled;
 	private String role;// Role of the user
 
-	@ElementCollection(fetch = FetchType.EAGER)
-
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="user_roles1",joinColumns=@JoinColumn(name="user_id",referencedColumnName="id"))
+	@Column(name="role_name")
 	private List<String> roles;
 
-	public User() {
+	public User()  {
 
 		roles = new ArrayList<>();
 	}
@@ -150,6 +152,44 @@ public class User {
 
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
+	}
+
+	
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return roles.stream().map(role->new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+	}
+
+
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return enabled;
+	}
+
+
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return enabled;
+	}
+
+
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return enabled;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
