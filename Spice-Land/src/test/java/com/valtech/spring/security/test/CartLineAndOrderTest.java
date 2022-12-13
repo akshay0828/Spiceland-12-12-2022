@@ -39,7 +39,7 @@ public class CartLineAndOrderTest {
 				prodIds.add(prod.getId());
 			
 			}
-			Products item=product.getProduct(prodIds.get(1));
+			Products item=product.getProduct(prodIds.get(0));
 		
 		CartLine cartLine =new CartLine(item.getId(), item.getProductName(), item.getPrice());
 		cartLineService.createCartLine(cartLine);

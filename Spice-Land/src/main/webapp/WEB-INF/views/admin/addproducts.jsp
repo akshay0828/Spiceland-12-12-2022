@@ -14,6 +14,7 @@
 	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
 	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
 	crossorigin="anonymous">
+	
 <title>Add Products</title>
 
 <style>
@@ -82,6 +83,7 @@ body {
 	}
 }
 </style>
+<script src="/js/main.js"></script>
 </head>
 <body>
 
@@ -112,7 +114,7 @@ body {
 		
 		<div class="container">
 			<div>
-				<form action="/admin/products/${user.id}" method="post" enctype = "multipart/form-data">
+				<form action="/admin/products/${user.id}" method="post" enctype = "multipart/form-data" class="add-products-form" onsubmit="return Upload()">
 					<!--  <div class="row">-->
 					<br> <br>
 					<div class="col-sm-3">
@@ -171,7 +173,7 @@ body {
 						
 						 <p>Product Image</p>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="eimage" accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)" /> 
+                    <input type="file" class="custom-file-input" name="eimage" accept="image/jpeg, image/png" id="productImage" data-max-size="2048" onchange="loadfile(event)"   /> 
                     <label class="custom-file-label border border-warning" for="productImage">Choose file</label>
                     
                  </div>
@@ -200,8 +202,57 @@ body {
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 	
+<script type="text/javascript">
 
+	var Upload = function() {
+        var fileUpload = document.getElementById("productImage");
+        var maxSize = fileUpload.getAttribute('data-max-size');
+
+   
+        if (typeof (fileUpload.files) != "undefined") {
+            var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
+            
+            if(size > maxSize){
+            	
+            	alert("Image Size is Large" +size + "  KB "+"  Product is not added" );
+            	
+            	return false;
+            }
+            
+            alert(size + " KB.");
+        } else {
+            alert("This browser does not support HTML5.");
+        }
+    }
 	
+/* 	document.add-products-form.addEventListener( "submit", function(event) {
+	if(Upload==false){
+		alert("Cannot add");
+		event.preventDefault();
+	}
 	
+	} ); */
+	
+
+</script> 
+<!-- <script type="text/javascript">
+    function Upload() {
+ var fileInput = $('.custom-file-input');
+    var maxSize = fileInput.data('max-size');
+    $('.add-products-form').submit(function(e){
+        if(fileInput.get(0).files.length){
+            var fileSize = fileInput.get(0).files[0].size; // in bytes
+            if(fileSize>maxSize){
+                alert('file size is more than ' + maxSize + ' bytes');
+                return false;
+            }else{
+                alert('file size is correct - '+fileSize+' bytes');
+            }
+        }else{
+            alert('Please select the file to upload');
+            return false;
+        }
+	
+        </script> -->
 </body>
 </html>

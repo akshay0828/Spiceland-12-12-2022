@@ -1,6 +1,10 @@
 package com.valtech.spring.security.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.valtech.spring.security.entity.Orders;
+import com.valtech.spring.security.entity.Products;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.model.RegisterUserModel;
 import com.valtech.spring.security.repo.CartLineRepo;
@@ -19,6 +25,12 @@ import com.valtech.spring.security.service.CartLineService;
 import com.valtech.spring.security.service.OrderService;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.UserDetailsService;
+
+import com.twilio.Twilio;
+import com.twilio.exception.AuthenticationException;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
 
 @Controller
 public class DeliveryController {
@@ -37,6 +49,9 @@ public class DeliveryController {
 	private OrderService orderService;
 
 	
+	 public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c"; 
+	    public static final String AUTH_TOKEN = "fb15cddea6eef5d926a68048c72e4cd3"; 
+	
 
 	/*
 	 * Once the delivery person login, It will navigate to the deliverhome.
@@ -44,6 +59,26 @@ public class DeliveryController {
 	@GetMapping("/delivery/deliverhome/{id}")
 	public String deliveryhome(@PathVariable("id") int id, ModelMap model) {
 		model.addAttribute("user", service.getuser(id));
+		
+		List<Orders> orders=	orderService.findAll();
+		ArrayList<Integer> customerIds = new ArrayList<>();
+		
+if(orders.size()>0){
+			
+			for (Orders order : orders) {
+				if(customerIds.contains(order.getUser_id())){
+				
+				}
+				else{
+					customerIds.add(order.getUser_id());
+				}
+			}
+}
+			System.out.println(customerIds);
+		
+			
+			
+			
 
 		return "delivery/deliverhome";
 	}
@@ -87,12 +122,33 @@ public class DeliveryController {
 
 	@PostMapping("/delivery/getOrders/{userid}/{orderid}/{customerid}")
 	public String DeleteProduct(Model model, @PathVariable("userid") int userid, @PathVariable("orderid") int id,
-			@PathVariable("customerid") int customerid) {
+			@PathVariable("customerid") int customerid) throws AuthenticationException{
 
-		orderService.deletebyId(id);
-
+		//orderService.deletebyId(id);
+		
+		try{
+			
+			User user =service.getByid(customerid);
+			User delivery =service.getByid(userid);
+			System.out.println("Contact........ "+user.getContact());
+			
+			/*
+			
+			Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
+	       
+	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+"is your deliver paterner, contact him for recive your order"+delivery.getContact())
+	            .create();
+	        Message message1 = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
+		            .create();
+	        System.out.println("MESSAGE SENT");
+	        System.out.println(message.getSid());*/
+		
+		}
+		
+		catch(Exception e){
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
-
+		}
+		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
 	}
 
 	/*

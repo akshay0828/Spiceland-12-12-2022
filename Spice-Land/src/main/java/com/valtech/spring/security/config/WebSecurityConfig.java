@@ -1,9 +1,11 @@
 package com.valtech.spring.security.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +22,18 @@ public class WebSecurityConfig {
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
 
-		http.authorizeRequests().antMatchers("/register","/login").permitAll()
-				// .antMatchers("/user/**").hasAnyRole("USER")
+		http.authorizeRequests().antMatchers("/register","/login").permitAll();
+			//	 .antMatchers("/user/**").hasAnyRole("USER")
 //				.antMatchers("/admin","/admin/**").hasAuthority("ADMIN")
-				.antMatchers("/register", "/login", "/logout", "/resetUsers").permitAll().antMatchers("/deliveryPerson")
-				.hasAnyRole("USER").and().httpBasic();
+			//	.antMatchers("/register", "/login", "/logout").permitAll().anyRequest().authenticated();
+				http.httpBasic();
+				
+	//	http.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login");
 
 		return http.build();
 	}
+	
+	
 
 //	@Bean
 //	public PasswordEncoder passwordEncoder() {

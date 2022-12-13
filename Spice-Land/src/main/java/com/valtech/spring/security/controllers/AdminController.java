@@ -4,15 +4,18 @@ package com.valtech.spring.security.controllers;
 import java.io.IOException;
 import java.util.Base64;
 
+import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -86,24 +89,36 @@ public class AdminController {
 	 */
 
 	@PostMapping("/admin/products/{id}")
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
 	public String adminadd(@RequestParam(name = "productName") String productName,
 			@RequestParam(name = "eimage") MultipartFile file, @RequestParam(name = "price") double price,
 			@RequestParam(name = "weight") float weight,
 			@RequestParam(name = "productDescription") String productDescription,
-			@RequestParam(name = "quantity") int quantity, @PathVariable("id") int user_id) throws IOException {
-
+			@RequestParam(name = "quantity") int quantity, @PathVariable("id") int user_id) throws Exception {
+		
+try{
 		byte[] byteArr = file.getBytes();
+		int size=byteArr.length;
+		
+		System.out.println("The file size is " + size + " bytes");
 		String base64Encoded = new String(Base64.getEncoder().encode(byteArr));
-		String s = "aaa";
 		Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded, byteArr);
 		p.setUserid(user_id);
 
 		productservice.createProduct(p);
 
 		System.out.println(productservice.getAllProducts());
+}
+
+catch(MaxUploadSizeExceededException e){
+	
+	System.out.println("FILE ERROR");
+}
+
 
 		return "redirect:/admin/adminhome/{id}";
 	}
+	
 	/*
 	 * Seller/Admin can view the existing products added by that particular
 	 * seller/admin.
@@ -148,20 +163,21 @@ public class AdminController {
 	 */
 
 	@PostMapping("/products/updateproduct/{id}")
-	public ModelAndView updateProduct(@PathVariable("id") int id, @ModelAttribute Products pro,
+	public String updateProduct(@PathVariable("id") int id, @ModelAttribute Products pro,
 			@RequestParam("submit") String submit, Model model) {
-		ModelAndView view = new ModelAndView("products/afterupdateprolist");
+		//ModelAndView view = new ModelAndView("products/afterupdateprolist");
 
 		Products p = productservice.getProduct(pro.getId());
 		pro.setEimage(p.getEimage());
 		pro.setImage(p.getImage());
+		
 		productservice.updateProduct(pro);
 		pro.setUserid(uid);
 
 		model.addAttribute("add", pro.getUserid());
-		view.addObject("Products", productservice.getAllproductsbyuser(pro.getUserid()));
+		model.addAttribute("Products", productservice.getAllproductsbyuser(id));
 
-		return view;
+		return "redirect:/products/prolist/"+id;
 	}
 
 	/*
