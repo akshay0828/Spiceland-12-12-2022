@@ -44,7 +44,9 @@ public class User implements UserDetails {
 	private boolean enabled;
 	private String role;// Role of the user
 
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="user_roles1",joinColumns=@JoinColumn(name="user_id",referencedColumnName="id"))
+	@Column(name="role_name")
 
 	private List<String> roles;
 
