@@ -115,9 +115,7 @@ catch(MaxUploadSizeExceededException e){
 	System.out.println("FILE ERROR");
 }
 
-catch(FileSizeLimitExceededException e){
-	System.out.println("FILE ERROR");
-}
+
 		return "redirect:/admin/adminhome/{id}";
 	}
 	
