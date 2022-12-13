@@ -149,6 +149,7 @@
 								
 				 <td>Items to deliver</td>
 				<td>Customer</td>
+				<td>address</td>
 				<td>Seller</td>
 				<td>Time</td> 
 				<td > Actions </td>
@@ -162,6 +163,7 @@
 					
 					 <td>${orders.cartIds}</td>
 					 <td>${orders.user_id}</td>
+					 <td>${orders.area}</td>
 					  <td>${orders.adminIds}</td>
 					<td>${orders.date}</td>
 					

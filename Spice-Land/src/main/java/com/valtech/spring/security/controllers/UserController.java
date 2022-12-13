@@ -214,12 +214,14 @@ public class UserController {
 		ArrayList<Integer> cart_ids = cartLineService.findAllId(id);
 		ArrayList<Integer> admin_ids = cartLineService.findAllAdminId(id);
 
-		
+		User user =service.getByid(id);
 		
 		Orders o = new Orders();
 		o.setUser_id(id);
 		o.setCartIds(cart_ids);
 		o.setDate(LocalDate.now());
+		o.setArea(user.getArea());
+		
 		o.setAdminIds(admin_ids);
 
 		orderService.saveOrder(o);

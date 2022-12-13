@@ -44,6 +44,7 @@ public class DeliveryController {
 	int uid;
 
 	
+	
 
 	@Autowired
 	private OrderService orderService;
@@ -75,6 +76,28 @@ if(orders.size()>0){
 			}
 }
 			System.out.println(customerIds);
+			
+			 ArrayList<String> address=new ArrayList<>();
+			
+			for (int i = 0; i < customerIds.size(); i++) {
+				
+				User user=service.getByid(customerIds.get(i));
+				
+				System.out.println(user.getArea());
+				
+				address.add(user.getArea());
+				
+				
+				
+			}
+			
+			
+			
+			System.out.println(address);
+			
+			System.out.println(orderService.findAll());
+			
+			model.addAttribute("address",address);
 		
 			
 			
@@ -124,7 +147,7 @@ if(orders.size()>0){
 	public String DeleteProduct(Model model, @PathVariable("userid") int userid, @PathVariable("orderid") int id,
 			@PathVariable("customerid") int customerid) throws AuthenticationException{
 
-		//orderService.deletebyId(id);
+		orderService.deletebyId(id);
 		
 		try{
 			

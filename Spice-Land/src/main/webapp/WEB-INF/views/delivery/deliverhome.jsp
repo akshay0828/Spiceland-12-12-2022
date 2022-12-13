@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport"
@@ -115,7 +116,7 @@
 	</nav>
 	
 	
-	<div class="jumbotron text-center">
+	<div id="add" class="jumbotron text-center">
 	
 		<h1 class="display-4" >Welcome Back,${user.name}</h1><hr>
 		<p> </p>
@@ -123,7 +124,7 @@
 	</div><br>
 	<br>
 	<br>
-	
+	<div id="area">ff</div>
   <!-- <div class="border2"> </div> -->
   
   
@@ -135,8 +136,32 @@
 					<div class="card-body text-center">
 						<h4 class="card-title">Order Details</h4>
 						<img src="https://th.bing.com/th/id/R.0fef9a6d9d1fd5ec9535f0abbb74c3d2?rik=pmcVuEGM7%2fSa6w&riu=http%3a%2f%2fwww.gameusedandautographedcards.com%2fwp-content%2fuploads%2f2014%2f01%2fOrders.gif&ehk=XCw%2fQD7mXYGUACmF%2blMunhF0wPCw382kh5shWDo1xeo%3d&risl=&pid=ImgRaw&r=0" width="100" height="100">
-						<!-- <p class="card-text">Get Orders</p> -->
-						<a href="/delivery/getOrders/${user.id }" class="button-33">Get Orders</a>
+						<select id = "address" name = "address"  style="color: rgb(129, 8, 89) ; background-color: rgb(219, 233, 231); width: 105px; height: 30px; font-size: 20px;" >
+				
+					 <option  value = "none">SELECT</option>
+					<c:forEach var="v" items="${address}">  
+					  <option  value = "${v}">${v}</option>
+						</c:forEach>
+				
+				<script type="text/javascript">
+var Upload = function(){
+	var area = document.getElementById("address");
+	
+	<h2>area</h2>
+	var concatElement = document.getElementById("area");
+	
+	concatElement.innerHTML += " hh" + area;
+	
+}
+}
+
+</script>
+			
+
+				  </select>
+						<a href="/delivery/getOrders/${user.id }/${area}" class="button-33">Get Orders</a>
+						
+					<h2> </h2>	
 
 					</div>
 				</div>
