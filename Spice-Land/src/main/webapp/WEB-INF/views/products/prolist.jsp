@@ -133,6 +133,7 @@ thead {
 				<td>Weight</td>
 				<td>productDescription</td>
 				<td>Quantity</td>
+				<td>Image</td>
 				<td colspan="2"> Actions </td>
 				
 			</tr>
@@ -145,6 +146,8 @@ thead {
 					<td>${product.weight}</td>
 					<td>${product.productDescription}</td>
 					<td>${product.quantity}</td>
+					<td><img width="200" height="150" src="data:image/jpeg;base64,${product.image}"></td>
+					
 				
 					<td><a href="/products/updateproduct/${product.id}"><input type="submit"  name="Update" value="Update" class="button-17"></a></td>
 					

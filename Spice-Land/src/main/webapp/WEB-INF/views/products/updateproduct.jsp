@@ -111,7 +111,7 @@
 		</div>
 	</nav>
 	
-<form action="/products/updateproduct/${product.id}" method="post">
+<form action="/products/updateproduct/${product.id}" method="post" enctype = "multipart/form-data">
 <input type="hidden" name="id" value="${product.id }" />
 
  <div class="jumbotron container border border-info">
@@ -159,18 +159,12 @@
 						  <input class="form-control border border-warning" type="text" name="productDescription" value="${ product.productDescription}" ></input>
 						
 					  </div>
-					<!--  <p>Product Image</p>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" name="productImage" accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)" /> 
-						<label class="custom-file-label border border-warning" for="productImage">Choose file</label>
-						
-					 </div>-->
-					  <!--  <div class="form-group">
-						<img src="Product Images/one.jpg" alt="Hello" id="imgPreview" height="100px" width="100px"
-							style="margin-top: 20px" >
-					</div>
-					<input type="hidden" name="imgName">
-					<input type="submit" class="btn btn-primary" value="save">-->
+					<!-- <p>Product Image</p>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="eimage" accept="image/jpeg, image/png" id="productImage" onchange="loadfile(event)" /> 
+                    <label class="custom-file-label border border-warning" for="productImage">Choose file</label>
+                    
+                 </div> -->
 					<table>
 		<tr>
 		<td>
