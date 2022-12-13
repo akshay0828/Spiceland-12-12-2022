@@ -211,7 +211,7 @@ public class HelloController {
 			String message = "Invalid Username and Password";
 			System.out.println(message);
 			model.addAttribute("mess", message);
-			return "user/login";
+			return "login";
 		}
 		return "login";
 

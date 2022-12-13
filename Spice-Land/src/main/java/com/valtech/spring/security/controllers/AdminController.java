@@ -167,7 +167,7 @@ catch(FileSizeLimitExceededException e){
 	@PostMapping("/products/updateproduct/{id}")
 	public String updateProduct(@PathVariable("id") int id, @ModelAttribute Products pro,
 			@RequestParam("submit") String submit, Model model) {
-		ModelAndView view = new ModelAndView("products/afterupdateprolist");
+		//ModelAndView view = new ModelAndView("products/afterupdateprolist");
 
 		Products p = productservice.getProduct(pro.getId());
 		pro.setEimage(p.getEimage());
@@ -177,7 +177,7 @@ catch(FileSizeLimitExceededException e){
 		pro.setUserid(uid);
 
 		model.addAttribute("add", pro.getUserid());
-		view.addObject("Products", productservice.getAllproductsbyuser(pro.getUserid()));
+		model.addAttribute("Products", productservice.getAllproductsbyuser(id));
 
 		return "redirect:/products/prolist/"+id;
 	}

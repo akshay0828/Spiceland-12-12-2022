@@ -111,7 +111,7 @@
 		</div>
 	</nav>
 	
-<form action="/products/updateproduct/${product.id}" method="post" enctype = "multipart/form-data">
+<form action="/products/updateproduct/${product.userid}" method="post" enctype = "multipart/form-data">
 <input type="hidden" name="id" value="${product.id }" />
 
  <div class="jumbotron container border border-info">
