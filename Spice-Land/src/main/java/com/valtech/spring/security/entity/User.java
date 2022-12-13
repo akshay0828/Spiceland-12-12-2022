@@ -51,6 +51,7 @@ public class User implements UserDetails {
 
 		roles = new ArrayList<>();
 	}
+	
 
 	public User(String name, String email, String username, String pass, String cnfmpass, String address,
 			String contact, boolean enabled, String role) {
