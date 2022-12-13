@@ -36,7 +36,10 @@ public class User {
 	private String username;// Username of the user.
 	private String pass;// Password of the use.
 	private String cnfmpass;// Confirm the password .
-	private String address;// Address of the user.
+	private String street;// Address of the user.
+	private String area;// Address of the user.
+	private String city;// Address of the user.
+	private String pincode;// Address of the user.
 	private String contact;// Contact information of the user.
 	private boolean enabled;
 	private String role;// Role of the user
@@ -49,107 +52,198 @@ public class User {
 
 		roles = new ArrayList<>();
 	}
+	
 
-	public User(String name, String email, String username, String pass, String cnfmpass, String address,
-			String contact, boolean enabled, String role) {
+	
+	public User(String name, String email, String username, String pass, String cnfmpass, String street, String area,
+			String city, String pincode, String contact, boolean enabled, String role, List<String> roles) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
 		this.cnfmpass = cnfmpass;
-		this.address = address;
+		this.street = street;
+		this.area = area;
+		this.city = city;
+		this.pincode = pincode;
 		this.contact = contact;
 		this.enabled = enabled;
 		this.role = role;
+		this.roles = roles;
 	}
-//Getters and setters 
+
+
+
 	public int getId() {
 		return id;
 	}
+
+
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
+
+
 	public String getName() {
 		return name;
 	}
+
+
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
+
+
 	public String getEmail() {
 		return email;
 	}
+
+
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getPass() {
-		return pass;
-	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
-	}
-
-	public String getCnfmpass() {
-		return cnfmpass;
-	}
-
-	public void setCnfmpass(String cnfmpass) {
-		this.cnfmpass = cnfmpass;
-	}
-
-	public String getAddress() {
-		return address;
-	}
 
 	public String getUsername() {
 		return username;
 	}
 
+
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
 
-	public String getRole() {
-		return role;
+
+
+	public String getPass() {
+		return pass;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+
+
+	public String getCnfmpass() {
+		return cnfmpass;
 	}
+
+
+
+	public void setCnfmpass(String cnfmpass) {
+		this.cnfmpass = cnfmpass;
+	}
+
+
+
+	public String getStreet() {
+		return street;
+	}
+
+
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+
+
+	public String getArea() {
+		return area;
+	}
+
+
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+
+	public String getPincode() {
+		return pincode;
+	}
+
+
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
+	}
+
+
 
 	public String getContact() {
 		return contact;
 	}
 
+
+
 	public void setContact(String contact) {
 		this.contact = contact;
 	}
+
+
 
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+
+
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
+
+
+
+	public String getRole() {
+		return role;
+	}
+
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+
 
 	public List<String> getRoles() {
 		return roles;
 	}
 
+
+
 	public void setRoles(List<String> roles) {
 		this.roles = roles;
 	}
 
+
+
+	// Getters and setters
+
+	
 }

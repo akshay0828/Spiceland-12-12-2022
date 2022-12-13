@@ -49,6 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return 0;
 
 	}
+	
 
 	// To get the roles of the user(admin,user,delivery person).
 	@Override
@@ -58,6 +59,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		return u.getRole();
 	}
+	
+	
+	
+	
+	
+	public String getrolebymail(String email) {
+
+		User e = userRepository.findByEmail(email);
+
+		return e.getRole();
+	}
+	
+	
+	
+	
+	
 
 	// To get the id of that username.
 	@Override

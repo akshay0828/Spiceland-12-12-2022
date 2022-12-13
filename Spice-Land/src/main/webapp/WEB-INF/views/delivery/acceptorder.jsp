@@ -147,8 +147,14 @@ body{
 						<div><label>Customer Contact:</label>${user.contact}
 						</div>
 						
-						<div><label>Customer Address:</label>${user.address}
+						<div><label>Customer Adress:</label>${user.street} ${user.area} ${user.city} ${user.pincode}
 						</div>
+						<%-- <div><label>Customer Area:</label>${user.area}
+						</div>
+						<div><label>Customer City:</label>${user.city}
+						</div>
+						<div><label>Customer Pincode:</label>${user.pincode}
+						</div> --%>
 						
 						
 						<%-- <p class="card-text">${user.name}</p>  --%>

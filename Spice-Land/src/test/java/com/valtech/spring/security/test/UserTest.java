@@ -21,7 +21,7 @@ public class UserTest {
 	@Test
 	public void userTest(){
 		
-		User user =new User("akshay_kumar", "a@gmail.com", "akshay_kumar", "12345", "12345", "Mysore", "9638562642", true, "ADMIN");
+		User user =new User("akshay_kumar", "a@gmail.com", "akshay_kumar", "12345", "12345", "#12a","jayanagara","banglore","123456", "9638562642", true, "ADMIN", null);
 		
 		if(user.getUsername().equals(service.findUser(user.getUsername()))){
 			System.out.println("USER ALREDY EXIST");
@@ -37,7 +37,10 @@ public class UserTest {
 		assertEquals(user.getName(), u.getName());
 		assertEquals(user.getEmail(), u.getEmail());
 		assertEquals(user.getUsername(), u.getUsername());
-		assertEquals(user.getAddress(), u.getAddress());
+		assertEquals(user.getStreet(), u.getStreet());
+		assertEquals(user.getArea(), u.getArea());
+		assertEquals(user.getCity(), u.getCity());
+		assertEquals(user.getPincode(), u.getPincode());
 		assertEquals(user.getRole(), u.getRole());
 		}
 		//service.resetUser();

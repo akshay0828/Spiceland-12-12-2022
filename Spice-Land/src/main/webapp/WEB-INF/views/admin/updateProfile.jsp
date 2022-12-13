@@ -100,14 +100,15 @@ body{
 
 .form-submit-btn input {
 	display: block;
-	width: 100%;
-	margin-top: 10px;
+	width: 50%;
+	margin-top: 50px;
 	font-size: 20px;
 	padding: 10px;
 	border: none;
 	border-radius: 3px;
 	color: rgb(0, 0, 0);
 	background: rgba(91, 137, 255);
+	text-align: center;
 }
 
 .form-submit-btn input:hover {
@@ -133,6 +134,44 @@ body{
 	.main-user-info::-webkit-scrollbar {
 		width: 0;
 	}
+}
+.container{
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	
+	
+	
+	padding-bottom: 05px;
+	bottom: 150px;
+	/* margin-bottom: 1 *//*  */
+	
+}
+
+.container label {
+	width: 95%;
+	color: white;
+	font-size: 20px;
+	font-weight: 400;
+	margin: 5px 0;
+}
+
+.container input {
+	height: 40px;
+	width: 95%;
+	border-radius: 7px;
+	outline: none;
+	border: 1px solid grey;
+	padding: 0 10px;
+}
+.address {
+	font-size: 26px;
+	font-weight: 600;
+	text-align: center;
+	padding-bottom: 6px;
+	color: white;
+	text-shadow: 2px 2px 2px black;
+	/* border-bottom: solid 1px white; */
 }
 </style>
 
@@ -187,12 +226,28 @@ body{
 						  value="${user.contact}" />
 				</div>
 				
-				<div class="user-input-box">
-					<label for="confirmPassword">Address</label> <input
-						type="text" id="address" name="address" value="${user.address}"
-						 />
 				</div>
-			</div>
+					<div class=" container">
+					<!--  <h1 class="address">Address</h1>  -->
+					 <br><br>
+					<div class="user-input-box">
+						<label for="confirmPassword">Street</label> <input type="text"
+							id="address" name="street" required placeholder="Street" />
+					</div>
+					<div class="user-input-box">
+						<label for="confirmPassword">Area</label> <input type="text"
+							id="address" name="area" required placeholder="Area" />
+					</div>
+					<div class="user-input-box">
+						<label for="confirmPassword">City</label> <input type="text"
+							id="address" name="city" required placeholder="City" />
+					</div>
+					<div class="user-input-box">
+						<label for="confirmPassword">Pincode</label> <input type="text"
+							id="address" name="pincode"  pattern="^\d{6}$"  title="Invalid pincode enter 6 digit pincode!!" required placeholder="Pincode" />
+					</div>
+					</div>
+			
 			<input type="hidden" name="id" value="${user.id}" />
     <input type="hidden" name="pass" value="${user.pass}" />
         <input type="hidden" name="role" value="${user.role}" />
@@ -209,6 +264,7 @@ body{
 			<form action="/admin/adminhome/${user.id}" method="get">
 				<input type="submit" value="Cancel">
 			</form>
+		</div>
 		</div>
 
 		</form>
