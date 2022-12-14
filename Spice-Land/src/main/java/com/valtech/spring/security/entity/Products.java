@@ -1,5 +1,7 @@
 package com.valtech.spring.security.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +31,9 @@ public class Products {
 	
 	 @Lob
 	    @Column(name="EIMAGE")
-	    private byte[] eimage; 
+	 
+	
+	    private  byte[] eimage; 
 	
 	private int userid;
 

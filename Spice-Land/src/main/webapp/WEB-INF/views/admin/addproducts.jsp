@@ -204,55 +204,42 @@ body {
 	
 <script type="text/javascript">
 
-	var Upload = function() {
+
+
+   var Upload = function() {
         var fileUpload = document.getElementById("productImage");
         var maxSize = fileUpload.getAttribute('data-max-size');
-
-   
+        
+        var maxSize1 = parseFloat(maxSize);
+        
+/*          console.log(typeof maxSize);
+         console.log(typeof maxSize1) */
+         
+         
+        
         if (typeof (fileUpload.files) != "undefined") {
             var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
-            
-            if(size > maxSize){
-            	
-            	alert("Image Size is Large" +size + "  KB "+"  Product is not added" );
-            	
-            	return false;
+            var size1 = parseFloat(size);
+        /*     console.log(maxSize);
+            console.log(size); */
+            /* console.log(typeof size1); */
+            if(size1 > maxSize1){
+                
+                alert("Image Size is greater than 2MB  " +size + "  KB "+"  Product is not added" );
+                
+                return false;
             }
             
-            alert(size + " KB.");
+            alert("Product is added");
         } else {
             alert("This browser does not support HTML5.");
         }
     }
-	
-/* 	document.add-products-form.addEventListener( "submit", function(event) {
-	if(Upload==false){
-		alert("Cannot add");
-		event.preventDefault();
-	}
-	
-	} ); */
-	
+    
 
-</script> 
-<!-- <script type="text/javascript">
-    function Upload() {
- var fileInput = $('.custom-file-input');
-    var maxSize = fileInput.data('max-size');
-    $('.add-products-form').submit(function(e){
-        if(fileInput.get(0).files.length){
-            var fileSize = fileInput.get(0).files[0].size; // in bytes
-            if(fileSize>maxSize){
-                alert('file size is more than ' + maxSize + ' bytes');
-                return false;
-            }else{
-                alert('file size is correct - '+fileSize+' bytes');
-            }
-        }else{
-            alert('Please select the file to upload');
-            return false;
-        }
-	
-        </script> -->
+
+
+
+</script>
 </body>
 </html>

@@ -11,6 +11,6 @@ import com.valtech.spring.security.entity.Orders;
 @Repository
 public interface OrderRepository extends JpaRepository<Orders, Integer>{
 
-	
+	List<Orders> findByArea(String area);
 	
 }

@@ -87,7 +87,7 @@
 </head>
 
 <body class="bg-dark">
-<form action="/delivery/deliverhome" method="get"> 
+<form action="/delivery/getOrders/${user.id }/" method="get"> 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#"> <img
@@ -124,7 +124,7 @@
 	</div><br>
 	<br>
 	<br>
-	<div id="area">ff</div>
+	
   <!-- <div class="border2"> </div> -->
   
   
@@ -136,76 +136,38 @@
 					<div class="card-body text-center">
 						<h4 class="card-title">Order Details</h4>
 						<img src="https://th.bing.com/th/id/R.0fef9a6d9d1fd5ec9535f0abbb74c3d2?rik=pmcVuEGM7%2fSa6w&riu=http%3a%2f%2fwww.gameusedandautographedcards.com%2fwp-content%2fuploads%2f2014%2f01%2fOrders.gif&ehk=XCw%2fQD7mXYGUACmF%2blMunhF0wPCw382kh5shWDo1xeo%3d&risl=&pid=ImgRaw&r=0" width="100" height="100">
+						
 						<select id = "address" name = "address"  style="color: rgb(129, 8, 89) ; background-color: rgb(219, 233, 231); width: 105px; height: 30px; font-size: 20px;" >
 				
 					 <option  value = "none">SELECT</option>
 					<c:forEach var="v" items="${address}">  
-					  <option  value = "${v}">${v}</option>
+					  <option id="aa"  value = "${v}">${v}</option>
 						</c:forEach>
-				
-				<script type="text/javascript">
-var Upload = function(){
-	var area = document.getElementById("address");
-	
-	<h2>area</h2>
-	var concatElement = document.getElementById("area");
-	
-	concatElement.innerHTML += " hh" + area;
-	
-}
-}
-
-</script>
-			
-
 				  </select>
-						<a href="/delivery/getOrders/${user.id }/${area}" class="button-33">Get Orders</a>
+						<a href="/delivery/getOrders/${user.id }/"><button class="button-33" onclick="click()">get orders</button></a>
 						
-					<h2> </h2>	
-
+					
 					</div>
 				</div>
 			</div>
-			
-			 <%-- <div class="col-sm-3 pt-4">
-				<div class="card" style="background-color: white;">
-					<div class="card-body text-center">
-						<h4 class="card-title">Accepted Order details.</h4>
-						<p> Get  Customer Details of Already Accepted Orders </p>
-						<!-- <p class="card-text">Accepted Order details.</p> -->
-						<a href="/delivery/acceptorder/${user.id}" class="button-33">Get Details</a>
+	
+	
+	<script type="text/javascript">
+	function click()
+	{
+	/* var loc=document.getElementById("address"); */
+	
+	
+	}
+	</script>
+	
+	
 
-					</div>
-				</div> 
-			</div>  --%>
-			
-     
+
   
    <div class= "Track">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track Your Path</div>
 	
-			<%--  <div class="col-sm-3 pt-4">
-				<div class="card" style="background-color: white;">
-					<div class="card-body text-center">
-						<h4 class="card-title">Product Management</h4>
-						<img src="https://cdn.iconscout.com/icon/premium/png-512-thumb/product-management-16-1072230.png" width="100" height="100">
-						<p class="card-text">Manage all the products here.</p>
-						<a href="/products/prolist/${user.id}" class="button-33">Manage</a>
-
-					</div>
-				</div> 
-			</div> --%>
-			<%-- <div class="col-sm-3 pt-4">
-				<div class="card" style="background-color: white;">
-					<div class="card-body text-center">
-						<h4 class="card-title">Profile Updation</h4>
-						<img src="https://cdn1.iconfinder.com/data/icons/client-management/512/revert-512.png" width="100" height="100">
-						<p class="card-text">Manage your profile here.</p>
-						<a href="/admin/updateProfile/${user.id}" class="button-33">Update profile</a>
-						
-
-					</div>
-				</div>
-			</div> --%>
+			
 		</div>
 	</div>
 
