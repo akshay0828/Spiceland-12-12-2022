@@ -51,7 +51,7 @@ public class DeliveryController {
 
 	
 	 public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c"; 
-	    public static final String AUTH_TOKEN = "fb15cddea6eef5d926a68048c72e4cd3"; 
+	    public static final String AUTH_TOKEN = "014447661da1afbcd176ae800b1b7013"; 
 	
 
 	/*
@@ -164,14 +164,14 @@ String location;
 			
 			
 			
-			/*Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
+			Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
 	       
-	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+"is your deliver paterner, contact him for recive your order"+delivery.getContact())
+	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+" is your deliver paterner, contact him for recive your order"+delivery.getContact())
 	            .create();
-	        Message message1 = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
-		            .create();
+	      /*  Message message1 = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
+		            .create();*/
 	        System.out.println("MESSAGE SENT");
-	        System.out.println(message.getSid());*/
+	        System.out.println(message.getSid());
 			
 		//	orderService.deletebyId(id);
 		

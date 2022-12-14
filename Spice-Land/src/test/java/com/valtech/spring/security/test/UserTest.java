@@ -30,7 +30,9 @@ public class UserTest {
 		
 		else{
 		service.createUser(user);
+		
 		System.out.println("NEW USER CREATED");
+		
 		User u= service.findentierUser(user.getUsername());
 		
 		assertEquals(user.getUsername(), u.getUsername());

@@ -503,14 +503,7 @@ height: 45%;  */
 					
 					<td>${cart.quantity}</td>
 					
-					<!-- <td>
 					
-					<script>concatElement.innerHTML += " " ;</script>
-			
-			<script>${cart.quantity} * ${cart.price}  </script> 
-			
-			</td>
-			 -->
 					
 					<script>
 					
@@ -540,6 +533,14 @@ height: 45%;  */
 			
 		</tbody>
 	</table>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	Total:
 	<script>

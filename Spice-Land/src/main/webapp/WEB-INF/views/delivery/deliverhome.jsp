@@ -136,14 +136,17 @@
 					<div class="card-body text-center">
 						<h4 class="card-title">Order Details</h4>
 						<img src="https://th.bing.com/th/id/R.0fef9a6d9d1fd5ec9535f0abbb74c3d2?rik=pmcVuEGM7%2fSa6w&riu=http%3a%2f%2fwww.gameusedandautographedcards.com%2fwp-content%2fuploads%2f2014%2f01%2fOrders.gif&ehk=XCw%2fQD7mXYGUACmF%2blMunhF0wPCw382kh5shWDo1xeo%3d&risl=&pid=ImgRaw&r=0" width="100" height="100">
-						
-						<select id = "address" name = "address"  style="color: rgb(129, 8, 89) ; background-color: rgb(219, 233, 231); width: 105px; height: 30px; font-size: 20px;" >
+					<h3>Choose which location you want to deliver</h3>
+					
+						<div class="dropdown-content">
+						<select id = "address" name = "address"  style="color: rgb(129, 8, 89) ; background-color: rgb(219, 233, 231); width: 105px; height: 30px; font-size: 20px;" required>
 				
 					 <option  value = "none">SELECT</option>
 					<c:forEach var="v" items="${address}">  
 					  <option id="aa"  value = "${v}">${v}</option>
 						</c:forEach>
 				  </select>
+				  </div>
 						<a href="/delivery/getOrders/${user.id }/"><button class="button-33" onclick="click()">get orders</button></a>
 						
 					
