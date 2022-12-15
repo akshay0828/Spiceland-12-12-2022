@@ -2,7 +2,9 @@
 package com.valtech.spring.security.controllers;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +81,7 @@ public class AdminController {
 	@GetMapping("/admin/products/{id}")
 	public String adminproducts(@PathVariable("id") int user_id, Model model) {
 		model.addAttribute("user", service.getuser(user_id));
-
+		
 		return "admin/addproducts";
 	}
 
@@ -94,31 +96,51 @@ public class AdminController {
 			@RequestParam(name = "eimage") MultipartFile file, @RequestParam(name = "price") double price,
 			@RequestParam(name = "weight") float weight,
 			@RequestParam(name = "productDescription") String productDescription,
-			@RequestParam(name = "quantity") int quantity, @PathVariable("id") int user_id) throws Exception {
-		
-try{
-		byte[] byteArr = file.getBytes();
-		int size=byteArr.length;
-		
-		System.out.println("The file size is " + size + " bytes");
-		String base64Encoded = new String(Base64.getEncoder().encode(byteArr));
-		Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded, byteArr);
-		p.setUserid(user_id);
+			@RequestParam(name = "quantity") int quantity, @PathVariable("id") int user_id, Model model)
+			throws Exception {
 
-		productservice.createProduct(p);
+		try {
+			byte[] byteArr = file.getBytes();
+			int size = byteArr.length;
 
-		System.out.println(productservice.getAllProducts());
-}
+			System.out.println("The file size is " + size + " bytes");
+			String base64Encoded = new String(Base64.getEncoder().encode(byteArr));
 
-catch(MaxUploadSizeExceededException e){
-	
-	System.out.println("FILE ERROR");
-}
+			List<Products> pro = productservice.getProductsbyproductname(productName);
 
+			User u1 = service.getuser(user_id);
+			int flag = 0;
+			if (pro != null) {
+
+				for (Products produ : pro) {
+					int  n = produ.getUserid();
+					User u2 = service.getByid(n);
+					if (user_id == u2.getId()) {
+						flag = 1;
+
+					}
+				}
+			}
+			if (flag == 1) {
+				model.addAttribute("me", "Product is already added");
+				return "redirect:/admin/products/"+user_id;
+			}
+			Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded, byteArr);
+			
+			p.setUserid(user_id);
+			productservice.createProduct(p);
+
+			System.out.println(productservice.getAllProducts());
+		}
+
+		catch (MaxUploadSizeExceededException e) {
+
+			System.out.println("FILE ERROR");
+		}
 
 		return "redirect:/admin/adminhome/{id}";
 	}
-	
+
 	/*
 	 * Seller/Admin can view the existing products added by that particular
 	 * seller/admin.
@@ -164,20 +186,22 @@ catch(MaxUploadSizeExceededException e){
 
 	@PostMapping("/products/updateproduct/{id}")
 	public String updateProduct(@PathVariable("id") int id, @ModelAttribute Products pro,
-			@RequestParam("submit") String submit, Model model) {
-		//ModelAndView view = new ModelAndView("products/afterupdateprolist");
-
+			@RequestParam("submit") String submit, Model model)  {
+		// ModelAndView view = new ModelAndView("products/afterupdateprolist");
 		Products p = productservice.getProduct(pro.getId());
-		pro.setEimage(p.getEimage());
-		pro.setImage(p.getImage());
+	
 		
+		
+		pro.setImage(p.getImage());
+		pro.setEimage(p.getEimage());
+//		int ui=productservice.getuserid(id);
+
 		productservice.updateProduct(pro);
 		pro.setUserid(uid);
-
 		model.addAttribute("add", pro.getUserid());
 		model.addAttribute("Products", productservice.getAllproductsbyuser(id));
-
-		return "redirect:/products/prolist/"+id;
+		
+		return "redirect:/products/prolist/" +p.getUserid();
 	}
 
 	/*

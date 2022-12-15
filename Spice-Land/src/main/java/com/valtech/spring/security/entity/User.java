@@ -49,11 +49,13 @@ public class User implements UserDetails {
 	@Column(name="role_name")
 
 	private List<String> roles;
-
+	
+	
 	public User() {
 
 		roles = new ArrayList<>();
 	}
+	
 	
 
 	
@@ -74,6 +76,10 @@ public class User implements UserDetails {
 		this.role = role;
 		this.roles = roles;
 	}
+
+
+
+	
 
 
 
@@ -280,6 +286,11 @@ public class User implements UserDetails {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+
+	
 
 	
 }

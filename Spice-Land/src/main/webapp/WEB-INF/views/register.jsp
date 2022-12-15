@@ -1,65 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!--  <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<title>Insert title here</title>
-</head>
-<body>
-<h1>Register Account</h1><br>
-<form action="/register" method="post">
- <table>
-<tr>
-<td>Name</td>
-</tr>
-<tr>
-<td><input name="name" type="text"/> </td>
-</tr>
-<td>Address</td>
-</tr>
-<tr>
-<td><input name="address" type="text"/> </td>
-</tr>
-<td>Email</td>
-</tr>
-<tr>
-<td><input name="email" type="text"/> </td>
-</tr>
-<td>PhoneNumber</td>
-</tr>
-<tr>
-<td><input name="phone_No" type="text"/> </td>
-</tr>
-<td>UserName</td>
-</tr>
-<tr>
-<td><input name="username" type="text"/> </td>
-</tr>
-<td>Password</td>
-</tr>
-<tr>
-<td><input name="password" type="text"/> </td>
-</tr>
-<td>ConfirmPassword</td>
-</tr>
-<tr>
-<td><input name="confirmpassword" type="text"/> </td>
-</tr>
 
-
-
-</table> 
-</br>
-
-<input name="submit" value="Register" type="submit"/> 
-
-
-</form> 
-
-</body>
-</html>-->
 
 <!DOCTYPE html>
 <html>
@@ -297,7 +238,7 @@ body {
 <body>
 	<center>
 		<div class="container">
-			<h1 class="form-title">Sign Up as Seller</h1>
+			<h1 class="form-title">Sign Up </h1>
 			<form action="/register" method="post">
 
 				<div class="main-user-info">

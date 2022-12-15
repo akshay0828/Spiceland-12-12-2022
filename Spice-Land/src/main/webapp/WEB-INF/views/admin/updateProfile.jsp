@@ -226,27 +226,25 @@ body{
 						  value="${user.contact}" />
 				</div>
 				
-				</div>
-					<div class=" container">
-					<!--  <h1 class="address">Address</h1>  -->
-					 <br><br>
+				<br>
 					<div class="user-input-box">
 						<label for="confirmPassword">Street</label> <input type="text"
-							id="address" name="street" required placeholder="Street" />
+							id="address" name="street" required placeholder="Street" value="${user.street}" />
 					</div>
 					<div class="user-input-box">
 						<label for="confirmPassword">Area</label> <input type="text"
-							id="address" name="area" required placeholder="Area" />
+							id="address" name="area" required placeholder="Area" value="${user.area}" />
 					</div>
 					<div class="user-input-box">
 						<label for="confirmPassword">City</label> <input type="text"
-							id="address" name="city" required placeholder="City" />
+							id="address" name="city" required placeholder="City" value="${user.city}"  />
 					</div>
 					<div class="user-input-box">
 						<label for="confirmPassword">Pincode</label> <input type="text"
-							id="address" name="pincode"  pattern="^\d{6}$"  title="Invalid pincode enter 6 digit pincode!!" required placeholder="Pincode" />
+							id="address" name="pincode"  pattern="^\d{6}$"  title="Invalid pincode enter 6 digit pincode!!" required placeholder="Pincode" value="${user.pincode}" />
 					</div>
 					</div>
+					
 			
 			<input type="hidden" name="id" value="${user.id}" />
     <input type="hidden" name="pass" value="${user.pass}" />
@@ -259,12 +257,13 @@ body{
 				<input type="submit" value="Submit">
 			</div>
 		</form>
+		<br>
 
-		<div class="form-submit-btn">
+		<%-- <div class="form-submit-btn">
 			<form action="/admin/adminhome/${user.id}" method="get">
 				<input type="submit" value="Cancel">
 			</form>
-		</div>
+		</div> --%>
 		</div>
 
 		</form>

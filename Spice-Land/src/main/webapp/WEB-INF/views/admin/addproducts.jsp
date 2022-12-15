@@ -2,6 +2,7 @@
 <%@page import="java.sql.*"%>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta charset="UTF-8">
 <meta name="viewport"
 	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -140,7 +141,7 @@ body {
 								required name="price" min="1" placeholder="Price">
 						</div>
 					</div>
-					<br> <br>
+					<br> 
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label for="weight" style="color: white;">Weight in grams</label>
@@ -148,7 +149,7 @@ body {
 								required name="weight" min="1" placeholder="Weight">
 						</div>
 					</div>
-					<br> <br>
+					<br>
 					<div class="col-sm-3">
 						<div class="form-group">
 							<label for="weight" style="color: white;">Available
@@ -164,20 +165,21 @@ body {
 						<div class="form-group">
 							<label for="description" style="color: white;">Product
 								Description</label>
-							<textarea class="form-control border border-warning" rows="4"
+							<textarea class="form-control border border-warning" rows="2"
 								name="productDescription" placeholder="Product Details"
 								value="no product details"></textarea>
 							<!--  <input class="form-control border border-warning" type="text" name="productDescription" placeholder="Product Details" ></input>-->
 
 						</div>
 						
-						 <p>Product Image</p>
+						 <p style="color: white;">Product Image</p>
                 <div class="custom-file">
-                    <input type="file" class="custom-file-input" name="eimage" accept="image/jpeg, image/png" id="productImage" data-max-size="2048" onchange="loadfile(event)"   /> 
+                    <input type="file" class="custom-file-input" name="eimage" required accept="image/jpeg, image/png" id="productImage" data-max-size="2048" onchange="loadfile(event)"   /> 
                     <label class="custom-file-label border border-warning" for="productImage">Choose file</label>
                     
                  </div>
-						
+                  <center style="color: white;"> ${me}</center>
+						<br><br>
 						 <input type="submit" class="button-55" name="submit"> <br>
 						<br><br><br>
 					</div>
@@ -204,37 +206,43 @@ body {
 	
 <script type="text/javascript">
 
-	var Upload = function() {
+
+
+   var Upload = function() {
         var fileUpload = document.getElementById("productImage");
         var maxSize = fileUpload.getAttribute('data-max-size');
-
-   
+        
+        var maxSize1 = parseFloat(maxSize);
+        
+/*          console.log(typeof maxSize);
+         console.log(typeof maxSize1) */
+         
+         
+        
         if (typeof (fileUpload.files) != "undefined") {
             var size = parseFloat(fileUpload.files[0].size / 1024).toFixed(2);
-            
-            if(size > maxSize){
-            	
-            	alert("Image Size is Large" +size + "  KB "+"  Product is not added" );
-            	
-            	return false;
+            var size1 = parseFloat(size);
+        /*     console.log(maxSize);
+            console.log(size); */
+            /* console.log(typeof size1); */
+            if(size1 > maxSize1){
+                
+                alert("Image Size is greater than 2MB  " +size + "  KB "+"  Product is not added" );
+                
+                return false;
             }
             
-            alert(size + " KB.");
+            alert("Product is added");
         } else {
             alert("This browser does not support HTML5.");
         }
     }
-	
-/* 	document.add-products-form.addEventListener( "submit", function(event) {
-	if(Upload==false){
-		alert("Cannot add");
-		event.preventDefault();
-	}
-	
-	} ); */
-	
+    
 
-</script> 
+
+
+
+</script>
 <!-- <script type="text/javascript">
     function Upload() {
  var fileInput = $('.custom-file-input');

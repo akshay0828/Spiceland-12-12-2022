@@ -118,7 +118,7 @@ input[type="submit"]:hover{
                 </div> -->
          <center> ${me} </center>       
     <div class="form-submit-btn">
-			<form action="/admin/login" method="get">
+			<form action="/login" method="get">
 				<input type="submit" value="Back">
 			</form>
 		</div>

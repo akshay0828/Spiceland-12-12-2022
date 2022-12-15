@@ -74,7 +74,8 @@ public class HelloController {
 	 */
 	
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username, @RequestParam("role") String role ,@RequestParam("pass")String pass, Model model) {
+	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username, @RequestParam("role") String role ,@RequestParam("pass")String pass, Model model,
+			@RequestParam("cnfmpass")String cnfmpass) {
 
 		// user.setRole(user.getRole());
 		String u;
@@ -83,7 +84,7 @@ public class HelloController {
 
 			if (user.getPass().equals(user.getCnfmpass())) {
 				user.setPass(passwordEncoder().encode(pass));
-				
+				user.setCnfmpass(passwordEncoder().encode(cnfmpass));
 				user.setRoles(Arrays.asList(role));
 				user.setEnabled(true);
 				
@@ -273,6 +274,7 @@ public class HelloController {
 			User u;
 			u = service.findentierUser(username);
 			u.setPass(passwordEncoder().encode(password));
+			u.setCnfmpass(passwordEncoder().encode(confirmPassword));
 			service.updateUser(u);
 			System.out.println(u.getPass());
 			return "/login";
