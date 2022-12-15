@@ -60,5 +60,12 @@ public class OrderServiceImpl implements OrderService {
 		logger.info("deleting order with id" +id);
 		orderRepository.deleteById(id);
 	}
+	
+	@Override
+	public List<Orders> FindByArea(String area) {
+		
+		return orderRepository.findByArea(area);
+		
+	}
 
 }

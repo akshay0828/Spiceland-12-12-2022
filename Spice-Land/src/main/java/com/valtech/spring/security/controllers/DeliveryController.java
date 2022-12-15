@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -51,7 +51,7 @@ public class DeliveryController {
 
 	
 	 public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c"; 
-	    public static final String AUTH_TOKEN = "fb15cddea6eef5d926a68048c72e4cd3"; 
+	    public static final String AUTH_TOKEN = "014447661da1afbcd176ae800b1b7013"; 
 	
 
 	/*
@@ -131,12 +131,13 @@ if(orders.size()>0){
 	/*
 	 * Delivery person can view the orders place by buyer/user.
 	 */
-
+String location;
 	@GetMapping("/delivery/getOrders/{id}")
-	public String getOrders(@PathVariable("id") int id, Model model) {
+	public String getOrders(@PathVariable("id") int id,@RequestParam("address") String loc ,Model model) {
 		model.addAttribute("user", service.getByid(id));
-		model.addAttribute("Orders", orderService.findAll());
-
+		location=loc;
+		model.addAttribute("Orders", orderService.FindByArea(loc));
+		System.out.println("LOCATION ......"+loc);
 		return "delivery/getOrders";
 	}
 	/*
@@ -147,24 +148,32 @@ if(orders.size()>0){
 	public String DeleteProduct(Model model, @PathVariable("userid") int userid, @PathVariable("orderid") int id,
 			@PathVariable("customerid") int customerid) throws AuthenticationException{
 
-		orderService.deletebyId(id);
+		
 		
 		try{
 			
 			User user =service.getByid(customerid);
 			User delivery =service.getByid(userid);
 			System.out.println("Contact........ "+user.getContact());
+			System.out.println("LOCATION FROM POST...."+location);
 			
-			/*
+			Orders order=orderService.getById(id);
+			
+		System.out.println(order.getAdminIds());
+			
+			
+			
 			
 			Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
 	       
-	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+"is your deliver paterner, contact him for recive your order"+delivery.getContact())
+	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+" is your deliver paterner, contact him for recive your order"+delivery.getContact())
 	            .create();
-	        Message message1 = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
-		            .create();
+	      /*  Message message1 = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
+		            .create();*/
 	        System.out.println("MESSAGE SENT");
-	        System.out.println(message.getSid());*/
+	        System.out.println(message.getSid());
+			
+		//	orderService.deletebyId(id);
 		
 		}
 		

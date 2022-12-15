@@ -18,4 +18,6 @@ public interface OrderService {
 
 	void deletebyId(int id);
 
+	List<Orders> FindByArea(String area);
+
 }

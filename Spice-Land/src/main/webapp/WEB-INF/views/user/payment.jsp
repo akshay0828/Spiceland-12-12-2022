@@ -243,18 +243,7 @@ button:hover{
                     <input type="tel" placeholder="Card CVC" required class="name">
                     <i class="fa fa-user icon"></i>
                 </div>
-               <!--  <div class="input-box">
-                    <select>
-                        <option>01 jun</option>
-                        <option>02 jun</option>
-                        <option>03 jun</option>
-                    </select>
-                    <select>
-                        <option>2020</option>
-                        <option>2021</option>
-                        <option>2022</option>
-                    </select>
-                </div> -->
+             
             </div>
             <div class="input-group">
                 <div class="input-box">

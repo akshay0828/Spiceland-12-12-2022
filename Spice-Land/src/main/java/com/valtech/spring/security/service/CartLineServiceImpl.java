@@ -81,7 +81,11 @@ public class CartLineServiceImpl implements CartLineService {
 
 		for (CartLine cartLine : cart) {
 			if (id == cartLine.getUserid()) {
-				cid.add(cartLine.getAdminIds());
+				if(cid.contains(cartLine.getAdminIds())){
+				}
+				else{
+					cid.add(cartLine.getAdminIds());
+				}
 			}
 		}
 		return cid;
