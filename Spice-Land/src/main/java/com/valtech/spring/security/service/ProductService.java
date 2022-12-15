@@ -22,7 +22,11 @@ public interface ProductService {
 	List<Products> getAllproductsbyuser(int userid);
 
 	void deleteProduct(int id);
+
+	List<Products> getProductsbyproductname(String productName);
+
+	List<Integer> getuseridbyproductname(String productName);
 	
-	
+//	Products getproductbyidanduserid()
 
 }

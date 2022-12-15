@@ -2,6 +2,7 @@ package com.valtech.spring.security.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,8 @@ public class UserController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	
 
 	
 
@@ -60,6 +63,10 @@ public class UserController {
 		System.out.println(service.getUsername(id));
 		model.addAttribute("add", u.getName());
 		model.addAttribute("user", u.getId());
+//		List<Products> p1=productservice.getAllProducts();
+//		for(Products p:p1){
+//			model.addAttribute(p);
+//		}
 		model.addAttribute("Products", productservice.getAllProducts());
 
 		model.addAttribute("users", service.getAlluser());

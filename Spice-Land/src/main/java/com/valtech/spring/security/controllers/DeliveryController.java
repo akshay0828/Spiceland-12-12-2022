@@ -51,7 +51,7 @@ public class DeliveryController {
 
 	
 	 public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c"; 
-	    public static final String AUTH_TOKEN = "014447661da1afbcd176ae800b1b7013"; 
+	    public static final String AUTH_TOKEN = "7178b5e12675f77c74dc51d8718297b9"; 
 	
 
 	/*
@@ -166,7 +166,7 @@ String location;
 			
 			Twilio.init(ACCOUNT_SID, AUTH_TOKEN); 
 	       
-	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+" is your deliver paterner, contact him for recive your order"+delivery.getContact())
+	        Message message = Message.creator(new com.twilio.type.PhoneNumber("+91"+user.getContact()),new com.twilio.type.PhoneNumber("+16506403682"),"hey your order has accepted,"+delivery.getName()+" is your deliver paterner, contact him to recive your order, on time"+delivery.getContact())
 	            .create();
 	      /*  Message message1 = Message.creator(new com.twilio.type.PhoneNumber("+919686083306"),new com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
 		            .create();*/
@@ -178,6 +178,8 @@ String location;
 		}
 		
 		catch(Exception e){
+			
+			System.out.println("Message not send");
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
 		}
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
