@@ -629,7 +629,7 @@ height: 45%;
 						<li class="nav-item active"><a class="nav-link"
 						href="/user/orderTracking/${user}">Order Tracking</a></li>
 					<li class="nav-item active"><a class="nav-link"
-						sec:authorize="isAuthenticated()" href="/login">Logout</a></li>
+						sec:authorize="isAuthenticated()" href="/logout">Logout</a></li>
 
 				</ul>
 

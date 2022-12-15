@@ -53,6 +53,8 @@ public class HelloController {
 
 	@Autowired
 	private CartLineService cartLineService;
+	
+	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -117,7 +119,7 @@ public class HelloController {
 	 */
 	@PostMapping("/login")
 
-	public String loginUser(@ModelAttribute RegisterUserModel registerUserModel, Model model) throws Exception {
+	public String loginUser(@ModelAttribute RegisterUserModel registerUserModel, Model model,@RequestParam(value = "error", defaultValue = "true") boolean loginError) throws Exception {
 		String url;
 		String s1 = "ADMIN";
 		String s2 = "USER";
@@ -127,8 +129,9 @@ public class HelloController {
 //		System.out.println(passwordEncoder().matches((registerUserModel.getPass()),service.findUserPass(registerUserModel.getUsername())));
 
 		try {
+			
 			String role = service.getrole(registerUserModel.getUsername());
-
+			  if (loginError) {
 			if (role.equals(s1)) {
 				if (passwordEncoder().matches((registerUserModel.getPass()),service.findUserPass(registerUserModel.getUsername()))
 						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))){
@@ -201,13 +204,15 @@ public class HelloController {
 					String message = "Invalid Username and Password";
 					System.out.println(message);
 					model.addAttribute("mess", message);
-					return "delivery/login";
+					return "login";
 
 				}
 
 			}
 
-		} catch (Exception n) {
+		}
+		}
+		catch (Exception n) {
 			String message = "Invalid Username and Password";
 			System.out.println(message);
 			model.addAttribute("mess", message);

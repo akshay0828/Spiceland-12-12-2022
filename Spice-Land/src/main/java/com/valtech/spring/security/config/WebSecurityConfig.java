@@ -19,18 +19,33 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
 
-		http.authorizeRequests().antMatchers("/register","/login").permitAll();
-			//	 .antMatchers("/user/**").hasAnyRole("USER")
-//				.antMatchers("/admin","/admin/**").hasAuthority("ADMIN")
-			//	.antMatchers("/register", "/login", "/logout").permitAll().anyRequest().authenticated();
-				http.httpBasic();
-				
-	//	http.formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login");
+		http.authorizeRequests()
+		
+			 .antMatchers("/user/**").hasRole("USER")
+			.antMatchers("/admin","/admin/**").hasRole("ADMIN")
+			.antMatchers("/delivery/**").hasRole("USER")
+			.antMatchers("/register", "/login", "/logout").permitAll()
+			.and()
+			
+		      .formLogin()
+		      /*.loginPage("/login")// (5)
+*/		        .defaultSuccessUrl("/index") // (5)
+		        .failureUrl("/login")
+		        .permitAll()
+		        .and()
+		        
+		        .httpBasic();
+		     http.logout() // (6)
+		       .permitAll()
+		       .and();
+		//     .httpBasic(); // (7)
+		        return http.build();
+	
 
-		return http.build();
+	
 	}
 	
 	
@@ -47,7 +62,7 @@ public class WebSecurityConfig {
 
 		udm.createUser(User.withUsername("scott").password(passwordEncoder.encode("tiger")).roles("USER").build());
 		udm.createUser(
-				User.withUsername("admin").password(passwordEncoder.encode("admin")).roles("USER", "ADMIN").build());
+				User.withUsername("admin").password(passwordEncoder.encode("admin1")).roles("USER", "ADMIN","DELIVERY").build());
 		return udm;
 
 	}
