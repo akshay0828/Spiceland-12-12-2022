@@ -45,7 +45,8 @@ public class HelloController {
 	 * If the seller/admin is new user Navigate to the registration page .
 	 */
 	@GetMapping("/register")
-	public String register(Model model) {
+	public String register(Model model) throws Exception {
+		
 		
 		
 		model.addAttribute("roleval", roleRepo.findAll());
@@ -61,18 +62,21 @@ public class HelloController {
 	 */
 
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username,
+	public String registerUser(@ModelAttribute RegisterUserModel registerUserModel, @RequestParam("username") String username,
 			@RequestParam("role") String role, @RequestParam("pass") String pass, Model model,
 			@RequestParam("cnfmpass") String cnfmpass) {
 
+		model.addAttribute("roleval", roleRepo.findAll());
 		// user.setRole(user.getRole());
 		String u;
 		u = service.findUser(username);
 		if (u == "false") {
 
-			if (user.getPass().equals(user.getCnfmpass())) {
-				user.setPass(webSecurityConfig.passwordEncoder().encode(pass));
-				//Ruser.setCnfmpass(webSecurityConfig.passwordEncoder().encode(cnfmpass));
+			if (registerUserModel.getPass().equals(registerUserModel.getCnfmpass())) {
+				
+				User user= new User(registerUserModel.getName(), registerUserModel.getEmail(),registerUserModel.getUsername(),webSecurityConfig.passwordEncoder().encode(registerUserModel.getPass()), registerUserModel.getStreet(), registerUserModel.getArea(),
+						registerUserModel.getCity(),registerUserModel.getPincode(),registerUserModel.getContact() , registerUserModel.getRole());
+				
 				
 				 Role role1 = roleRepo.findByName(role);
 			       
@@ -84,7 +88,7 @@ public class HelloController {
 			        user.setRoles(roles);
 				
 				
-				user.setEnabled(true);
+				
 
 				service.createUser(user);
 				MyUserDetails use =new MyUserDetails(user);
@@ -93,16 +97,17 @@ public class HelloController {
 			} else {
 				model.addAttribute("error", "Password and Confirm Password does not match");
 
-				return "register";
+				return "/register";
 			}
 
 		}
 		model.addAttribute("userna", "Username Already Exists");
-		return "register";
+		return "/register";
 	}
 
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) {
+		
 		return "login";
 	}
 
@@ -124,7 +129,7 @@ public class HelloController {
 		String s1 = "ADMIN";
 		String s2 = "USER";
 		String s3 = "DELIVERY";
-		System.out.println(""+service.loadUserByUsername(registerUserModel.getUsername()));
+		
 
 		try {
 
@@ -150,10 +155,9 @@ public class HelloController {
 				}
 
 				else {
-					String message = "Invalid Username and Password";
-					System.out.println(message);
-					model.addAttribute("mess", message);
-					return "login";
+					
+					model.addAttribute("error", "Invalid Username and Password");
+					return "/login";
 
 				}
 
@@ -174,10 +178,8 @@ public class HelloController {
 				}
 
 				else {
-					String message = "Invalid Username and Password";
-					System.out.println(message);
-					model.addAttribute("mess", message);
-					return "login";
+					model.addAttribute("error", "Invalid Username and Password");
+					return "/login";
 
 				}
 
@@ -200,22 +202,18 @@ public class HelloController {
 				}
 
 				else {
-					String message = "Invalid Username and Password";
-					System.out.println(message);
-					model.addAttribute("mess", message);
-					return "login";
+					model.addAttribute("error", "Invalid Username and Password");
+					return "/login";
 
 				}
 
 			}
 
 		} catch (Exception n) {
-			String message = "Invalid Username and Password";
-			System.out.println(message);
-			model.addAttribute("mess", message);
-			return "login";
+			model.addAttribute("error", "Invalid Username and Password");
+			return "/login";
 		}
-		return "login";
+		return "/login";
 
 	}
 	
@@ -272,14 +270,11 @@ public class HelloController {
 
 	@PostMapping("/changepassword/{username}")
 	public String adminupdatechangePassword(@PathVariable("username") String username,
-			@RequestParam("pass") String password, @RequestParam("cnfmpass") String confirmPassword, Model model) {
+			@RequestParam("pass") String password, @RequestParam("cnfmpass") String confirmPassword, Model model) throws Exception {
 		if (password.equals(confirmPassword)) {
-			User u;
-			u = service.findentierUser(username);
-			u.setPass(webSecurityConfig.passwordEncoder().encode(password));
-			u.setCnfmpass(webSecurityConfig.passwordEncoder().encode(confirmPassword));
-			service.updateUser(u);
-			System.out.println(u.getPass());
+			
+			
+			service.forgotPassword(username, webSecurityConfig.passwordEncoder().encode(password));
 			return "redirect:/login";
 
 		} else {

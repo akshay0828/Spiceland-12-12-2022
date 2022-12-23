@@ -59,13 +59,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		//.antMatchers("/admin/**").hasRole("ADMIN")
 		.antMatchers("/delivery/**").hasAnyAuthority("DELIVERY")
 		//.antMatchers("/delivery/**").hasRole("DELIVERY")
-		.antMatchers("/register", "/login", "/logout","/index").permitAll()
+		.antMatchers("/register", "/login", "/logout","/index","/forgotpassword","/changepassword/**").permitAll()
 		.anyRequest().authenticated()
 		
 		.and()
 		.formLogin().loginProcessingUrl("/login") 
 		.loginPage("/login")
-		.successForwardUrl("/login")
+		.successForwardUrl("/login").failureForwardUrl("/login")
 		 .usernameParameter("username")//
          .passwordParameter("pass").permitAll()
 		.and()

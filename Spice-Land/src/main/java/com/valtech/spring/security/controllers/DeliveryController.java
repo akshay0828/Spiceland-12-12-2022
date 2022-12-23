@@ -1,7 +1,9 @@
 package com.valtech.spring.security.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.valtech.spring.security.entity.Orders;
+import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
+import com.valtech.spring.security.repo.Rolerepo;
 import com.valtech.spring.security.service.OrderService;
 import com.valtech.spring.security.service.UserDetailsService;
 
@@ -27,6 +31,9 @@ public class DeliveryController {
 
 	@Autowired
 	private UserDetailsService service;
+	
+	@Autowired
+	private Rolerepo roleRepo;
 
 	int uid;
 
@@ -96,6 +103,17 @@ public class DeliveryController {
 	public String deliveryUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 		System.out.println("SUCCESS");
 		model.addAttribute("user", service.getuser(id));
+		
+		
+Role role1 = roleRepo.findByName(user.getRole());
+	       
+        
+        Set<Role> roles= new HashSet<Role>();
+        
+        roles.add(role1);
+        
+        user.setRoles(roles);
+        user.setEnabled(true);
 		service.updateUser(user);
 
 		return "redirect:/delivery/deliverhome/{id}";

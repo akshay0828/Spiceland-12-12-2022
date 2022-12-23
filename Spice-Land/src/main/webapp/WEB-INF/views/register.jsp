@@ -95,19 +95,19 @@
 						<input type="submit" value="Submit and Back to Login">
 					</div>
 			</form>
-<c:if test="${not empty error }">
+
 						<div style="color: white;">
 							<h3>${error}</h3>
 						</div>
 						<br />
-					</c:if>
+				
 
-					<c:if test="${not empty error }">
+					
 						<div style="color:white;">
 							<h3>${userna}</h3>
 						</div>
 						<br />
-					</c:if>
+					
 
 			
 
@@ -117,87 +117,5 @@
 </body>
 </html>
 
-<!-- 
-
-	<div class="container">
-		<h1>Admin Registration Form:</h1>
-		<div class="card">
-			<div class="card-body">
-				<form action="/admin/register" method="post">
-
-					<div class="form-group row">
-						<label for="name" class="col-sm-2 col-form-label"> Name</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="name"
-								placeholder="Enter name">
-						</div>
-					</div>
-
-
-
-
-					<div class=" form-group row">
-						<label for="email" class="col-sm-2 col-form-label"> Email</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="email"
-								placeholder="Enter Email">
-						</div>
-					</div>
-
-					<div class=" form-group row">
-						<label for="username" class="col-sm-2 col-form-label">
-							Username</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="username"
-								placeholder="Enter Username">
-						</div>
-					</div>
-
-
-					<div class="form-group row">
-						<label for="password" class="col-sm-2 col-form-label">Password</label>
-						<div class="col-sm-7">
-							<input type="password" class="form-control" name="pass"
-								placeholder="Enter Password">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label for="cnfmpass" class="col-sm-2 col-form-label">Confirm
-							Password</label>
-						<div class="col-sm-7">
-							<input type="password" class="form-control" name="cnfmpass"
-								placeholder="Enter Password">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label for="address" class="col-sm-2 col-form-label">Address</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="address"
-								placeholder="Enter Address">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label for="contact" class="col-sm-2 col-form-label">Contact
-							No</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" name="contact"
-								placeholder="Enter Contact Address">
-						</div>
-					</div>
-
-					<button type="submit" class="btn btn-primary">Submit and
-						Back to Login</button>
-
-				</form>
-				<br />
-				<form action="/index" method="get">
-					<button type="submit" class="btn btn-primary">Cancel</button>
-				</form>
-			</div>
-		</div>
-	</div>-->
 
 

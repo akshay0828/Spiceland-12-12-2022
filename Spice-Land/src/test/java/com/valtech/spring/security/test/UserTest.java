@@ -17,7 +17,7 @@ public class UserTest {
 	@Test
 	public void userTest() {
 
-		User user = new User("akshay_kumar", "a@gmail.com", "akshay_kumar", "12345", "12345", "#12a", "jayanagara",
+		User user = new User("akshay_kumar", "a@gmail.com", "akshay_kumar", "12345","#12a", "jayanagara",
 				"banglore", "123456", "9638562642", true, "ADMIN", null);
 
 		if (user.getUsername().equals(service.findUser(user.getUsername()))) {

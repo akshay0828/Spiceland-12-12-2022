@@ -98,8 +98,7 @@
 
 				<input type="hidden" name="id" value="${user.id}" /> <input
 					type="hidden" name="pass" value="${user.pass}" /> <input
-					type="hidden" name="role" value="${user.role}" /> <input
-					type="hidden" name="cnfmpass" value="${user.cnfmpass}" /> <input
+					type="hidden" name="role" value="${user.role}" />  <input
 					type="hidden" name="username" value="${user.username}" />
 
 

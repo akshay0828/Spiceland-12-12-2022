@@ -38,7 +38,7 @@ public class User  {
 	private String pass;// Password of the use.
 	
 	
-	private String cnfmpass;// Confirm the password .
+	
 	
 	private String street;// Address of the user.
 	private String area;// Address of the user.
@@ -79,14 +79,14 @@ public class User  {
 
 
 
-	public User(String name, String email, String username, String pass, String cnfmpass, String street, String area,
+	public User(String name, String email, String username, String pass, String street, String area,
 			String city, String pincode, String contact, boolean enabled, String role, Set<Role> roles) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
-		this.cnfmpass = cnfmpass;
+		
 		this.street = street;
 		this.area = area;
 		this.city = city;
@@ -95,6 +95,27 @@ public class User  {
 		this.enabled = enabled;
 		this.role = role;
 		this.roles = roles;
+	}
+	
+	
+
+
+
+	public User(String name, String email, String username, String pass, String street, String area,
+			String city, String pincode, String contact, String role) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.username = username;
+		this.pass = pass;
+		
+		this.street = street;
+		this.area = area;
+		this.city = city;
+		this.pincode = pincode;
+		this.contact = contact;
+		this.enabled = true;
+		this.role = role;
 	}
 
 
@@ -153,15 +174,7 @@ public class User  {
 
 
 
-	public String getCnfmpass() {
-		return cnfmpass;
-	}
-
-
-
-	public void setCnfmpass(String cnfmpass) {
-		this.cnfmpass = cnfmpass;
-	}
+	
 
 
 
@@ -264,7 +277,7 @@ public class User  {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username + ", pass=" + pass
-				+ ", cnfmpass=" + cnfmpass + ", street=" + street + ", area=" + area + ", city=" + city + ", pincode="
+				 + ", street=" + street + ", area=" + area + ", city=" + city + ", pincode="
 				+ pincode + ", contact=" + contact + ", enabled=" + enabled + ", role=" + role + ", roles=" + roles
 				+ "]";
 	}

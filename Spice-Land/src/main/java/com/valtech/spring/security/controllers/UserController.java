@@ -1,10 +1,13 @@
 package com.valtech.spring.security.controllers;
 
+import java.io.ByteArrayInputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +19,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.valtech.spring.security.entity.CartLine;
 import com.valtech.spring.security.entity.Orders;
 import com.valtech.spring.security.entity.Products;
+import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.model.RegisterUserModel;
 import com.valtech.spring.security.repo.CartLineRepo;
 import com.valtech.spring.security.repo.OrderRepository;
+import com.valtech.spring.security.repo.Rolerepo;
 import com.valtech.spring.security.repo.UserReopsitory;
 import com.valtech.spring.security.service.CartLineService;
 import com.valtech.spring.security.service.OrderService;
 import com.valtech.spring.security.service.ProductService;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.UserDetailsService;
+import com.valtech.spring.security.util.BillDownload;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @Controller
 public class UserController {
@@ -49,6 +63,9 @@ public class UserController {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private Rolerepo roleRepo;
 
 	@GetMapping("user/userhome/{id}")
 	public String userhome(@PathVariable("id") int id, ModelMap model) {
@@ -83,6 +100,15 @@ public class UserController {
 	public String userUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 		System.out.println("SUCCESS");
 		model.addAttribute("user", service.getuser(id));
+Role role1 = roleRepo.findByName(user.getRole());
+	       
+        
+        Set<Role> roles= new HashSet<Role>();
+        
+        roles.add(role1);
+        
+        user.setRoles(roles);
+        user.setEnabled(true);
 		service.updateUser(user);
 
 		return "redirect:/user/userhome/{id}";
@@ -278,5 +304,26 @@ public class UserController {
 		model.addAttribute("user", id);
 		return "user/feedback";
 	}
+	
+	@RequestMapping(value = "/user/pdfreport/{id}", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_PDF_VALUE)	
+			public ResponseEntity<InputStreamResource> cartBill(@PathVariable("id") int id) {
+
+			List<CartLine> cartLines =  cartLineService.getAllordersByuserid(id);
+
+			
+			
+			ByteArrayInputStream bis = BillDownload.cartBill(cartLines);
+
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Disposition", "inline; filename=cartBill.pdf");
+
+			return ResponseEntity
+				.ok()
+				.headers(headers)
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+		}
 
 }

@@ -2,7 +2,9 @@
 package com.valtech.spring.security.controllers;
 
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.valtech.spring.security.entity.Products;
+import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
+import com.valtech.spring.security.repo.Rolerepo;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.UserDetailsService;
 
@@ -33,6 +37,9 @@ public class AdminController {
 
 	@Autowired
 	private ProductServiceImpl productservice;
+	
+	@Autowired
+	private Rolerepo roleRepo;
 
 	int uid;
 	int flag = 0;
@@ -223,6 +230,17 @@ public class AdminController {
 	public String adminUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 		System.out.println("SUCCESS");
 		model.addAttribute("user", service.getuser(id));
+		
+		
+		Role role1 = roleRepo.findByName(user.getRole());
+	       
+        
+        Set<Role> roles= new HashSet<Role>();
+        
+        roles.add(role1);
+        
+        user.setRoles(roles);
+        user.setEnabled(true);
 		service.updateUser(user);
 
 		return "redirect:/admin/adminhome/{id}";

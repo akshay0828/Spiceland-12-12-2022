@@ -52,4 +52,6 @@ public interface UserDetailsService {
 
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
+	void forgotPassword(String username, String password) throws Exception;
+
 }
