@@ -1,12 +1,9 @@
 
 package com.valtech.spring.security.controllers;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
-import org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,17 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.valtech.spring.security.entity.Products;
 import com.valtech.spring.security.entity.User;
-import com.valtech.spring.security.repo.CartLineRepo;
-import com.valtech.spring.security.repo.UserReopsitory;
-import com.valtech.spring.security.service.CartLineService;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
 public class AdminController {
 
-	@Autowired
-	private UserReopsitory userRepository;
+
 
 	@Autowired
 	private UserDetailsService service;
@@ -42,6 +35,7 @@ public class AdminController {
 	private ProductServiceImpl productservice;
 
 	int uid;
+	int flag = 0;
 
 	/*
 	 * Once the seller/admin login, It will navigate to the adminhome.
@@ -81,7 +75,13 @@ public class AdminController {
 	@GetMapping("/admin/products/{id}")
 	public String adminproducts(@PathVariable("id") int user_id, Model model) {
 		model.addAttribute("user", service.getuser(user_id));
+		System.out.println("get product");
 		
+		if (flag == 1) {
+		model.addAttribute("perror", "Product is already added");
+		flag=0;
+		System.out.println("error>>>>>>>>>>");
+		}
 		return "admin/addproducts";
 	}
 
@@ -109,7 +109,7 @@ public class AdminController {
 			List<Products> pro = productservice.getProductsbyproductname(productName);
 
 			User u1 = service.getuser(user_id);
-			int flag = 0;
+			
 			if (pro != null) {
 
 				for (Products produ : pro) {
@@ -122,7 +122,8 @@ public class AdminController {
 				}
 			}
 			if (flag == 1) {
-				model.addAttribute("me", "Product is already added");
+				System.out.println("post error>>>>>>>>>");
+				model.addAttribute("perror", "Product is already added");
 				return "redirect:/admin/products/"+user_id;
 			}
 			Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded, byteArr);

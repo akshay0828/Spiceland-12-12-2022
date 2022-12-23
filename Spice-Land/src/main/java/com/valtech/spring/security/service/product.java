@@ -2,8 +2,6 @@ package com.valtech.spring.security.service;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.valtech.spring.security.entity.Products;
 

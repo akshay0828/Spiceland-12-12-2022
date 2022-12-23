@@ -168,7 +168,7 @@ body{
 <center>
 	<div class="container">
 		<h1 class="form-title" id="update">Update Profile</h1>
-		<form action="/user/updateprofile/${user.id}" method="post">
+		<form action="/user/updateProfile/${user.id}" method="post">
 		
 			<div class="main-user-info">
 			
@@ -187,12 +187,26 @@ body{
 						  value="${user.contact}" />
 				</div>
 				
-				<div class="user-input-box">
-					<label for="confirmPassword">Address</label> <input
-						type="text" id="address" name="address" value="${user.address}"
-						 />
-				</div>
-			</div>
+				<br>
+					<div class="user-input-box">
+						<label for="confirmPassword">Street</label> <input type="text"
+							id="address" name="street" required placeholder="Street" value="${user.street}" />
+					</div>
+					<div class="user-input-box">
+						<label for="confirmPassword">Area</label> <input type="text"
+							id="address" name="area" required placeholder="Area" value="${user.area}" />
+					</div>
+					<div class="user-input-box">
+						<label for="confirmPassword">City</label> <input type="text"
+							id="address" name="city" required placeholder="City" value="${user.city}"  />
+					</div>
+					<div class="user-input-box">
+						<label for="confirmPassword">Pincode</label> <input type="text"
+							id="address" name="pincode"  pattern="^\d{6}$"  title="Invalid pincode enter 6 digit pincode!!" required placeholder="Pincode" value="${user.pincode}" />
+					</div>
+					</div>
+					
+			
 			<input type="hidden" name="id" value="${user.id}" />
     <input type="hidden" name="pass" value="${user.pass}" />
         <input type="hidden" name="role" value="${user.role}" />
@@ -201,15 +215,13 @@ body{
    
         
 			<div class="form-submit-btn">
-				<input type="submit" value="update">
+				<input type="submit" value="Submit">
 			</div>
 		</form>
+		<br>
 
-		<%-- <div class="form-submit-btn">
-			<form action="/user/userhome/${user.id}" method="get">
-				<input type="submit" value="Cancel">
-			</form>
-		</div> --%>
+		
+		</div>
 
 		</form>
 	</div>
@@ -233,7 +245,7 @@ body{
 			image.src = URL.createObjectURL(event.target.files[0]);
 		};
 	</script>
-
+<br><br><br><br><br><br><br>
 	</div>
 </body>
 </html>

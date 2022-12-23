@@ -1,5 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 
+ body{
+        background-image: url('https://i.pinimg.com/originals/74/85/02/7485027689f1947658f7a0b252f1c56b.gif') ;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+           background-position: center center; 
+           background-size: cover;
+      height: 100%;
+    padding: 5px;
+    width: 100%;
+      } 
+
 :root {
   --black: #cb202d;
   --white: #fff;
@@ -818,5 +829,19 @@ position: absolute;
 color: #cb202d;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

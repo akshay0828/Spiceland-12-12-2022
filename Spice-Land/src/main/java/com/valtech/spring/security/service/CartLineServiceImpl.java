@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.valtech.spring.security.entity.CartLine;
-import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.CartLineRepo;
 
 @Service
@@ -20,7 +19,7 @@ public class CartLineServiceImpl implements CartLineService {
 
 	@Autowired
 	private CartLineRepo cartLineRepo;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(CartLineServiceImpl.class);
 
 	// Create new cartitem.
@@ -40,7 +39,7 @@ public class CartLineServiceImpl implements CartLineService {
 	// To get the cartitems by id.
 	@Override
 	public CartLine findById(int id) {
-		logger.info("Fetching id"+id);
+		logger.info("Fetching id" + id);
 		return cartLineRepo.findById(id).get();
 	}
 
@@ -54,7 +53,7 @@ public class CartLineServiceImpl implements CartLineService {
 
 	@Override
 	public void deleteCartLine(int id) {
-		logger.info("Deleting the order wit "+id);
+		logger.info("Deleting the order wit " + id);
 		cartLineRepo.deleteById(id);
 	}
 
@@ -81,9 +80,8 @@ public class CartLineServiceImpl implements CartLineService {
 
 		for (CartLine cartLine : cart) {
 			if (id == cartLine.getUserid()) {
-				if(cid.contains(cartLine.getAdminIds())){
-				}
-				else{
+				if (cid.contains(cartLine.getAdminIds())) {
+				} else {
 					cid.add(cartLine.getAdminIds());
 				}
 			}
@@ -94,8 +92,7 @@ public class CartLineServiceImpl implements CartLineService {
 	// To get the cartitem by user id.
 	@Override
 	public int findid(int id) {
-		
-		
+
 		logger.info("Fetching item with id " + id);
 		return cartLineRepo.findIdByUserid(id);
 
@@ -111,7 +108,7 @@ public class CartLineServiceImpl implements CartLineService {
 	// To get the user id by user id and product id.
 	@Override
 	public int findUserIdAndProdId_onlyUserId(int userid, int prodid) {
-		logger.info("Fetching both userID" +userid+"along with prodID "  + prodid);
+		logger.info("Fetching both userID" + userid + "along with prodID " + prodid);
 		CartLine check = cartLineRepo.findByUseridAndProdid(userid, prodid);
 		if (userid == check.getUserid()) {
 			return check.getUserid();
@@ -122,8 +119,8 @@ public class CartLineServiceImpl implements CartLineService {
 	// To get the product id by user id and product id.
 	@Override
 	public int findUserIdAndProdId_onlyProdId(int userid, int prodid) {
-		logger.info("Fetching both userID" +userid+"along with prodID "  + prodid);
-		
+		logger.info("Fetching both userID" + userid + "along with prodID " + prodid);
+
 		CartLine check = cartLineRepo.findByUseridAndProdid(userid, prodid);
 		if (prodid == check.getProdid()) {
 			return check.getProdid();
@@ -134,7 +131,7 @@ public class CartLineServiceImpl implements CartLineService {
 	// To get both userid and product id.
 	@Override
 	public CartLine findUserIdAndProdId(int userid, int prodid) {
-		logger.info("Fetching both userID" +userid+"along with prodID "  + prodid);
+		logger.info("Fetching both userID" + userid + "along with prodID " + prodid);
 
 		CartLine check = cartLineRepo.findByUseridAndProdid(userid, prodid);
 

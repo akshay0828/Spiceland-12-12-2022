@@ -1,6 +1,8 @@
 package com.valtech.spring.security.controllers;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,32 +29,26 @@ import com.valtech.spring.security.repo.OrderRepository;
 import com.valtech.spring.security.repo.UserReopsitory;
 import com.valtech.spring.security.service.CartLineService;
 import com.valtech.spring.security.service.OrderService;
+import com.valtech.spring.security.service.ProductService;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
 public class UserController {
-	
+
 	@Autowired
 	private UserDetailsService service;
 
 	@Autowired
-	private ProductServiceImpl productservice;
+	private ProductService productservice;
 
 	int uid;
 
-	
 	@Autowired
 	private CartLineService cartLineService;
 
 	@Autowired
 	private OrderService orderService;
-	
-	
-
-	
-
-
 
 	@GetMapping("user/userhome/{id}")
 	public String userhome(@PathVariable("id") int id, ModelMap model) {
@@ -63,10 +59,7 @@ public class UserController {
 		System.out.println(service.getUsername(id));
 		model.addAttribute("add", u.getName());
 		model.addAttribute("user", u.getId());
-//		List<Products> p1=productservice.getAllProducts();
-//		for(Products p:p1){
-//			model.addAttribute(p);
-//		}
+
 		model.addAttribute("Products", productservice.getAllProducts());
 
 		model.addAttribute("users", service.getAlluser());
@@ -86,7 +79,7 @@ public class UserController {
 	 * Buyer/User can Update the profile.
 	 */
 
-	@PostMapping("/user/updateprofile/{id}")
+	@PostMapping("/user/updateProfile/{id}")
 	public String userUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 		System.out.println("SUCCESS");
 		model.addAttribute("user", service.getuser(id));
@@ -127,8 +120,15 @@ public class UserController {
 
 				CartLine c = new CartLine(prod_id, p.getProductName(), p.getPrice(), p.getUserid(), id);
 
-				check.setQuantity(check.getQuantity() + 1);
-
+				if (p.getQuantity() != 0) {
+					check.setQuantity(check.getQuantity() + 1);
+					p.setQuantity(p.getQuantity() - 1);
+				} else {
+					model.addAttribute("pempty", "Product is Out of Stock");
+					System.out.println(p.getProductName());
+				}
+				int a = p.getQuantity() - 1;
+				System.out.println(a);
 				cartLineService.createCartLine(check);
 
 			}
@@ -145,7 +145,7 @@ public class UserController {
 			cartLine.setProdid(prod_id);
 			cartLine.setProductName(p.getProductName());
 			cartLine.setPrice(p.getPrice());
-			cartLine.setQuantity(cart.getQuantity() + 1);
+			cartLine.setQuantity(cart.getQuantity());
 			System.out.println(cartLine.getQuantity());
 
 			cartLineService.createCartLine(cartLine);
@@ -191,6 +191,13 @@ public class UserController {
 
 		System.out.println("DELETING");
 
+		CartLine c = cartLineService.findById(id);
+
+		Products p = productservice.getProduct(c.getProdid());
+
+		p.setQuantity(p.getQuantity() + c.getQuantity() - 1);
+
+		System.out.println();
 		cartLineService.deleteCartLine(id);
 
 		return "redirect:/user/cart/" + user_id;
@@ -202,7 +209,7 @@ public class UserController {
 
 	@GetMapping("/user/payment/{id}")
 	public String payment(ModelMap model, @PathVariable("id") int id) {
-
+		
 		if (cartLineService.getAllordersByuserid(id).size() == 0) {
 			model.addAttribute("error", "Please add Items to cart");
 			return "redirect:/user/cart/" + id;
@@ -221,14 +228,15 @@ public class UserController {
 		ArrayList<Integer> cart_ids = cartLineService.findAllId(id);
 		ArrayList<Integer> admin_ids = cartLineService.findAllAdminId(id);
 
-		User user =service.getByid(id);
-		
+		User user = service.getByid(id);
+
 		Orders o = new Orders();
 		o.setUser_id(id);
 		o.setCartIds(cart_ids);
-		o.setDate(LocalDate.now());
+		o.setDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy / hh:mm")));
+
 		o.setArea(user.getArea());
-		
+
 		o.setAdminIds(admin_ids);
 
 		orderService.saveOrder(o);

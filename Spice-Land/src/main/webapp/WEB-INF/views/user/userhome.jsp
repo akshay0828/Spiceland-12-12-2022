@@ -384,8 +384,8 @@ h1.heading {
 }
 
 body {
-	 background-image: url('https://img.freepik.com/free-photo/shopping-cart-black-background-with-copy-space_23-2148317906.jpg?w=1380&t=st=1669885183~exp=1669885783~hmac=b0e3baf5c59c492592e01c647b2037f01c692653a176f6a8ad408e6e366c3d91') ;
-        
+	background-image:
+		url('https://img.freepik.com/free-photo/shopping-cart-black-background-with-copy-space_23-2148317906.jpg?w=1380&t=st=1669885183~exp=1669885783~hmac=b0e3baf5c59c492592e01c647b2037f01c692653a176f6a8ad408e6e366c3d91');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
@@ -495,9 +495,8 @@ body {
 	background: #6ed1d8;
 }
 
-
-.cart{
-/*  width: 100px;  
+.cart {
+	/*  width: 100px;  
 height: 45%; 
  position: fixed;
   left: 1100px;
@@ -505,15 +504,13 @@ height: 45%;
   margin-bottom: 50px;
   margin-top: 300px;
   margin-right: 370px; */
-	
-	
-	top: 10%; 
- position: fixed;
-  left: 1150px;
-  bottom: 350px;
+	top: 10%;
+	position: fixed;
+	left: 1150px;
+	bottom: 350px;
 	display: block;
 	width: 120%;
-	height:80%;
+	height: 80%;
 	margin: 20px;
 	line-height: 20;
 	background-color: #fff;
@@ -526,297 +523,224 @@ height: 45%;
 	box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px
 		2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px,
 		rgba(0, 0, 0, 0.09) 0px 32px 16px;
-	
-
-
 }
 
 /* website background image designing */
-#container1{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100vw;
-    height:63vh;
+#container1 {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100vw;
+	height: 63vh;
 }
 
-/*Setting the background image using before pseudo selector*/ 
-#container1::before{
-    content:'';
-    background: url("https://i.pinimg.com/originals/74/85/02/7485027689f1947658f7a0b252f1c56b.gif") no-repeat center center/cover;
-    width: 99vw;
-    height:59vh;
-    position: absolute;
-    top:0px;
-    left: 0px;
-    font-family: 'Ubuntu Mono', monospace;
-    margin-right:45px;
-    font-weight: bold;
-    z-index: -1;
-    opacity: 0.89;
-    border: 2px solid black;
-    /* border-bottom-left-radius: 100px; */
+/*Setting the background image using before pseudo selector*/
+#container1::before {
+	content: '';
+	background:
+		url("https://i.pinimg.com/originals/74/85/02/7485027689f1947658f7a0b252f1c56b.gif")
+		no-repeat center center/cover;
+	width: 99vw;
+	height: 59vh;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-family: 'Ubuntu Mono', monospace;
+	margin-right: 45px;
+	font-weight: bold;
+	z-index: -1;
+	opacity: 0.89;
+	border: 2px solid black;
+	/* border-bottom-left-radius: 100px; */
 }
 
-#row1{
-    
-        /*  text-align: center;
+#row1 {
+	/*  text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
         
-          position:absolute; */  
-
-
-  
-  
-   bottom:700px;
-   font-size: 160px;
-   font-family: Brush Script MT;
-   color:white;
-   text-shadow: 0 0 4px black;
+          position:absolute; */
+	bottom: 700px;
+	font-size: 160px;
+	font-family: Brush Script MT;
+	color: white;
+	text-shadow: 0 0 4px black;
 }
 
-#welcome{
-    
-        /*  text-align: center;
+#welcome {
+	/*  text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
         
-          position:absolute; */  
-
-
-  
-  
-   bottom:700px;
-   font-size: 30px;
-   font-family: Arial;
-   color:white;
-   text-shadow: 0 0 4px black;
+          position:absolute; */
+	bottom: 700px;
+	font-size: 30px;
+	font-family: Arial;
+	color: white;
+	text-shadow: 0 0 4px black;
 }
-
-
-
 </style>
 
 </head>
 <body>
-<form>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <img
-				th:src="@{/images/logo.png}" src="../static/images/logo.png"
-				width="auto" height="40" class="d-inline-block align-top" alt="" />
-			</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+	<form>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#"> <img
+					th:src="@{/images/logo.png}" src="../static/images/logo.png"
+					width="auto" height="40" class="d-inline-block align-top" alt="" />
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarSupportedContent"
+					aria-controls="navbarSupportedContent" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<h4 id="welcome">Welcome ${add } </h4>
-				<ul class="navbar-nav mr-auto"></ul>
-				<ul class="navbar-nav">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/}"
-						href="#">Home</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						href="/user/updateprofile/${user}">Profile</a></li>
-						
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<h4 id="welcome">Welcome ${add }</h4>
+					<ul class="navbar-nav mr-auto"></ul>
+					<ul class="navbar-nav">
 						<li class="nav-item active"><a class="nav-link"
-						href="/user/orderTracking/${user}">Order Tracking</a></li>
-					<li class="nav-item active"><a class="nav-link"
-						sec:authorize="isAuthenticated()" href="/logout">Logout</a></li>
+							th:href="@{/}" href="#">Home</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							href="/user/updateprofile/${user}">Profile</a></li>
 
-				</ul>
+						<li class="nav-item active"><a class="nav-link"
+							href="/user/orderTracking/${user}">Order Tracking</a></li>
+						<li class="nav-item active"><a class="nav-link"
+							sec:authorize="isAuthenticated()" href="/logout">Logout</a></li>
 
-			</div>
-		</div>
-	</nav>
-	
-	
-			<%-- <c:forEach items="${users}" var="user">
-          <div class="column">
-          
+					</ul>
 
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
-				data-aos="zoom-in-down">
-				<div class="card">
-
-					<div class="card-content">
-						<h4 class="card-title">${user.name}</h4>
-						<p class="">
-							${user.email}<br>
-						</p>
-						<p class="">
-							${user.contact}<br>
-						</p>
-					</div>
-					<div class="card-read-more">
-						<!-- <a  class="btn btn-link btn-block" onclick="hello()"> View Items</a> -->
-						<a href="#openModal" class="btn btn-link btn-block">View Items</a>
-					</div>
 				</div>
 			</div>
-		 </div>	
-			
-	</c:forEach> --%>
-	
-	
-<!-- <form id='1' method='post' action='nextServlet'> -->
-
-  <div id="container1">
-        <div id="row1"><br>
-            Welcome to Spice Land
-      <!--   </div>
-        <button class="btn">ORDER NOW</button>
-        <div id="container3">
-            <div id="row2">
-                <button class="btn">Prices</button>
-            </div>
-            <div id="row3">
-                <button class="btn">Specials</button>
-            </div> -->
-        </div> 
-    </div>
-    <hr>
-
-<form>
-<center>
-
-<div class="container-fostrap">
-		<div class="row">
-		
-			<c:forEach items="${Products}" var="product">
-
-				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
-					data-aos="zoom-in-down">
-					<div class="card">
-
-						<div class="card-content">
-						<p id="productName" name="productName">
-							<h4 class="card-title">${product.productName}</h4>
-							
-							</p>
-							
-								<p id="price" name="price">
-								Price of the product ${product.price}<br>
-							</p>
-								<p id="weight" name="weight">
-								weight of the product ${product.weight}<br>
-							</p>
-								<p id="quantity" name="quantity">
-								Quantity Available ${product.quantity}<br>
-							</p>
-							<p>
-							<!-- <img src="https://th.bing.com/th/id/OIP.RE0burbBLkrbpIPHghxAIQHaD3?pid=ImgDet&rs=1" alt="Girl in a jacket" width="250" height="100"> -->
-							<center><img width="200" height="150" src="data:image/jpeg;base64,${product.image}"></center>
-							</p>
-						</div>
-						<div class="card-read-more">
-							<!-- <a href="/user/products" class="btn btn-link btn-block"> Add To Cart </a> -->
-							<!-- <a href="#cart" class="btn btn-link btn-block">ADD TO CART</a> -->
-								
-								 <a href="/user/userhome/${user}/${product.id}">ADD TO CART</a>
-								 <a href="#openModal" class="btn btn-link btn-block"></a>
-								 
-						</div>
-					</div>
-				</div>
-
-
-			</c:forEach>
-		</div>
-
-
-	</div>
-	<div class="cart">
-	
-	 <a href="/user/cart/${user}"><img src="https://www.pngplay.com/wp-content/uploads/1/Online-Shopping-Cart-PNG-Background-Image.png" alt="Girl in a jacket" width="200" height="200"></a>
-	</div>
-	</center>
-	</form>
-	
-
-
-	<style>
-        .cart {
-            width: 220px;
-           position: fixed;
-            height: 270px;
-            padding: 10px;
-           // border: 2px solid blue;
-            border-radius: 50%;
-            top: 69%; 
-  left: 10px;
-  bottom: 350px;
-        }
-    </style>
- 
+		</nav>
 
 
 
 
-
-
-
-	
-	
-	
-	
-	<%-- 
-			<c:forEach items="${cartLine}" var="product">
-					<a href="/products/updateproduct/${product.id}">${product.id}</a>
-					${product.productName}
-					${product.price}
-					
-					${product.quantity}
-				<br/>
-			</c:forEach> --%>
-		
-	
-
-</div>
-
-
-
-
-
-
-	<%-- <div id="openModal" class="modalDialog">
-		<div>
-			<a href="#close" title="Close" class="close">X</a>
-			<h2>Modal Box </h2>
-			<div class="row">
-				<c:forEach items="${cartLine}" var="product">
-					<a href="/products/updateproduct/${product.id}">${product.id}</a>
-					<p>${product.productName}</p><br>
-				<p>	${product.price}</p>
-					
-				<p>	${product.quantity}</p>	
+		<div id="container1">
+			<div id="row1">
+				<br> Welcome to Spice Land 
 				
-			</c:forEach>
+
 			</div>
-
-
-
-		</div> --%>
-		
-		
-		</form>
-		
-		
-		<div>
-		
-		
-		
 		</div>
+		<hr>
+
+<div style="color: red;" align="center">
+						<h3>${pempty}</h3>
+						</div>
+					
+		<form>
 		
-	
-		
-		
+			<center>
+
+				<div class="container-fostrap">
+					<div class="row">
+
+						<c:forEach items="${Products}" var="product">
+
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"
+								data-aos="zoom-in-down">
+								<div class="card">
+
+									<div class="card-content">
+										<p id="productName" name="productName">
+										<h4 class="card-title">${product.productName}</h4>
+
+										</p>
+
+										<p id="price" name="price">
+											Price of the product ${product.price}<br>
+										</p>
+										<p id="weight" name="weight">
+											weight of the product ${product.weight}<br>
+										</p>
+										<p id="quantity" name="quantity">
+											Quantity Available ${product.quantity}<br>
+										</p>
+										<p>
+											<!-- <img src="https://th.bing.com/th/id/OIP.RE0burbBLkrbpIPHghxAIQHaD3?pid=ImgDet&rs=1" alt="Girl in a jacket" width="250" height="100"> -->
+										<center>
+											<img width="200" height="150"
+												src="data:image/jpeg;base64,${product.image}">
+										</center>
+										</p>
+									</div>
+									<div class="card-read-more">
+										<!-- <a href="/user/products" class="btn btn-link btn-block"> Add To Cart </a> -->
+										<!-- <a href="#cart" class="btn btn-link btn-block">ADD TO CART</a> -->
+
+										<a href="/user/userhome/${user}/${product.id}">ADD TO CART</a>
+										<a href="#openModal" class="btn btn-link btn-block"></a>
+
+									</div>
+								</div>
+							</div>
+
+
+						</c:forEach>
+					</div>
+
+
+				</div>
+				<div class="cart">
+
+					<a href="/user/cart/${user}"><img
+						src="https://www.pngplay.com/wp-content/uploads/1/Online-Shopping-Cart-PNG-Background-Image.png"
+						alt="Girl in a jacket" width="200" height="200"></a>
+				</div>
+			</center>
+		</form>
+
+
+
+		<style>
+.cart {
+	width: 220px;
+	position: fixed;
+	height: 270px;
+	padding: 10px; //
+	border: 2px solid blue;
+	border-radius: 50%;
+	top: 69%;
+	left: 10px;
+	bottom: 350px;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+
+
+
+	</form>
+
+
+	<div></div>
+
+
+
+
 </body>
 </html>

@@ -2,6 +2,9 @@ package com.valtech.spring.security.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.valtech.spring.security.entity.User;
 
 public interface UserDetailsService {
@@ -46,5 +49,7 @@ public interface UserDetailsService {
 	User getByid(int id);
 
 	List<User> findAll();
+
+	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 }

@@ -1,21 +1,19 @@
 package com.valtech.spring.security.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.UniqueConstraint;
 
 @Entity
 public class CartLine {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;//unique constraint of the cart item. 
-	private int prodid;//product id of the item.
-	private String productName;//name of the product 
-	private double price;//Price of the product.
+	private int id;// unique constraint of the cart item.
+	private int prodid;// product id of the item.
+	private String productName;// name of the product
+	private double price;// Price of the product.
 	private int quantity = 1;// Quantity of the item.
 
 	private int adminIds;

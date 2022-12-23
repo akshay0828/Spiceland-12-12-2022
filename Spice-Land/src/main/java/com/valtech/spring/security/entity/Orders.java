@@ -1,23 +1,19 @@
 package com.valtech.spring.security.entity;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Orders {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;//unique constraint of the Order .
-	private ArrayList<Integer> cartIds;//List of the id's of cartitems.
-	private LocalDate date;//Date on which order is placed.
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int id;// unique constraint of the Order .
+	private ArrayList<Integer> cartIds;// List of the id's of cartitems.
+	private String orderDate;// Date on which order is placed.
 	private int user_id;// user id ,who placed the order.
 	private String area;
 	private ArrayList<Integer> adminIds;
@@ -26,25 +22,27 @@ public class Orders {
 		super();
 	}
 
-	public Orders(int id, ArrayList<Integer> cartIds, LocalDate date, int user_id, ArrayList<Integer> adminIds,String area) {
+	public Orders(int id, ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds,
+			String area) {
 		super();
 		this.id = id;
 		this.cartIds = cartIds;
-		this.date = date;
+		this.orderDate = orderDate;
 		this.user_id = user_id;
 		this.adminIds = adminIds;
-		this.area=area;
+		this.area = area;
 	}
 
-	public Orders(ArrayList<Integer> cartIds, LocalDate date, int user_id, ArrayList<Integer> adminIds,String area) {
+	public Orders(ArrayList<Integer> cartIds, String orderDate, int user_id, ArrayList<Integer> adminIds, String area) {
 		super();
 		this.cartIds = cartIds;
-		this.date = date;
+		this.orderDate = orderDate;
 		this.user_id = user_id;
 		this.adminIds = adminIds;
-		this.area=area;
+		this.area = area;
 	}
-//Getters and Setters  
+
+	// Getters and Setters
 	public int getId() {
 		return id;
 	}
@@ -61,12 +59,12 @@ public class Orders {
 		this.cartIds = cartIds;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public String getDate() {
+		return orderDate;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDate(String orderDate) {
+		this.orderDate = orderDate;
 	}
 
 	public int getUser_id() {
@@ -84,8 +82,6 @@ public class Orders {
 	public void setAdminIds(ArrayList<Integer> adminIds) {
 		this.adminIds = adminIds;
 	}
-	
-	
 
 	public String getArea() {
 		return area;
@@ -97,10 +93,8 @@ public class Orders {
 
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + date + ", user_id=" + user_id + ", area="
+		return "Orders [id=" + id + ", cartIds=" + cartIds + ", date=" + orderDate + ", user_id=" + user_id + ", area="
 				+ area + ", adminIds=" + adminIds + "]";
 	}
-
-	
 
 }

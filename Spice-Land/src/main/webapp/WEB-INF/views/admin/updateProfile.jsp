@@ -14,169 +14,12 @@
 	href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
 	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
 	crossorigin="anonymous">
+<link rel="stylesheet" href="/css/profileupdate.css" />
 <title>Add Products</title>
 
-<style>
-* {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	font-family: sans-serif;
-}
-
-body{
-          background-image: url('https://cdn.wallpapersafari.com/14/13/SmgTFb.jpg'); 
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-          background-size: cover;
-      }
-
-.container {
-
-	width: 100%;
-	max-width: 650px;
-	background: rgba(0, 0, 0, 0.5);
-	padding: 28px;
-	background-color: white;
-	margin:  100px auto;
-	border-radius: 10px;
-	
-}
-
-.form-title {
-	font-size: 26px;
-	font-weight: 600;
-	text-align: center;
-	padding-bottom: 6px;
-	color: black;
-	
-	border-bottom: solid 1px white;
-}
-
-.main-user-info {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	padding: 20px 0;
-}
-
-.user-input-box:nth-child(2n) {
-	justify-content: end;
-}
-
-.user-input-box {
-	display: flex;
-	flex-wrap: wrap;
-	width: 50%;
-	padding-bottom: 15px;
-}
-
-.user-input-box label {
-	width: 95%;
-	color: Black;
-	font-size: 20px;
-	font-weight: 400;
-	margin: 5px 0;
-}
-
-.user-input-box input {
-	height: 40px;
-	width: 95%;
-	border-radius: 7px;
-	outline: none;
-	border: 1px solid grey;
-	padding: 0 10px;
-}
-
-
-.form-submit-btn input {
-	cursor: pointer;
-}
-
-.form-submit-btn {
-	margin-top: 40px;
-}
-
-.form-submit-btn input {
-	display: block;
-	width: 50%;
-	margin-top: 50px;
-	font-size: 20px;
-	padding: 10px;
-	border: none;
-	border-radius: 3px;
-	color: rgb(0, 0, 0);
-	background: rgba(91, 137, 255);
-	text-align: center;
-}
-
-.form-submit-btn input:hover {
-	background: rgba(56, 204, 93, 0.7);
-	color: rgb(255, 255, 255);
-}
-
-@media ( max-width : 600px) {
-	.container {
-		min-width: 280px;
-	}
-	.user-input-box {
-		margin-bottom: 12px;
-		width: 100%;
-	}
-	.user-input-box:nth-child(2n) {
-		justify-content: space-between;
-	}
-	.main-user-info {
-		max-height: 380px;
-		overflow: auto;
-	}
-	.main-user-info::-webkit-scrollbar {
-		width: 0;
-	}
-}
-.container{
-	display: flex;
-	flex-wrap: wrap;
-	width: 100%;
-	
-	
-	
-	padding-bottom: 05px;
-	bottom: 150px;
-	/* margin-bottom: 1 *//*  */
-	
-}
-
-.container label {
-	width: 95%;
-	color: white;
-	font-size: 20px;
-	font-weight: 400;
-	margin: 5px 0;
-}
-
-.container input {
-	height: 40px;
-	width: 95%;
-	border-radius: 7px;
-	outline: none;
-	border: 1px solid grey;
-	padding: 0 10px;
-}
-.address {
-	font-size: 26px;
-	font-weight: 600;
-	text-align: center;
-	padding-bottom: 6px;
-	color: white;
-	text-shadow: 2px 2px 2px black;
-	/* border-bottom: solid 1px white; */
-}
-</style>
 
 </head>
-<body>
+<body class="body1">
 	<div class="c1">
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container-fluid">
@@ -196,79 +39,80 @@ body{
 					<ul class="navbar-nav">
 						<li class="nav-item active"><a class="nav-link"
 							href="/admin/adminhome/${user.id}">Home Page</a></li>
-						
+
 
 					</ul>
 
 				</div>
 			</div>
 		</nav>
-		
-<center>
-	<div class="container">
-		<h1 class="form-title" id="update">Update Profile</h1>
-		<form action="/admin/updateProfile/${user.id}" method="post">
-		
-			<div class="main-user-info">
-			
-				<div class="user-input-box">
-					<label for="fullName">Full Name</label> <input type="text" 
-						id="fullName" name="name" value="${user.name}" />
-				</div>
-				
-				<div class="user-input-box">
-					<label for="email">Email</label> <input type="email" id="email" 
-						name="email" value="${user.email}"  />
-				</div>
-				<div class="user-input-box">
-					<label for="phoneNumber">Phone Number</label> <input type="text" 
-						id="phoneNumber" name="contact" pattern="^\d{10}$"  title="Invalid Phone number!!"
-						  value="${user.contact}" />
-				</div>
-				
+
+		<center>
+			<div class="container">
+				<h1 class="form-title" id="update">Update Profile</h1>
+				<form action="/admin/updateProfile/${user.id}" method="post">
+
+					<div class="main-user-info">
+
+						<div class="user-input-box">
+							<label for="fullName">Full Name</label> <input type="text"
+								id="fullName" name="name" value="${user.name}" />
+						</div>
+
+						<div class="user-input-box">
+							<label for="email">Email</label> <input type="email" id="email"
+								name="email" value="${user.email}" />
+						</div>
+						<div class="user-input-box">
+							<label for="phoneNumber">Phone Number</label> <input type="text"
+								id="phoneNumber" name="contact" pattern="^\d{10}$"
+								title="Invalid Phone number!!" value="${user.contact}" />
+						</div>
+
+						<br>
+						<div class="user-input-box">
+							<label for="confirmPassword">Street</label> <input type="text"
+								id="address" name="street" required placeholder="Street"
+								value="${user.street}" />
+						</div>
+						<div class="user-input-box">
+							<label for="confirmPassword">Area</label> <input type="text"
+								id="address" name="area" required placeholder="Area"
+								value="${user.area}" />
+						</div>
+						<div class="user-input-box">
+							<label for="confirmPassword">City</label> <input type="text"
+								id="address" name="city" required placeholder="City"
+								value="${user.city}" />
+						</div>
+						<div class="user-input-box">
+							<label for="confirmPassword">Pincode</label> <input type="text"
+								id="address" name="pincode" pattern="^\d{6}$"
+								title="Invalid pincode enter 6 digit pincode!!" required
+								placeholder="Pincode" value="${user.pincode}" />
+						</div>
+					</div>
+
+
+					<input type="hidden" name="id" value="${user.id}" /> <input
+						type="hidden" name="pass" value="${user.pass}" /> <input
+						type="hidden" name="role" value="${user.role}" /> <input
+						type="hidden" name="cnfmpass" value="${user.cnfmpass}" /> <input
+						type="hidden" name="username" value="${user.username}" />
+
+
+					<div class="form-submit-btn">
+						<input type="submit" value="Submit">
+					</div>
+				</form>
 				<br>
-					<div class="user-input-box">
-						<label for="confirmPassword">Street</label> <input type="text"
-							id="address" name="street" required placeholder="Street" value="${user.street}" />
-					</div>
-					<div class="user-input-box">
-						<label for="confirmPassword">Area</label> <input type="text"
-							id="address" name="area" required placeholder="Area" value="${user.area}" />
-					</div>
-					<div class="user-input-box">
-						<label for="confirmPassword">City</label> <input type="text"
-							id="address" name="city" required placeholder="City" value="${user.city}"  />
-					</div>
-					<div class="user-input-box">
-						<label for="confirmPassword">Pincode</label> <input type="text"
-							id="address" name="pincode"  pattern="^\d{6}$"  title="Invalid pincode enter 6 digit pincode!!" required placeholder="Pincode" value="${user.pincode}" />
-					</div>
-					</div>
-					
-			
-			<input type="hidden" name="id" value="${user.id}" />
-    <input type="hidden" name="pass" value="${user.pass}" />
-        <input type="hidden" name="role" value="${user.role}" />
-            <input type="hidden" name="cnfmpass" value="${user.cnfmpass}" />
-             <input type="hidden" name="username" value="${user.username}" />
-   
-        
-			<div class="form-submit-btn">
-				<input type="submit" value="Submit">
+
+
 			</div>
-		</form>
-		<br>
 
-		<%-- <div class="form-submit-btn">
-			<form action="/admin/adminhome/${user.id}" method="get">
-				<input type="submit" value="Cancel">
 			</form>
-		</div> --%>
-		</div>
-
-		</form>
 	</div>
-	</center>		
+	</center>
 
 
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -288,7 +132,13 @@ body{
 			image.src = URL.createObjectURL(event.target.files[0]);
 		};
 	</script>
-<br><br><br><br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	</div>
 </body>
 </html>

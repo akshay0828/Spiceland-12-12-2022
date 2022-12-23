@@ -1,70 +1,55 @@
 package com.valtech.spring.security.controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import javax.jws.soap.SOAPBinding;
-
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.valtech.spring.security.entity.CartLine;
-import com.valtech.spring.security.entity.Products;
+import com.valtech.spring.security.config.WebSecurityConfig;
+import com.valtech.spring.security.entity.MyUserDetails;
+import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.model.RegisterUserModel;
-import com.valtech.spring.security.repo.CartLineRepo;
-import com.valtech.spring.security.repo.UserReopsitory;
-import com.valtech.spring.security.service.CartLineService;
-import com.valtech.spring.security.service.ProductServiceImpl;
+import com.valtech.spring.security.repo.Rolerepo;
 import com.valtech.spring.security.service.UserDetailsService;
 
-//@RestController
 @Controller
 public class HelloController {
-	@Autowired
-	private UserReopsitory userRepository;
 
 	@Autowired
 	private UserDetailsService service;
 
-	@Autowired
-	private ProductServiceImpl productservice;
-
 	int uid;
+	
+	@Autowired
+	private WebSecurityConfig webSecurityConfig;
 
 	@Autowired
-	private CartLineRepo cartRepo;
-
-	@Autowired
-	private CartLineService cartLineService;
-	
-	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+	private Rolerepo roleRepo;
 
 	/*
 	 * If the seller/admin is new user Navigate to the registration page .
 	 */
 	@GetMapping("/register")
-	public String register() {
+	public String register(Model model) {
+		
+		
+		model.addAttribute("roleval", roleRepo.findAll());
+		
 		return "/register";
 	}
 
@@ -74,10 +59,11 @@ public class HelloController {
 	 * should not be repititive if so it displays error message. password and
 	 * confirmpassword should be same else error message is displayed.
 	 */
-	
+
 	@PostMapping("/register")
-	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username, @RequestParam("role") String role ,@RequestParam("pass")String pass, Model model,
-			@RequestParam("cnfmpass")String cnfmpass) {
+	public String registerUser(@ModelAttribute User user, @RequestParam("username") String username,
+			@RequestParam("role") String role, @RequestParam("pass") String pass, Model model,
+			@RequestParam("cnfmpass") String cnfmpass) {
 
 		// user.setRole(user.getRole());
 		String u;
@@ -85,12 +71,24 @@ public class HelloController {
 		if (u == "false") {
 
 			if (user.getPass().equals(user.getCnfmpass())) {
-				user.setPass(passwordEncoder().encode(pass));
-				user.setCnfmpass(passwordEncoder().encode(cnfmpass));
-				user.setRoles(Arrays.asList(role));
-				user.setEnabled(true);
+				user.setPass(webSecurityConfig.passwordEncoder().encode(pass));
+				//Ruser.setCnfmpass(webSecurityConfig.passwordEncoder().encode(cnfmpass));
 				
+				 Role role1 = roleRepo.findByName(role);
+			       
+			        
+			        Set<Role> roles= new HashSet<Role>();
+			        
+			        roles.add(role1);
+			        
+			        user.setRoles(roles);
+				
+				
+				user.setEnabled(true);
+
 				service.createUser(user);
+				MyUserDetails use =new MyUserDetails(user);
+				
 				return "redirect:/login";
 			} else {
 				model.addAttribute("error", "Password and Confirm Password does not match");
@@ -99,10 +97,10 @@ public class HelloController {
 			}
 
 		}
+		model.addAttribute("userna", "Username Already Exists");
 		return "register";
 	}
 
-	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
@@ -120,22 +118,22 @@ public class HelloController {
 	 */
 	@PostMapping("/login")
 
-	public String loginUser(@ModelAttribute RegisterUserModel registerUserModel, Model model,@RequestParam(value = "error", defaultValue = "true") boolean loginError) throws Exception {
+	public String loginUser(@ModelAttribute RegisterUserModel registerUserModel, Model model,
+			@RequestParam(value = "error", defaultValue = "true") boolean loginError) throws Exception {
 		String url;
 		String s1 = "ADMIN";
 		String s2 = "USER";
 		String s3 = "DELIVERY";
-//		System.out.println(passwordEncoder().encode(registerUserModel.getPass()));
-//		System.out.println(service.findUserPass(registerUserModel.getUsername()));
-//		System.out.println(passwordEncoder().matches((registerUserModel.getPass()),service.findUserPass(registerUserModel.getUsername())));
+		System.out.println(""+service.loadUserByUsername(registerUserModel.getUsername()));
 
 		try {
-			
+
 			String role = service.getrole(registerUserModel.getUsername());
-			  if (loginError) {
+
 			if (role.equals(s1)) {
-				if (passwordEncoder().matches((registerUserModel.getPass()),service.findUserPass(registerUserModel.getUsername()))
-						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))){
+				if (webSecurityConfig.passwordEncoder().matches((registerUserModel.getPass()),
+						service.findUserPass(registerUserModel.getUsername()))
+						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))) {
 
 					System.out.println(
 							registerUserModel.getUsername() + service.findUser(registerUserModel.getUsername()));
@@ -149,8 +147,6 @@ public class HelloController {
 
 					return url = "redirect:/admin/adminhome/" + id;
 
-				
-						
 				}
 
 				else {
@@ -163,7 +159,8 @@ public class HelloController {
 
 			} else if (role.equals(s2)) {
 
-				if (passwordEncoder().matches((registerUserModel.getPass()),service.findUserPass(registerUserModel.getUsername()))
+				if (webSecurityConfig.passwordEncoder().matches((registerUserModel.getPass()),
+						service.findUserPass(registerUserModel.getUsername()))
 						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))) {
 
 					System.out.println(
@@ -188,7 +185,8 @@ public class HelloController {
 
 			else if (role.equals(s3)) {
 
-				if (passwordEncoder().matches((registerUserModel.getPass()),service.findUserPass(registerUserModel.getUsername()))
+				if (webSecurityConfig.passwordEncoder().matches((registerUserModel.getPass()),
+						service.findUserPass(registerUserModel.getUsername()))
 						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))) {
 
 					System.out.println(
@@ -211,9 +209,7 @@ public class HelloController {
 
 			}
 
-		}
-		}
-		catch (Exception n) {
+		} catch (Exception n) {
 			String message = "Invalid Username and Password";
 			System.out.println(message);
 			model.addAttribute("mess", message);
@@ -222,6 +218,8 @@ public class HelloController {
 		return "login";
 
 	}
+	
+	
 	/*
 	 * If seller/admin forgets password,will have an option to change the
 	 * password
@@ -278,11 +276,11 @@ public class HelloController {
 		if (password.equals(confirmPassword)) {
 			User u;
 			u = service.findentierUser(username);
-			u.setPass(passwordEncoder().encode(password));
-			u.setCnfmpass(passwordEncoder().encode(confirmPassword));
+			u.setPass(webSecurityConfig.passwordEncoder().encode(password));
+			u.setCnfmpass(webSecurityConfig.passwordEncoder().encode(confirmPassword));
 			service.updateUser(u);
 			System.out.println(u.getPass());
-			return "/login";
+			return "redirect:/login";
 
 		} else {
 			model.addAttribute("me", "Password And ConfirmPassword Does Not match");

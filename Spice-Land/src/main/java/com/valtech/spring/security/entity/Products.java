@@ -1,31 +1,27 @@
 package com.valtech.spring.security.entity;
 
-import java.util.Arrays;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Products {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;// Unique Constraint of the product.
 	private String productName;// Name of the product.
 	private double price;// Price of the product.
 	private float weight;// Weight of the product.
 	private String productDescription;// Description of the product.
 	private int quantity;// Quantity of the product avaliable.
+	
 	@Lob
-	@Column(columnDefinition = "MEDIUMBLOB")
+	//@Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 
 	@Lob

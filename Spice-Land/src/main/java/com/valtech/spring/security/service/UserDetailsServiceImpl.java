@@ -1,28 +1,43 @@
 package com.valtech.spring.security.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
-import com.valtech.spring.security.entity.Products;
+import com.valtech.spring.security.entity.MyUserDetails;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.UserReopsitory;
 
+
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl  implements UserDetailsService, org.springframework.security.core.userdetails.UserDetailsService {
 
 	@Autowired
 	private UserReopsitory userRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
+	
+	@Override 
+	
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username);
+         
+        if (user == null) {
+            throw new UsernameNotFoundException("Could not find user");
+        }
+         
+        return new MyUserDetails(user);
+    }
+	
+	
+	
 	// To delete details of all users.
 	@Override
 	public void resetUser() {
@@ -47,7 +62,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		return 0;
 	}
-	
 
 	// To get the roles of the user(admin,user,delivery person).
 	@Override
@@ -57,22 +71,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		logger.debug("The role of " + username + "is" + u.getRole());
 		return u.getRole();
 	}
-	
-	
-	
-	
-	
+
 	public String getrolebymail(String email) {
 
 		User e = userRepository.findByEmail(email);
 
 		return e.getRole();
 	}
-	
-	
-	
-	
-	
 
 	// To get the id of that username.
 	@Override
@@ -87,8 +92,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public User getUsername(int id) {
 		logger.info("Fetching details of the user through Id");
-		User u= userRepository.findUsernameById(id);
-		logger.debug("user details of id"+id+"is"+u);
+		User u = userRepository.findUsernameById(id);
+		logger.debug("user details of id" + id + "is" + u);
 		return u;
 	}
 

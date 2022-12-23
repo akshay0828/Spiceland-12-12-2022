@@ -2,6 +2,7 @@ package com.valtech.spring.security.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -16,8 +17,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -26,16 +27,19 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User  {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id; // unique constraint of the user.
 	private String name; // Name of the user.
 	private String email; // Email of the user.
 	private String username;// Username of the user.
 	private String pass;// Password of the use.
+	
+	
 	private String cnfmpass;// Confirm the password .
+	
 	private String street;// Address of the user.
 	private String area;// Address of the user.
 	private String city;// Address of the user.
@@ -44,23 +48,39 @@ public class User implements UserDetails {
 	private boolean enabled;
 	private String role;// Role of the user
 
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name="user_roles1",joinColumns=@JoinColumn(name="user_id",referencedColumnName="id"))
-	@Column(name="role_name")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+            )
 
-	private List<String> roles;
+	 private Set<Role> roles= new HashSet<Role>();
 	
 	
-	public User() {
+	/*public User() {
 
 		roles = new ArrayList<>();
-	}
-	
+	}*/
 	
 
-	
+
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public int getId() {
+		return id;
+	}
+
+
+
 	public User(String name, String email, String username, String pass, String cnfmpass, String street, String area,
-			String city, String pincode, String contact, boolean enabled, String role, List<String> roles) {
+			String city, String pincode, String contact, boolean enabled, String role, Set<Role> roles) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -75,16 +95,6 @@ public class User implements UserDetails {
 		this.enabled = enabled;
 		this.role = role;
 		this.roles = roles;
-	}
-
-
-
-	
-
-
-
-	public int getId() {
-		return id;
 	}
 
 
@@ -239,53 +249,28 @@ public class User implements UserDetails {
 
 
 
-	public List<String> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
 
 
-	public void setRoles(List<String> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
 
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return roles.stream().map(role->new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username + ", pass=" + pass
+				+ ", cnfmpass=" + cnfmpass + ", street=" + street + ", area=" + area + ", city=" + city + ", pincode="
+				+ pincode + ", contact=" + contact + ", enabled=" + enabled + ", role=" + role + ", roles=" + roles
+				+ "]";
 	}
 
 
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return enabled;
-	}
-
-
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return enabled;
-	}
-
-
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return enabled;
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 

@@ -18,12 +18,11 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
-	//private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-	
-	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-	
 
+	// private static final Logger logger =
+	// LoggerFactory.getLogger(ProductServiceImpl.class);
+
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	// To create the new product.
 	@Override
@@ -85,13 +84,13 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Products> getProductsbyproductname(String productName) {
-		
+
 		return productRepository.findByproductName(productName);
 	}
 
 	@Override
 	public List<Integer> getuseridbyproductname(String productName) {
-		
+
 		return productRepository.findUseridByproductName(productName);
 	}
 

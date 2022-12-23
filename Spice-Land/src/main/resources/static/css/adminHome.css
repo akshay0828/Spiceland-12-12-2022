@@ -1,0 +1,70 @@
+
+
+
+.body{
+        background-image: url('https://theveganword.com/wp-content/uploads/2016/05/launch-page-cooking-2.jpg'); 
+        background-color: #F5CBCB;
+        
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+          background-size: cover;
+      }
+      
+      .product{
+        background-image: url('https://cdn1.iconfinder.com/data/icons/business-related/64/19-512.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+          background-size: cover;
+      }
+      
+     .button-33 {
+  appearance: none;
+  background-color: #FFFFFF;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #ADCFFF 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -.24px;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-33:hover {
+  background-color: #FFC229;
+  box-shadow: #FF6314 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+.button-33:active {
+  transform: scale(1.025);
+}
+
+@media (min-width: 768px) {
+  .button-33 {
+    font-size: 1.5rem;
+    padding: .75rem 2rem;
+  }
+}
+      .clipkart{
+        background-image: url('https://thumbs.dreamstime.com/b/street-vendor-sels-indian-colored-spices-cartoon-caricature-street-vendor-sels-indian-colored-spices-155544506.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+          background-size: cover;
+      } 
