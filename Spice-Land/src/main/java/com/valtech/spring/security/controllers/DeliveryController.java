@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import com.valtech.spring.security.entity.Orders;
 import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.Rolerepo;
+import com.valtech.spring.security.service.CartLineServiceImpl;
 import com.valtech.spring.security.service.OrderService;
 import com.valtech.spring.security.service.UserDetailsService;
 
@@ -42,28 +45,35 @@ public class DeliveryController {
 
 	public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c";
 	public static final String AUTH_TOKEN = "7fc2665dcdd1d4c9b2d1c4d0ef286029";
+	
+	private static final Logger logger = LoggerFactory.getLogger(DeliveryController.class);
+	
+	
 
 	/*
 	 * Once the delivery person login, It will navigate to the deliverhome.
 	 */
 	@GetMapping("/delivery/deliverhome/{id}")
 	public String deliveryhome(@PathVariable("id") int id, ModelMap model) {
+		logger.info("Navigating towards delivery dashboard");
 		model.addAttribute("user", service.getuser(id));
-
 		List<Orders> orders = orderService.findAll();
 		ArrayList<Integer> customerIds = new ArrayList<>();
 
 		if (orders.size() > 0) {
+			logger.debug("The number of orders received is "+orders.size());
 
 			for (Orders order : orders) {
+				
 				if (customerIds.contains(order.getUser_id())) {
-
+					logger.info("No Entry of duplicate location available in drop-down ");
 				} else {
 					customerIds.add(order.getUser_id());
+					logger.info("Entry of new location into the drop-down");
 				}
 			}
 		}
-		System.out.println(customerIds);
+	
 
 		ArrayList<String> address = new ArrayList<>();
 
@@ -71,17 +81,13 @@ public class DeliveryController {
 
 			User user = service.getByid(customerIds.get(i));
 
-			System.out.println(user.getArea());
-
 			address.add(user.getArea());
 
 		}
 
-		System.out.println(address);
-
-		System.out.println(orderService.findAll());
-
 		model.addAttribute("address", address);
+		
+		logger.debug("Currently available orders based on location is/are "+address);
 
 		return "delivery/deliverhome";
 	}
@@ -92,7 +98,9 @@ public class DeliveryController {
 	 */
 	@GetMapping("/delivery/updateprofile/{id}")
 	public String deliveryUpdate(@PathVariable("id") int id, Model model) {
+		logger.info("Navigating towards profile updation page");
 		model.addAttribute("user", service.getuser(id));
+	
 		return "/delivery/updateprofile";
 	}
 
@@ -101,20 +109,15 @@ public class DeliveryController {
 	 */
 	@PostMapping("/delivery/updateProfile/{id}")
 	public String deliveryUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
-		System.out.println("SUCCESS");
+		logger.info("Updating the profile details of the delivery-person  " + user.getName());
 		model.addAttribute("user", service.getuser(id));
-		
-		
-Role role1 = roleRepo.findByName(user.getRole());
-	       
-        
+		Role role1 = roleRepo.findByName(user.getRole());
         Set<Role> roles= new HashSet<Role>();
-        
         roles.add(role1);
-        
         user.setRoles(roles);
         user.setEnabled(true);
 		service.updateUser(user);
+		logger.debug("Successful updation for the delivery-person " + user.getName());
 
 		return "redirect:/delivery/deliverhome/{id}";
 	}
@@ -129,7 +132,7 @@ Role role1 = roleRepo.findByName(user.getRole());
 		model.addAttribute("user", service.getByid(id));
 		location = loc;
 		model.addAttribute("Orders", orderService.FindByArea(loc));
-		System.out.println("LOCATION ......" + loc);
+		logger.debug("Location "+loc);
 		return "delivery/getOrders";
 	}
 	/*
@@ -141,17 +144,18 @@ Role role1 = roleRepo.findByName(user.getRole());
 			@PathVariable("customerid") int customerid) throws AuthenticationException {
 
 		try {
-
+			
 			User user = service.getByid(customerid);
 			User delivery = service.getByid(userid);
-			System.out.println("Contact........ " + user.getContact());
-			System.out.println("LOCATION FROM POST...." + location);
+			logger.debug("Contact"+user.getContact());
+			logger.debug("LOCATION FROM POST...." + location);
+		
 
 			Orders order = orderService.getById(id);
 
-			System.out.println(order.getAdminIds());
-
 			Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+			
+			logger.info("Usage of Twilio for messaging service");
 
 			Message message = Message.creator(new com.twilio.type.PhoneNumber("+91" + user.getContact()),
 					new com.twilio.type.PhoneNumber("+16506403682"),
@@ -165,16 +169,17 @@ Role role1 = roleRepo.findByName(user.getRole());
 			 * com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
 			 * .create();
 			 */
-			System.out.println("MESSAGE SENT");
-			System.out.println(message.getSid());
-
+			
+			logger.debug("The message is sent from twilio account "+ACCOUNT_SID+" confirming towards order been accepted by "+delivery.getName()+"to "+user.getContact());
+			logger.trace("The trace containing the successful transfer of message " +message.getSid());
 			orderService.deletebyId(id);
 
 		}
 
 		catch (Exception e) {
 
-			System.out.println("Message not send");
+			
+			logger.error("Message not sent successfully as resulting towards expiry of AUTH_TOKEN >>>>>"+AUTH_TOKEN);
 			return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
 		}
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
@@ -187,9 +192,10 @@ Role role1 = roleRepo.findByName(user.getRole());
 
 	@GetMapping("/delivery/acceptorder/{id}/{userid}")
 	public String acceptorders(@PathVariable("id") int id, Model model, @PathVariable("userid") int userid) {
+		logger.info("Accepting orders placed by customer");
 		model.addAttribute("deliver", service.getByid(id));
 		model.addAttribute("user", service.getByid(userid));
-
+		logger.debug("Accepted order with the "+id+" from the customer with the id "+userid);
 		return "delivery/acceptorder";
 	}
 
