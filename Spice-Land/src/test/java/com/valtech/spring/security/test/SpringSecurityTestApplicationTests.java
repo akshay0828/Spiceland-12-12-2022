@@ -30,10 +30,10 @@ class SpringSecurityTestApplicationTests {
 	@Autowired
 	private UserDetailsService service;
 
-	@Test
-	void testIndex() throws Exception {
-		mvc.perform(get("/index")).andExpect(status().isOk());
-	}
+// 	@Test
+// 	void testIndex() throws Exception {
+// 		mvc.perform(get("/index")).andExpect(status().isOk());
+// 	}
 //
 //	@Test
 //	@WithAnonymousUser
