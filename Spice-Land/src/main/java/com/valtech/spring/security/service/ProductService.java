@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.valtech.spring.security.entity.Products;
+import com.valtech.spring.security.entity.User;
 
 public interface ProductService {
 
@@ -15,9 +16,8 @@ public interface ProductService {
 
 	Products updateProduct(Products product);
 
-	int getuserid(int id);
-
-	List<Products> getAllproductsbyuser(int userid);
+	User getuserbyid(int id);
+	List<Products> getAllproductsbyuser(User user);
 
 	void deleteProduct(int id);
 

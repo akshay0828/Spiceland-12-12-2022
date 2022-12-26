@@ -135,9 +135,8 @@ public class AdminController {
 			if (pro != null) {
 				logger.info("Checking whether the product added is new/existing one");
 				for (Products produ : pro) {
-					int n = produ.getUserid();
-					User u2 = service.getByid(n);
-					if (user_id == u2.getId()) {
+					User  n = produ.getUser();
+					if (user_id == n.getId()) {
 
 						flag = 1; // showing status that user has addded the
 									// product already
@@ -154,13 +153,13 @@ public class AdminController {
 			}
 			Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded, byteArr);
 
-			p.setUserid(user_id);
-
+			User u = service.getuser(user_id);
+			   p.setUser(u);
 			productservice.createProduct(p);
-
+//			 p.setUser(u);
 			logger.debug("Adding the " + productName + "from the seller " + u1.getName());
 
-			logger.debug("Displaying products " + productservice.getAllproductsbyuser(user_id) + "added by the seller "
+			logger.debug("Displaying products " + productservice.getAllproductsbyuser(u) + "added by the seller "
 					+ u1.getName());
 
 			// System.out.println(productservice.getAllProducts());
@@ -189,10 +188,10 @@ public class AdminController {
 		logger.info("Displaying the entire product list added by the seller " + user.getName());
 
 		model.addAttribute("user", service.getuser(user_id));
+		User u=service.getByid(user_id);
+		model.addAttribute("Products", productservice.getAllproductsbyuser(u));
 
-		model.addAttribute("Products", productservice.getAllproductsbyuser(user_id));
-
-		logger.debug("Displaying products " + productservice.getAllproductsbyuser(user_id) + "added by the seller "
+		logger.debug("Displaying products " + productservice.getAllproductsbyuser(u) + "added by the seller "
 				+ user.getName());
 
 		return "products/prolist";
@@ -242,13 +241,14 @@ public class AdminController {
 		pro.setEimage(p.getEimage());
 		// int ui=productservice.getuserid(id);
 		logger.debug("Existing product details  " + productservice.getProduct(id));
+		User u=p.getUser();
 		productservice.updateProduct(pro);
-		pro.setUserid(uid);
-		model.addAttribute("add", pro.getUserid());
-		model.addAttribute("Products", productservice.getAllproductsbyuser(id));
+		pro.setUser(u);
+		model.addAttribute("add", pro.getUser());
+		model.addAttribute("Products", productservice.getAllproductsbyuser(u));
 		logger.debug("Updated details " + productservice.getProduct(id));
 
-		return "redirect:/products/prolist/" + p.getUserid();
+		return "redirect:/products/prolist/" + u.getId();
 	}
 
 	/*

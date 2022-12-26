@@ -664,6 +664,9 @@ height: 45%;
 										<p id="quantity" name="quantity">
 											Quantity Available ${product.quantity}<br>
 										</p>
+										<p id="quantity" name="a">Seller Name:-
+										${product.user.name}	<br>
+										</p>
 										<p>
 											<!-- <img src="https://th.bing.com/th/id/OIP.RE0burbBLkrbpIPHghxAIQHaD3?pid=ImgDet&rs=1" alt="Girl in a jacket" width="250" height="100"> -->
 										<center>

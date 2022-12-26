@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.valtech.spring.security.entity.Products;
-
+import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.ProductRepository;
 
 @Service
@@ -64,15 +64,16 @@ public class ProductServiceImpl implements ProductService {
 
 	// List of products by the seller id .
 	@Override
-	public List<Products> getAllproductsbyuser(int userid) {
-		logger.info("Listing of products through seller ID");
-		return productRepository.findByUserid(userid);
+	public List<Products> getAllproductsbyuser(User user) {
+		logger.info("Listing of products through seller ");
+		return productRepository.findByUser(user);
 	}
 
 	// To get the seller id by the product id added by the seller.
 	@Override
-	public int getuserid(int id) {
-		return productRepository.findUseridById(id);
+	public User getuserbyid(int id) {
+		logger.info("Getting seller details by product id");
+		return productRepository.findUserById(id);
 	}
 
 	// To delete the product.

@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -39,7 +40,6 @@ public class User  {
 	
 	
 	
-	
 	private String street;// Address of the user.
 	private String area;// Address of the user.
 	private String city;// Address of the user.
@@ -57,6 +57,8 @@ public class User  {
 
 	 private Set<Role> roles= new HashSet<Role>();
 	
+	@OneToMany(targetEntity=Products.class,cascade={CascadeType.MERGE,CascadeType.PERSIST},fetch=FetchType.EAGER,mappedBy="user")
+	private Set<Products> products;
 	
 	/*public User() {
 
@@ -64,7 +66,16 @@ public class User  {
 	}*/
 	
 
+	public Set<Products> getProducts() {
+		return products;
+	}
 
+
+
+
+	public void setProducts(Set<Products> products) {
+		this.products = products;
+	}
 
 	public User() {
 		super();
@@ -86,7 +97,6 @@ public class User  {
 		this.email = email;
 		this.username = username;
 		this.pass = pass;
-		
 		this.street = street;
 		this.area = area;
 		this.city = city;
@@ -96,10 +106,6 @@ public class User  {
 		this.role = role;
 		this.roles = roles;
 	}
-	
-	
-
-
 
 	public User(String name, String email, String username, String pass, String street, String area,
 			String city, String pincode, String contact, String role) {
@@ -117,8 +123,6 @@ public class User  {
 		this.enabled = true;
 		this.role = role;
 	}
-
-
 
 	public void setId(int id) {
 		this.id = id;
@@ -175,7 +179,6 @@ public class User  {
 
 
 	
-
 
 
 	public String getStreet() {
@@ -274,13 +277,18 @@ public class User  {
 
 
 
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username + ", pass=" + pass
-				 + ", street=" + street + ", area=" + area + ", city=" + city + ", pincode="
-				+ pincode + ", contact=" + contact + ", enabled=" + enabled + ", role=" + role + ", roles=" + roles
+				+ ", street=" + street + ", area=" + area + ", city=" + city + ", pincode=" + pincode + ", contact="
+				+ contact + ", enabled=" + enabled + ", role=" + role + ", roles=" + roles + ", products=" + products
 				+ "]";
 	}
+
+
+
+	
 
 
 
