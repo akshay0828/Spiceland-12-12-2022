@@ -28,6 +28,7 @@ import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.Rolerepo;
 import com.valtech.spring.security.service.CartLineServiceImpl;
 import com.valtech.spring.security.service.ProductServiceImpl;
+import com.valtech.spring.security.service.RoleService;
 import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
@@ -40,7 +41,7 @@ public class AdminController {
 	private ProductServiceImpl productservice;
 
 	@Autowired
-	private Rolerepo roleRepo;
+	private RoleService roleService;
 
 	int uid;
 	int flag = 0;
@@ -155,7 +156,7 @@ public class AdminController {
 
 			User u = service.getuser(user_id);
 			   p.setUser(u);
-			productservice.createProduct(p);
+			productservice.createProduct(p); 
 //			 p.setUser(u);
 			logger.debug("Adding the " + productName + "from the seller " + u1.getName());
 
@@ -206,6 +207,8 @@ public class AdminController {
 	public String DeleteProduct(Model model, @PathVariable("id") int id, @PathVariable("userid") int user_id) {
 
 		logger.info("Deleting the product");
+	Products p=	productservice.getProduct(id);
+		p.setUser(null);
 		productservice.deleteProduct(id);
 		return "redirect:/products/prolist/" + user_id;
 
@@ -216,11 +219,13 @@ public class AdminController {
 	 * updateproduct page
 	 */
 	@GetMapping("/products/updateproduct/{id}")
-	public String updateproduct(@PathVariable("id") int id, Model model) {
+	public String updateproduct(@PathVariable("id") int id, Model model,@ModelAttribute Products pro) {
 
 		logger.info("Navigation towards updating the product");
 		model.addAttribute("product", productservice.getProduct(id));
 
+	
+		
 		return "products/updateproduct";
 	}
 
@@ -230,25 +235,50 @@ public class AdminController {
 
 	@PostMapping("/products/updateproduct/{id}")
 	public String updateProduct(@PathVariable("id") int id, @ModelAttribute Products pro,
-			@RequestParam("submit") String submit, Model model) {
+			@RequestParam("submit") String submit, Model model) throws Exception {
+		
+		
 		// ModelAndView view = new ModelAndView("products/afterupdateprolist");
-
+		/*System.out.println("+++++++++"+pro);
+		
+		User u1 =pro.getUser();
+		
+		System.out.println(">>>>>>>"+u1.getId());*/
+		
+		Products products =productservice.getProduct(id);
+		
+		
+		
+		
+try{
 		logger.info("Updating the fields required for the existing product_id " + id);
 
-		Products p = productservice.getProduct(pro.getId());
+		//Products p = productservice.getProduct(pro.getId());
 
-		pro.setImage(p.getImage());
-		pro.setEimage(p.getEimage());
+//		pro.setImage(p.getImage());
+//		pro.setEimage(p.getEimage());
+//		pro.setUser(p.getUser());
 		// int ui=productservice.getuserid(id);
 		logger.debug("Existing product details  " + productservice.getProduct(id));
-		User u=p.getUser();
-		productservice.updateProduct(pro);
-		pro.setUser(u);
+		
+		
+		
+		
+		
+		
+//		   p.setUser(u);x
+		
+		productservice.productUpdate(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(), pro.getProductDescription(), pro.getId());
+		//productservice.updateProduct(pro);
+		
 		model.addAttribute("add", pro.getUser());
-		model.addAttribute("Products", productservice.getAllproductsbyuser(u));
+		model.addAttribute("Products", productservice.getAllproductsbyuser(products.getUser()));
 		logger.debug("Updated details " + productservice.getProduct(id));
-
-		return "redirect:/products/prolist/" + u.getId();
+}
+catch(NullPointerException e){
+	return "redirect:/products/prolist/" + products.getUser().getId();
+}
+		return "redirect:/products/prolist/" + products.getUser().getId();
 	}
 
 	/*
@@ -272,12 +302,8 @@ public class AdminController {
 		logger.info("Updating the profile details of the seller " + id);
 	
 		model.addAttribute("user", service.getuser(id));
-		Role role1 = roleRepo.findByName(user.getRole());
-		Set<Role> roles = new HashSet<Role>();
-		roles.add(role1);
-		user.setRoles(roles);
-		user.setEnabled(true);
-		service.updateUser(user);
+	
+		service.updateUser(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(), user.getCity(), user.getPincode(), id);
 
 		logger.debug("Successful updation for the seller " + id);
 

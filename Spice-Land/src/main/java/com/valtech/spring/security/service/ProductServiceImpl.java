@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +20,32 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
 	// private static final Logger logger =
 	// LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
+	
+	@Override
+	public void  productUpdate(String productName,Double price,Float weight,int quantity,String productDescription,int id) throws Exception {
+		
+		logger.info("Updating password with JDBC Query");
+		 String sql = "update products set PRODUCT_NAME = ? ,price= ?, weight= ?, quantity= ?, PRODUCT_DESCRIPTION=? where id = ?";
+		 
+		 jdbcTemplate.update(sql, productName, price,weight,quantity,productDescription,id);
+		 
+		
+		
+		
+	}
+	
+	
+	
+	
 	// To create the new product.
 	@Override
 	public void createProduct(Products products) {
@@ -60,6 +82,8 @@ public class ProductServiceImpl implements ProductService {
 		Products p = productRepository.save(product);
 		logger.debug("Product updated with id = " + product.getId() + " is " + p);
 		return p;
+		
+		
 	}
 
 	// List of products by the seller id .

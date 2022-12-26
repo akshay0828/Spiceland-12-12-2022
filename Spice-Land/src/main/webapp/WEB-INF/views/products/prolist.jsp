@@ -83,9 +83,8 @@
 					<td><a href="/products/updateproduct/${product.id}"><input
 							type="submit" name="Update" value="Update" class="button-17"></a></td>
 
-					<!-- <td><a href="/products/prolist/${user.id}"><input type="submit"  name="Delete" value="Delete"></a></td> -->
-					<form method="post"
-						action="/products/prolist/${product.id}/${user.id}">
+					
+					<form method="post"  action="/products/prolist/${product.id}/${user.id}">
 						<td><input type="submit" value="Delete" id="Delete"
 							name="Delete" class="button-17"> <!-- <i class="fa fa-ban"></i> --></td>
 					</form>

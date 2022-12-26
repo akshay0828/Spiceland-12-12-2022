@@ -1,6 +1,8 @@
 package com.valtech.spring.security.entity;
 
 
+import java.util.Arrays;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -169,11 +171,9 @@ public class Products {
 	}
 
 	
+	
 
-	@Override
-	public String toString() {
-		return "Products [id=" + id + ", productName=" + productName + ", price=" + price + ", weight=" + weight
-				+ ", productDescription=" + productDescription + ", quantity=" + quantity + "]";
-	}
+	
 
+	
 }

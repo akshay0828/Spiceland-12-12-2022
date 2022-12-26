@@ -24,6 +24,9 @@ public interface ProductService {
 	List<Products> getProductsbyproductname(String productName);
 
 	List<Integer> getuseridbyproductname(String productName);
+
+	void productUpdate(String productName, Double price, Float weight, int quantity, String productDescription, int id)
+			throws Exception;
 	
 
 

@@ -39,8 +39,7 @@ public interface UserDetailsService {
 	// Details of the user by id.
 	User getuser(int id);
 
-	// To update the details of the user.
-	User updateUser(User user);
+	
 
 	// List of the user by role.
 	List<User> getAlluser();
@@ -53,5 +52,10 @@ public interface UserDetailsService {
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
 	void forgotPassword(String username, String password) throws Exception;
+
+	// To update the details of the user.
+	
+	void updateUser(String name, String email, String contact, String street, String area, String city, String pincode,
+			int id);
 
 }

@@ -111,12 +111,12 @@ public class DeliveryController {
 	public String deliveryUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 		logger.info("Updating the profile details of the delivery-person  " + user.getName());
 		model.addAttribute("user", service.getuser(id));
-		Role role1 = roleRepo.findByName(user.getRole());
+	/*	Role role1 = roleRepo.findByName(user.getRole());
         Set<Role> roles= new HashSet<Role>();
         roles.add(role1);
         user.setRoles(roles);
-        user.setEnabled(true);
-		service.updateUser(user);
+        user.setEnabled(true);*/
+        service.updateUser(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(), user.getCity(), user.getPincode(), id);
 		logger.debug("Successful updation for the delivery-person " + user.getName());
 
 		return "redirect:/delivery/deliverhome/{id}";
@@ -143,6 +143,7 @@ public class DeliveryController {
 	public String DeleteProduct(Model model, @PathVariable("userid") int userid, @PathVariable("orderid") int id,
 			@PathVariable("customerid") int customerid) throws AuthenticationException {
 
+		
 		try {
 			
 			User user = service.getByid(customerid);
@@ -172,7 +173,7 @@ public class DeliveryController {
 			
 			logger.debug("The message is sent from twilio account "+ACCOUNT_SID+" confirming towards order been accepted by "+delivery.getName()+"to "+user.getContact());
 			logger.trace("The trace containing the successful transfer of message " +message.getSid());
-			orderService.deletebyId(id);
+			
 
 		}
 
@@ -181,6 +182,9 @@ public class DeliveryController {
 			
 			logger.error("Message not sent successfully as resulting towards expiry of AUTH_TOKEN >>>>>"+AUTH_TOKEN);
 			return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
+		}
+		finally{
+			orderService.deletebyId(id);
 		}
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
 	}

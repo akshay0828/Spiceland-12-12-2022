@@ -101,7 +101,7 @@ body {
 			<ul class="navbar-nav mr-auto"></ul>
 			<ul class="navbar-nav">
 				<li class="nav-item active"><a class="nav-link"
-					href="/products/prolist/${product.userid}">Back</a></li>
+					href="/products/prolist/${product.user}">Back</a></li>
 
 
 			</ul>
@@ -121,7 +121,7 @@ body {
 				<div class="form-group">
 					<label for="weight" style="color: white;" hidden="hidden">User_id</label>
 					<input type="hidden" class="form-control border border-warning"
-						name="userid" value="${product.userid}">
+						name="userid" value="${product.user}">
 				</div>
 			</div>
 			<div class="col-sm-3">
