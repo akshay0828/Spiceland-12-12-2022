@@ -30,24 +30,24 @@ class SpringSecurityTestApplicationTests {
 	@Autowired
 	private UserDetailsService service;
 
-//	@Test
-//	@WithAnonymousUser
-//	void testIndex() throws Exception {
-//		mvc.perform(get("/index")).andExpect(status().isOk());
-//	}
-//
-//	@Test
-//	@WithAnonymousUser
-//	void testLogin() throws Exception {
-//		mvc.perform(get("/login")).andExpect(status().isOk());
-//	}
-//
-//	@Test
-//	@WithAnonymousUser
-//	void textRegister() throws Exception {
-//		mvc.perform(get("/register")).andExpect(status().isOk());
-//	}
-//
+	@Test
+	@WithAnonymousUser
+	void testIndex() throws Exception {
+		mvc.perform(get("/index")).andExpect(status().isOk());
+	}
+
+	@Test
+	@WithAnonymousUser
+	void testLogin() throws Exception {
+		mvc.perform(get("/login")).andExpect(status().isOk());
+	}
+
+	@Test
+	@WithAnonymousUser
+	void textRegister() throws Exception {
+		mvc.perform(get("/register")).andExpect(status().isOk());
+	}
+
 //	@Test
 //	void testAdminHome() throws Exception {
 //		int id = 1;
