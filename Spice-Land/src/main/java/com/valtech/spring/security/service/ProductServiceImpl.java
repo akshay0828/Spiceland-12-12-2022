@@ -104,7 +104,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void deleteProduct(int id) {
 		logger.info("Deleting product");
-		productRepository.deleteById(id);
+		String sql = "delete products where id = ?";
+        jdbcTemplate.update(sql, id);
 	}
 
 	@Override

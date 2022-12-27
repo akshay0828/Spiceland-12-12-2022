@@ -71,7 +71,7 @@
 							<div class="form-group">
 								<label for="productName" style="color: white;">ProductName</label>
 								<input type="text" class="form-control border border-warning"
-									required name="productName" min="1" placeholder="ProductName">
+									required name="productName"  pattern="[A-Z][a-z]*[A-Z][a-z]*|[A-Z][a-z]*" placeholder="ProductName" title="please enter the product name in camel case.for example=WhatIf">
 							</div>
 						</div>
 						<div class="col-sm-3">

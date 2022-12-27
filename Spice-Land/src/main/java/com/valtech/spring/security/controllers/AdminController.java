@@ -129,10 +129,13 @@ public class AdminController {
 				logger.info("Checking whether the product added is new/existing one");
 				for (Products produ : pro) {
 					User n = produ.getUser();
-					if (user_id == n.getId()) {
+					String p = produ.getProductName();
 
-						flag = 1; // showing status that user has addded the
-									// product already
+					if (p.equalsIgnoreCase(productName)) {
+						if (user_id == n.getId()) {
+
+							flag = 1; // showing status that user has addded the
+						} // product already
 
 					}
 				}
