@@ -1,8 +1,5 @@
 package com.valtech.spring.security.entity;
 
-
-import java.util.Arrays;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,22 +22,20 @@ public class Products {
 	private float weight;// Weight of the product.
 	private String productDescription;// Description of the product.
 	private int quantity;// Quantity of the product avaliable.
-	
+
 	@Lob
-	//@Column(columnDefinition = "MEDIUMBLOB")
+	// @Column(columnDefinition = "MEDIUMBLOB")
 	private String image;
 
 	@Lob
 	@Column(name = "EIMAGE")
 	private byte[] eimage;
 
-	@ManyToOne(targetEntity=User.class,cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST }, fetch = FetchType.EAGER)
-	@JoinColumn(name="user_id",referencedColumnName="id")
+	@ManyToOne(targetEntity = User.class, cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 	// Parameterless Constructor
-	
-	
+
 	public Products() {
 	}
 
@@ -89,8 +84,9 @@ public class Products {
 		this.quantity = quantity;
 		this.image = image;
 	}
+
 	public Products(int id, String productName, double price, float weight, String productDescription, int quantity,
-			String image,  User user) {
+			String image, User user) {
 		super();
 		this.id = id;
 		this.productName = productName;
@@ -102,7 +98,6 @@ public class Products {
 		this.eimage = eimage;
 		this.user = user;
 	}
-
 
 	// Getters and Setters of the variables.
 
@@ -170,10 +165,4 @@ public class Products {
 		this.eimage = eimage;
 	}
 
-	
-	
-
-	
-
-	
 }

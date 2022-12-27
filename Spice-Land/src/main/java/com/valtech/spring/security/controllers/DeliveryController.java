@@ -1,9 +1,7 @@
 package com.valtech.spring.security.controllers;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,24 +15,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.valtech.spring.security.entity.Orders;
-import com.valtech.spring.security.entity.Role;
-import com.valtech.spring.security.entity.User;
-import com.valtech.spring.security.repo.Rolerepo;
-import com.valtech.spring.security.service.CartLineServiceImpl;
-import com.valtech.spring.security.service.OrderService;
-import com.valtech.spring.security.service.UserDetailsService;
-
 import com.twilio.Twilio;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.rest.api.v2010.account.Message;
+import com.valtech.spring.security.entity.Orders;
+import com.valtech.spring.security.entity.User;
+import com.valtech.spring.security.repo.Rolerepo;
+import com.valtech.spring.security.service.OrderService;
+import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
 public class DeliveryController {
 
 	@Autowired
 	private UserDetailsService service;
-	
+
 	@Autowired
 	private Rolerepo roleRepo;
 
@@ -45,10 +40,8 @@ public class DeliveryController {
 
 	public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c";
 	public static final String AUTH_TOKEN = "7fc2665dcdd1d4c9b2d1c4d0ef286029";
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(DeliveryController.class);
-	
-	
 
 	/*
 	 * Once the delivery person login, It will navigate to the deliverhome.
@@ -61,10 +54,10 @@ public class DeliveryController {
 		ArrayList<Integer> customerIds = new ArrayList<>();
 
 		if (orders.size() > 0) {
-			logger.debug("The number of orders received is "+orders.size());
+			logger.debug("The number of orders received is " + orders.size());
 
 			for (Orders order : orders) {
-				
+
 				if (customerIds.contains(order.getUser_id())) {
 					logger.info("No Entry of duplicate location available in drop-down ");
 				} else {
@@ -73,7 +66,6 @@ public class DeliveryController {
 				}
 			}
 		}
-	
 
 		ArrayList<String> address = new ArrayList<>();
 
@@ -86,8 +78,8 @@ public class DeliveryController {
 		}
 
 		model.addAttribute("address", address);
-		
-		logger.debug("Currently available orders based on location is/are "+address);
+
+		logger.debug("Currently available orders based on location is/are " + address);
 
 		return "delivery/deliverhome";
 	}
@@ -100,7 +92,7 @@ public class DeliveryController {
 	public String deliveryUpdate(@PathVariable("id") int id, Model model) {
 		logger.info("Navigating towards profile updation page");
 		model.addAttribute("user", service.getuser(id));
-	
+
 		return "/delivery/updateprofile";
 	}
 
@@ -111,12 +103,9 @@ public class DeliveryController {
 	public String deliveryUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 		logger.info("Updating the profile details of the delivery-person  " + user.getName());
 		model.addAttribute("user", service.getuser(id));
-	/*	Role role1 = roleRepo.findByName(user.getRole());
-        Set<Role> roles= new HashSet<Role>();
-        roles.add(role1);
-        user.setRoles(roles);
-        user.setEnabled(true);*/
-        service.updateUser(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(), user.getCity(), user.getPincode(), id);
+
+		service.updateUser(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(),
+				user.getCity(), user.getPincode(), id);
 		logger.debug("Successful updation for the delivery-person " + user.getName());
 
 		return "redirect:/delivery/deliverhome/{id}";
@@ -132,7 +121,7 @@ public class DeliveryController {
 		model.addAttribute("user", service.getByid(id));
 		location = loc;
 		model.addAttribute("Orders", orderService.FindByArea(loc));
-		logger.debug("Location "+loc);
+		logger.debug("Location " + loc);
 		return "delivery/getOrders";
 	}
 	/*
@@ -143,19 +132,17 @@ public class DeliveryController {
 	public String DeleteProduct(Model model, @PathVariable("userid") int userid, @PathVariable("orderid") int id,
 			@PathVariable("customerid") int customerid) throws AuthenticationException {
 
-		
 		try {
-			
+
 			User user = service.getByid(customerid);
 			User delivery = service.getByid(userid);
-			logger.debug("Contact"+user.getContact());
+			logger.debug("Contact" + user.getContact());
 			logger.debug("LOCATION FROM POST...." + location);
-		
 
 			Orders order = orderService.getById(id);
 
 			Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-			
+
 			logger.info("Usage of Twilio for messaging service");
 
 			Message message = Message.creator(new com.twilio.type.PhoneNumber("+91" + user.getContact()),
@@ -170,20 +157,18 @@ public class DeliveryController {
 			 * com.twilio.type.PhoneNumber("+16506403682"),"to akshay")
 			 * .create();
 			 */
-			
-			logger.debug("The message is sent from twilio account "+ACCOUNT_SID+" confirming towards order been accepted by "+delivery.getName()+"to "+user.getContact());
-			logger.trace("The trace containing the successful transfer of message " +message.getSid());
-			
+
+			logger.debug("The message is sent from twilio account " + ACCOUNT_SID
+					+ " confirming towards order been accepted by " + delivery.getName() + "to " + user.getContact());
+			logger.trace("The trace containing the successful transfer of message " + message.getSid());
 
 		}
 
 		catch (Exception e) {
 
-			
-			logger.error("Message not sent successfully as resulting towards expiry of AUTH_TOKEN >>>>>"+AUTH_TOKEN);
+			logger.error("Message not sent successfully as resulting towards expiry of AUTH_TOKEN >>>>>" + AUTH_TOKEN);
 			return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
-		}
-		finally{
+		} finally {
 			orderService.deletebyId(id);
 		}
 		return "redirect:/delivery/acceptorder/" + userid + "/" + customerid;
@@ -199,7 +184,7 @@ public class DeliveryController {
 		logger.info("Accepting orders placed by customer");
 		model.addAttribute("deliver", service.getByid(id));
 		model.addAttribute("user", service.getByid(userid));
-		logger.debug("Accepted order with the "+id+" from the customer with the id "+userid);
+		logger.debug("Accepted order with the " + id + " from the customer with the id " + userid);
 		return "delivery/acceptorder";
 	}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -153,13 +152,14 @@ public class UserDetailsServiceImpl
 
 	// To update the details of the user.
 	@Override
-	public void updateUser(String name,String email,String contact,String street,String area,String city,String pincode,int id) {
+	public void updateUser(String name, String email, String contact, String street, String area, String city,
+			String pincode, int id) {
 		logger.info("Updating User with id" + id);
 		String sql = "update users set name = ? ,email= ?, contact=?, street= ?, area= ?, city=?, pincode=? where id = ?";
 
-		jdbcTemplate.update(sql, name,email,contact,street,area,city,pincode,id);
+		jdbcTemplate.update(sql, name, email, contact, street, area, city, pincode, id);
 		logger.debug("User updated with id=" + id);
-		
+
 	}
 
 	// List of the user by role.
@@ -186,7 +186,5 @@ public class UserDetailsServiceImpl
 		return users;
 
 	}
-
-	
 
 }

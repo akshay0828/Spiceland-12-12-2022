@@ -1,18 +1,11 @@
 package com.valtech.spring.security.controllers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,11 +60,11 @@ public class HelloController {
 			@RequestParam("username") String username, @RequestParam("role") String role,
 			@RequestParam("pass") String pass, Model model, @RequestParam("cnfmpass") String cnfmpass) {
 		model.addAttribute("roleval", roleRepo.findAll());
-		// user.setRole(user.getRole());
+
 		String u = service.findUser(username);
-		
+
 		if (u == "false") {
-			logger.debug("Existence in database is false for "+u);
+			logger.debug("Existence in database is false for " + u);
 			if (registerUserModel.getPass().equals(registerUserModel.getCnfmpass())) {
 				User user = new User(registerUserModel.getName(), registerUserModel.getEmail(),
 						registerUserModel.getUsername(),
@@ -87,10 +80,9 @@ public class HelloController {
 				service.createUser(user);
 				MyUserDetails use = new MyUserDetails(user);
 				return "redirect:/login";
-				
-			}
-			else {
-				logger.error("The passwords that is "+pass+" and "+cnfmpass +" doesn't match.");
+
+			} else {
+				logger.error("The passwords that is " + pass + " and " + cnfmpass + " doesn't match.");
 				model.addAttribute("error", "Password and Confirm Password does not match");
 				return "/register";
 			}
@@ -105,8 +97,6 @@ public class HelloController {
 		return "login";
 	}
 
-	
-
 	/*
 	 * Seller/Admin should provide the username and password . If username and
 	 * password of the registered seller matches it will navigate to
@@ -120,23 +110,23 @@ public class HelloController {
 		String s1 = "ADMIN";
 		String s2 = "USER";
 		String s3 = "DELIVERY";
-		
+
 		try {
 			String role = service.getrole(registerUserModel.getUsername());
-			logger.debug("Logging with the role as "+role);
+			logger.debug("Logging with the role as " + role);
 			if (role.equals(s1)) {
-				
+
 				if (webSecurityConfig.passwordEncoder().matches((registerUserModel.getPass()),
 						service.findUserPass(registerUserModel.getUsername()))
 						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))) {
-					
+
 					logger.debug(registerUserModel.getUsername() + service.findUser(registerUserModel.getUsername()));
-				
+
 					int id = service.getId(registerUserModel.getUsername());
 
 					uid = id;
-					
-					logger.debug(registerUserModel.getUsername()+"has successfully logged-in as "+role);
+
+					logger.debug(registerUserModel.getUsername() + "has successfully logged-in as " + role);
 					return url = "redirect:/admin/adminhome/" + id;
 
 				}
@@ -154,14 +144,12 @@ public class HelloController {
 						service.findUserPass(registerUserModel.getUsername()))
 						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))) {
 
-					logger.debug(
-							registerUserModel.getUsername() + service.findUser(registerUserModel.getUsername()));
-					
+					logger.debug(registerUserModel.getUsername() + service.findUser(registerUserModel.getUsername()));
+
 					logger.debug("Successful");
 
-					//System.out.println("SUCCESS");
 					int id = service.getId(registerUserModel.getUsername());
-					logger.debug(registerUserModel.getUsername()+"has successfully logged-in as "+role);
+					logger.debug(registerUserModel.getUsername() + "has successfully logged-in as " + role);
 					return url = "redirect:/user/userhome/" + id;
 
 				}
@@ -180,12 +168,10 @@ public class HelloController {
 						service.findUserPass(registerUserModel.getUsername()))
 						&& registerUserModel.getUsername().equals(service.findUser(registerUserModel.getUsername()))) {
 
-					logger.debug(
-							registerUserModel.getUsername() + service.findUser(registerUserModel.getUsername()));
+					logger.debug(registerUserModel.getUsername() + service.findUser(registerUserModel.getUsername()));
 
-					
 					int id = service.getId(registerUserModel.getUsername());
-					logger.debug(registerUserModel.getUsername()+"has successfully logged-in as "+role);
+					logger.debug(registerUserModel.getUsername() + "has successfully logged-in as " + role);
 					return url = "redirect:/delivery/deliverhome/" + id;
 
 				}

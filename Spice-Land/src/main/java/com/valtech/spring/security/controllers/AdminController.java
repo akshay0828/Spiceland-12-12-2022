@@ -2,9 +2,7 @@
 package com.valtech.spring.security.controllers;
 
 import java.util.Base64;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.valtech.spring.security.entity.Products;
-import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
-import com.valtech.spring.security.repo.Rolerepo;
-import com.valtech.spring.security.service.CartLineServiceImpl;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.RoleService;
 import com.valtech.spring.security.service.UserDetailsService;
@@ -91,10 +86,7 @@ public class AdminController {
 		User u = service.getUsername(user_id);
 		logger.info("Navigation towards adding new products by the seller " + user_id);
 
-		// System.out.println("get product");
-
-		// logger.info("Checking whether the product added is new/existing
-		// one");
+		logger.info("Checking whether the product added is new/existing one");
 		if (flag == 1) {
 			model.addAttribute("perror", "Product is already added");
 			flag = 0;
@@ -136,7 +128,7 @@ public class AdminController {
 			if (pro != null) {
 				logger.info("Checking whether the product added is new/existing one");
 				for (Products produ : pro) {
-					User  n = produ.getUser();
+					User n = produ.getUser();
 					if (user_id == n.getId()) {
 
 						flag = 1; // showing status that user has addded the
@@ -155,9 +147,9 @@ public class AdminController {
 			Products p = new Products(productName, price, weight, productDescription, quantity, base64Encoded, byteArr);
 
 			User u = service.getuser(user_id);
-			   p.setUser(u);
-			productservice.createProduct(p); 
-//			 p.setUser(u);
+			p.setUser(u);
+			productservice.createProduct(p);
+			// p.setUser(u);
 			logger.debug("Adding the " + productName + "from the seller " + u1.getName());
 
 			logger.debug("Displaying products " + productservice.getAllproductsbyuser(u) + "added by the seller "
@@ -189,7 +181,7 @@ public class AdminController {
 		logger.info("Displaying the entire product list added by the seller " + user.getName());
 
 		model.addAttribute("user", service.getuser(user_id));
-		User u=service.getByid(user_id);
+		User u = service.getByid(user_id);
 		model.addAttribute("Products", productservice.getAllproductsbyuser(u));
 
 		logger.debug("Displaying products " + productservice.getAllproductsbyuser(u) + "added by the seller "
@@ -207,7 +199,7 @@ public class AdminController {
 	public String DeleteProduct(Model model, @PathVariable("id") int id, @PathVariable("userid") int user_id) {
 
 		logger.info("Deleting the product");
-	Products p=	productservice.getProduct(id);
+		Products p = productservice.getProduct(id);
 		p.setUser(null);
 		productservice.deleteProduct(id);
 		return "redirect:/products/prolist/" + user_id;
@@ -219,13 +211,11 @@ public class AdminController {
 	 * updateproduct page
 	 */
 	@GetMapping("/products/updateproduct/{id}")
-	public String updateproduct(@PathVariable("id") int id, Model model,@ModelAttribute Products pro) {
+	public String updateproduct(@PathVariable("id") int id, Model model, @ModelAttribute Products pro) {
 
 		logger.info("Navigation towards updating the product");
 		model.addAttribute("product", productservice.getProduct(id));
 
-	
-		
 		return "products/updateproduct";
 	}
 
@@ -236,48 +226,23 @@ public class AdminController {
 	@PostMapping("/products/updateproduct/{id}")
 	public String updateProduct(@PathVariable("id") int id, @ModelAttribute Products pro,
 			@RequestParam("submit") String submit, Model model) throws Exception {
-		
-		
-		// ModelAndView view = new ModelAndView("products/afterupdateprolist");
-		/*System.out.println("+++++++++"+pro);
-		
-		User u1 =pro.getUser();
-		
-		System.out.println(">>>>>>>"+u1.getId());*/
-		
-		Products products =productservice.getProduct(id);
-		
-		
-		
-		
-try{
-		logger.info("Updating the fields required for the existing product_id " + id);
 
-		//Products p = productservice.getProduct(pro.getId());
+		Products products = productservice.getProduct(id);
 
-//		pro.setImage(p.getImage());
-//		pro.setEimage(p.getEimage());
-//		pro.setUser(p.getUser());
-		// int ui=productservice.getuserid(id);
-		logger.debug("Existing product details  " + productservice.getProduct(id));
-		
-		
-		
-		
-		
-		
-//		   p.setUser(u);x
-		
-		productservice.productUpdate(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(), pro.getProductDescription(), pro.getId());
-		//productservice.updateProduct(pro);
-		
-		model.addAttribute("add", pro.getUser());
-		model.addAttribute("Products", productservice.getAllproductsbyuser(products.getUser()));
-		logger.debug("Updated details " + productservice.getProduct(id));
-}
-catch(NullPointerException e){
-	return "redirect:/products/prolist/" + products.getUser().getId();
-}
+		try {
+			logger.info("Updating the fields required for the existing product_id " + id);
+
+			logger.debug("Existing product details  " + productservice.getProduct(id));
+
+			productservice.productUpdate(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(),
+					pro.getProductDescription(), pro.getId());
+
+			model.addAttribute("add", pro.getUser());
+			model.addAttribute("Products", productservice.getAllproductsbyuser(products.getUser()));
+			logger.debug("Updated details " + productservice.getProduct(id));
+		} catch (NullPointerException e) {
+			return "redirect:/products/prolist/" + products.getUser().getId();
+		}
 		return "redirect:/products/prolist/" + products.getUser().getId();
 	}
 
@@ -300,10 +265,11 @@ catch(NullPointerException e){
 	public String adminUpdateInsert(@PathVariable("id") int id, @ModelAttribute User user, Model model) {
 
 		logger.info("Updating the profile details of the seller " + id);
-	
+
 		model.addAttribute("user", service.getuser(id));
-	
-		service.updateUser(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(), user.getCity(), user.getPincode(), id);
+
+		service.updateUser(user.getName(), user.getEmail(), user.getContact(), user.getStreet(), user.getArea(),
+				user.getCity(), user.getPincode(), id);
 
 		logger.debug("Successful updation for the seller " + id);
 
