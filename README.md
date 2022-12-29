@@ -91,4 +91,4 @@ Snaps:
 Agile Retrospective Meeting...
 
 
-![Outcome](https://github.com/akshay0828/Valtech-miniProject-Spice-Land/blob/main/Snaps/Home-1.png)
+![Outcome](https://github.com/akshay0828/Spiceland-12-12-2022/blob/main/Retrospective-Points.png)
