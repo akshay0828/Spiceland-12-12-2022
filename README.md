@@ -19,8 +19,8 @@ https://homemadespices.atlassian.net/issues/?jql=created+%3E%3D+-30d+order+by+cr
 <ul>
     <li>Spring boot MVC.</li>
     <li>Hibernate,+ JPA as ORM.</li>
-    <li>H2 in memory database. in Development</li>
-    <li>Oracle database. in Development</li>
+    <li>H2 in memory database. in Development Phase</li>
+    <li>Oracle database. for final delivery</li>
     <li>Bootstrap 4.3.1 as layout and template.</li>
     <li>Springboot Security as authentication & authorization.</li>
     <li>Springboot multipart support for upload file.</li>
