@@ -1,5 +1,5 @@
 .body {
-	    background-image: url('https://wallpapercave.com/wp/EXB9jdd.jpg'); 
+	background-image: url('https://wallpapercave.com/wp/EXB9jdd.jpg');
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-position: center;
@@ -9,7 +9,6 @@
 .container {
 	background-image:
 		url('https://cropper.watch.aetnd.com/cdn.watch.aetnd.com/sites/3/2018/01/watch-desktop-hero-man-vs-master-chef-battle.jpg?w=1440');
-	
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: fixed;
@@ -62,6 +61,7 @@
 		padding: 16px 48px;
 	}
 }
+
 h4 {
-			color: white;
-		}
+	color: white;
+}

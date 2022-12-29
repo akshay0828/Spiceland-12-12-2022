@@ -538,9 +538,11 @@ height: 45%;
 /*Setting the background image using before pseudo selector*/
 #container1::before {
 	content: '';
-	background:
-		url("https://i.pinimg.com/originals/74/85/02/7485027689f1947658f7a0b252f1c56b.gif")
-		no-repeat center center/cover;
+	 background-image: url('https://images.askmen.com/news/sports/_1516983344.gif') ;
+		 background-size: cover;
+		background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center center;
 	width: 99vw;
 	height: 59vh;
 	position: absolute;
@@ -550,7 +552,7 @@ height: 45%;
 	margin-right: 45px;
 	font-weight: bold;
 	z-index: -1;
-	opacity: 0.89;
+	opacity: 1;
 	border: 2px solid black;
 	/* border-bottom-left-radius: 100px; */
 }
@@ -586,6 +588,7 @@ height: 45%;
 
 </head>
 <body>
+
 	<form>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div class="container-fluid">
@@ -604,6 +607,14 @@ height: 45%;
 					<h4 id="welcome">Welcome ${add }</h4>
 					<ul class="navbar-nav mr-auto"></ul>
 					<ul class="navbar-nav">
+					
+					
+					<form action="user/userhome/${user }" method="GET">
+      <input type="text" name="text"  class="search" placeholder="Search here!" >
+      <input type="submit" name="submit" class="submit"  value="Search">
+    </form>
+				
+					
 						<li class="nav-item active"><a class="nav-link"
 							th:href="@{/}" href="#">Home</a></li>
 						<li class="nav-item active"><a class="nav-link"
@@ -640,9 +651,11 @@ height: 45%;
 		
 			<center>
 
-				<div class="container-fostrap">
+				<div class="container-fostrap" onload="click()">
 					<div class="row">
-
+				<div style="color: red;" align="center">
+							<h3>${error}</h3>
+						</div>
 						<c:forEach items="${Products}" var="product">
 
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4"

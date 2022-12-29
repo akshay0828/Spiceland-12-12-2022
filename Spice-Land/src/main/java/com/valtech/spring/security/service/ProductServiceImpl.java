@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -120,4 +121,17 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findUseridByproductName(productName);
 	}
 
+	@Override
+	public List<Products> searchForProduct(String search) {
+		
+		String sql = "SELECT * FROM products p WHERE UPPER(p.product_name) LIKE UPPER('"+search+"%')";
+		
+		List<Products> product =jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(Products.class));
+		//productRepository.searchProducts(search);
+		
+		return product;
+	}
+	
+	
+	
 }

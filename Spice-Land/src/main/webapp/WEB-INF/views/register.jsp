@@ -96,16 +96,10 @@
 					</div>
 			</form>
 
-						<div style="color: white;">
+						<div style="color: red;" align="center">
 							<h3>${error}</h3>
 						</div>
-						<br />
-				
-
-					
-						<div style="color:white;">
-							<h3>${userna}</h3>
-						</div>
+						
 						<br />
 					
 

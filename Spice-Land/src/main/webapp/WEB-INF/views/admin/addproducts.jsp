@@ -71,7 +71,7 @@
 							<div class="form-group">
 								<label for="productName" style="color: white;">ProductName</label>
 								<input type="text" class="form-control border border-warning"
-									required name="productName"  pattern="[A-Z][a-z]*[A-Z][a-z]*|[A-Z][a-z]*" placeholder="ProductName" title="please enter the product name in camel case.for example=WhatIf">
+									required name="productName"  pattern="[A-Z][a-z]*[A-Z][a-z]*|[A-Z][a-z]*|[A-Z][a-z]*[A-Z][a-z]*[A-Z][a-z]*" placeholder="ProductName" title="please enter the product name in camel case.for example=WhatIf">
 							</div>
 						</div>
 						<div class="col-sm-3">
@@ -119,7 +119,7 @@
                     <label class="custom-file-label border border-warning" for="productImage">Choose file</label>  -->
 								<input type="file" id="productImage" name="eimage" required
 									accept="image/jpeg, image/png" id="productImage"
-									data-max-size="2048" onchange="loadfile(event)">
+									data-max-size="5044" onchange="loadfile(event)">
 
 							</div>
 							<h4></h4>

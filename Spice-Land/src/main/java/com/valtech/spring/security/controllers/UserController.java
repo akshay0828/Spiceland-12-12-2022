@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.valtech.spring.security.entity.CartLine;
 import com.valtech.spring.security.entity.Orders;
@@ -53,7 +54,7 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping("user/userhome/{id}")
-	public String userhome(@PathVariable("id") final int id, final ModelMap model) {
+	public String userhome(@PathVariable("id") final int id, final ModelMap model ,@RequestParam(value = "text", required = false) String search) {
 
 		logger.info("Navigating towards the user-dashboard");
 
@@ -61,9 +62,17 @@ public class UserController {
 		System.out.println(service.getUsername(id));
 		model.addAttribute("add", u.getName());
 		model.addAttribute("user", u.getId());
+		
+		if(search==null){
 
 		model.addAttribute("Products", productservice.getAllProducts());
-
+		}
+		else if(productservice.searchForProduct(search).isEmpty()){
+			model.addAttribute("error", "The Product you have searched is not in List");
+		}
+		else{
+			model.addAttribute("Products", productservice.searchForProduct(search));
+		}
 		model.addAttribute("users", service.getAlluser());
 
 		return "user/userhome";
@@ -72,6 +81,9 @@ public class UserController {
 	 * If buyer/user wants to update the profile Navigate to updateprofile page.
 	 */
 
+	
+
+	
 	@GetMapping("/user/updateprofile/{id}")
 	public String userUpdate(@PathVariable("id") final int id, final Model model) {
 		logger.info("Navigation towards profile updation of the user with id " + id);
@@ -134,6 +146,7 @@ public class UserController {
 				final int a = p.getQuantity() - 1;
 				logger.debug("Available quantity was " + p.getQuantity()
 						+ " and after addition of item to cart the available quantity is " + a);
+				cartLine.setProdid(prod_id);
 				cartLineService.createCartLine(check);
 
 			}
@@ -164,7 +177,7 @@ public class UserController {
 			final CartLine c = new CartLine(prod_id, p.getProductName(), p.getPrice(), u.getId(), id);
 			cartLine.setAdminIds(u.getId());
 			cartLine.setUserid(id);
-
+			cartLine.setProdid(prod_id);
 			c.setUserid(id);
 
 			cartLineService.createCartLine(c);

@@ -39,7 +39,7 @@ public class DeliveryController {
 	private OrderService orderService;
 
 	public static final String ACCOUNT_SID = "ACe165455b3f498dd288a7ffa8aa7a3d5c";
-	public static final String AUTH_TOKEN = "7fc2665dcdd1d4c9b2d1c4d0ef286029";
+	public static final String AUTH_TOKEN = "1b67419c0a54b7981f467653d2c217e0";
 
 	private static final Logger logger = LoggerFactory.getLogger(DeliveryController.class);
 

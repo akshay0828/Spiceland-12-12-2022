@@ -20,6 +20,7 @@ import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.model.RegisterUserModel;
 import com.valtech.spring.security.repo.Rolerepo;
+import com.valtech.spring.security.service.RoleService;
 import com.valtech.spring.security.service.UserDetailsService;
 
 @Controller
@@ -34,7 +35,7 @@ public class HelloController {
 	private WebSecurityConfig webSecurityConfig;
 
 	@Autowired
-	private Rolerepo roleRepo;
+	private RoleService roleService;
 
 	private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
 
@@ -44,7 +45,7 @@ public class HelloController {
 	@GetMapping("/register")
 	public String register(Model model) throws Exception {
 		logger.info("Navigating towards registration page");
-		model.addAttribute("roleval", roleRepo.findAll());
+		model.addAttribute("roleval", roleService.findAll());
 		return "/register";
 	}
 
@@ -59,7 +60,7 @@ public class HelloController {
 	public String registerUser(@ModelAttribute RegisterUserModel registerUserModel,
 			@RequestParam("username") String username, @RequestParam("role") String role,
 			@RequestParam("pass") String pass, Model model, @RequestParam("cnfmpass") String cnfmpass) {
-		model.addAttribute("roleval", roleRepo.findAll());
+		model.addAttribute("roleval", roleService.findAll());
 
 		String u = service.findUser(username);
 
@@ -72,9 +73,11 @@ public class HelloController {
 						registerUserModel.getStreet(), registerUserModel.getArea(), registerUserModel.getCity(),
 						registerUserModel.getPincode(), registerUserModel.getContact(), registerUserModel.getRole());
 
-				Role role1 = roleRepo.findByName(role);
+				Role role1 = roleService.getbyName(role);
+				
 				Set<Role> roles = new HashSet<Role>();
 				roles.add(role1);
+				
 				user.setRoles(roles);
 				logger.debug("Creating the user with details " + user);
 				service.createUser(user);
@@ -87,7 +90,7 @@ public class HelloController {
 				return "/register";
 			}
 		}
-		model.addAttribute("username", "Username Already Exists");
+		model.addAttribute("error", "Username Already Exists");
 		return "/register";
 	}
 

@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.valtech.spring.security.entity.Products;
 import com.valtech.spring.security.entity.User;
+import com.valtech.spring.security.service.ProductService;
 import com.valtech.spring.security.service.ProductServiceImpl;
 import com.valtech.spring.security.service.RoleService;
 import com.valtech.spring.security.service.UserDetailsService;
@@ -33,7 +34,7 @@ public class AdminController {
 	private UserDetailsService service;
 
 	@Autowired
-	private ProductServiceImpl productservice;
+	private ProductService productservice;
 
 	@Autowired
 	private RoleService roleService;

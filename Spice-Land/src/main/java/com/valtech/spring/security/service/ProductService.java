@@ -28,4 +28,6 @@ public interface ProductService {
 	void productUpdate(String productName, Double price, Float weight, int quantity, String productDescription, int id)
 			throws Exception;
 
+	List<Products> searchForProduct(String search);
+
 }
