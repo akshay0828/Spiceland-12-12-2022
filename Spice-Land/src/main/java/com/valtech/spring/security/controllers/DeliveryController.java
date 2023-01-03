@@ -30,8 +30,7 @@ public class DeliveryController {
 	@Autowired
 	private UserDetailsService service;
 
-	@Autowired
-	private Rolerepo roleRepo;
+	
 
 	int uid;
 

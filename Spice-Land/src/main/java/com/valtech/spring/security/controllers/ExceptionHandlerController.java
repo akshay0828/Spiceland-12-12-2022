@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
  
 
-/*@ControllerAdvice
+@ControllerAdvice
 public class ExceptionHandlerController {
 
  
@@ -19,4 +19,3 @@ public class ExceptionHandlerController {
     }
 
 }
-*/
