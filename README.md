@@ -9,7 +9,7 @@
 
 
     
- ![Deployed project url:](http://192.168.141.36:8080/index)
+Deployed project url: http://192.168.141.36:8080/index
  
  <ul>
         <li>----Meta-data ADMIN DASHBOARD CREDENTIALS----</li>
