@@ -7,9 +7,9 @@
     <li>Yeshaswini C</li>   
 </ul> 
 
- <ul> 
-    <li><b>Deployed project url:-http://192.168.141.36:8080/index</b></li>
- </ul>
+
+    ## Deployed project url:-http://192.168.141.36:8080/index
+ 
  
  <ul>
         <li>----Meta-data ADMIN DASHBOARD CREDENTIALS----</li>
