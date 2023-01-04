@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.valtech.spring.security.dao.ProductDao;
+import com.valtech.spring.security.dao.UserDetailsDao;
 import com.valtech.spring.security.entity.CartLine;
 import com.valtech.spring.security.entity.Orders;
 import com.valtech.spring.security.entity.Products;
@@ -43,6 +45,8 @@ public class UserController {
 
 	@Autowired
 	private ProductService productservice;
+	
+	
 
 	int uid;
 

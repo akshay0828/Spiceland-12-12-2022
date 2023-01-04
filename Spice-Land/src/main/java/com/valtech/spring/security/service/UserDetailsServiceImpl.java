@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.valtech.spring.security.dao.UserDetailsDao;
 import com.valtech.spring.security.entity.MyUserDetails;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.UserReopsitory;
@@ -20,21 +21,29 @@ public class UserDetailsServiceImpl
 
 	@Autowired
 	private UserReopsitory userRepository;
-
+	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private UserDetailsDao userdao;
+
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
-
+     
+	
 	@Override
 	public void forgotPassword(String username, String password) throws Exception {
 
-		logger.info("Updating password with JDBC Query");
-		String sql = "update users set pass = ? where username = ?";
-
-		jdbcTemplate.update(sql, password, username);
+		userdao.forgotPasswordDao(username, password);
 
 	}
+	
+	
+	@Override
+	public void updateUser(String name, String email, String contact, String street, String area, String city,
+			String pincode, int id) {
+		userdao.updateUserDao(name, email, contact, street, area, city, pincode, id);
+
+	} 	
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -149,17 +158,7 @@ public class UserDetailsServiceImpl
 		return u;
 	}
 
-	// To update the details of the user.
-	@Override
-	public void updateUser(String name, String email, String contact, String street, String area, String city,
-			String pincode, int id) {
-		logger.info("Updating User with id" + id);
-		String sql = "update users set name = ? ,email= ?, contact=?, street= ?, area= ?, city=?, pincode=? where id = ?";
-
-		jdbcTemplate.update(sql, name, email, contact, street, area, city, pincode, id);
-		logger.debug("User updated with id=" + id);
-
-	}
+	
 
 	// List of the user by role.
 	@Override

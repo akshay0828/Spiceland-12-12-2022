@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.valtech.spring.security.config.WebSecurityConfig;
+import com.valtech.spring.security.dao.UserDetailsDao;
 import com.valtech.spring.security.entity.MyUserDetails;
 import com.valtech.spring.security.entity.Role;
 import com.valtech.spring.security.entity.User;
@@ -36,6 +37,8 @@ public class HelloController {
 
 	@Autowired
 	private RoleService roleService;
+	
+	
 
 	private static final Logger logger = LoggerFactory.getLogger(HelloController.class);
 

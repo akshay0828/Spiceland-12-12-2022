@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.valtech.spring.security.dao.UserDetailsDao;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.service.UserDetailsService;
 
@@ -14,6 +15,8 @@ public class UserTest {
 
 	@Autowired
 	UserDetailsService service;
+	
+	
 
 	@Test
 	public void userTest() {

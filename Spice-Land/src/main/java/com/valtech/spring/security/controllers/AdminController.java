@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.valtech.spring.security.dao.ProductDao;
+import com.valtech.spring.security.dao.UserDetailsDao;
 import com.valtech.spring.security.entity.Products;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.service.ProductService;
@@ -38,6 +40,8 @@ public class AdminController {
 
 	@Autowired
 	private RoleService roleService;
+	
+	
 
 	int uid;
 	int flag = 0;
@@ -206,6 +210,7 @@ public class AdminController {
 		Products p = productservice.getProduct(id);
 		p.setUser(null);
 		productservice.deleteProduct(id);
+		
 		return "redirect:/products/prolist/" + user_id;
 
 	}
@@ -240,6 +245,7 @@ public class AdminController {
 
 			productservice.productUpdate(pro.getProductName(), pro.getPrice(), pro.getWeight(), pro.getQuantity(),
 					pro.getProductDescription(), pro.getId());
+			
 
 			model.addAttribute("add", pro.getUser());
 			model.addAttribute("Products", productservice.getAllproductsbyuser(products.getUser()));

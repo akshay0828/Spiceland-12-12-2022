@@ -136,7 +136,7 @@ body {
 				<div class="form-group">
 					<label for="price" style="color: white;">Price</label> <input
 						type="number" class="form-control border border-warning"
-						name="price" value="${product.price}">
+						name="price"  min="1" value="${product.price}">
 				</div>
 
 			</div>
@@ -144,7 +144,7 @@ body {
 				<div class="form-group">
 					<label for="weight" style="color: white;">Weight in grams</label> <input
 						type="number" class="form-control border border-warning"
-						name="weight" value="${product.weight}">
+						name="weight"  min="1"value="${product.weight}">
 				</div>
 			</div>
 			<div class="col-sm-3">
@@ -152,7 +152,7 @@ body {
 					<label for="weight" style="color: white;">Available
 						Quantity</label> <input type="number"
 						class="form-control border border-warning" name="quantity"
-						value="${product.quantity}">
+						min="1" value="${product.quantity}">
 				</div>
 
 

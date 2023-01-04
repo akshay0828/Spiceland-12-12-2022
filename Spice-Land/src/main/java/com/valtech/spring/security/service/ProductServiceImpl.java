@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.valtech.spring.security.dao.ProductDao;
 import com.valtech.spring.security.entity.Products;
 import com.valtech.spring.security.entity.User;
 import com.valtech.spring.security.repo.ProductRepository;
@@ -20,33 +21,25 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-
 	
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
+	private ProductDao productdao;
+
 	// private static final Logger logger =
 	// LoggerFactory.getLogger(ProductServiceImpl.class);
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
-
 	
 	@Override
 	public void  productUpdate(String productName,Double price,Float weight,int quantity,String productDescription,int id) throws Exception {
 		
-		logger.info("Updating password with JDBC Query");
-		 String sql = "update products set PRODUCT_NAME = ? ,price= ?, weight= ?, quantity= ?, PRODUCT_DESCRIPTION=? where id = ?";
-		 
-		 jdbcTemplate.update(sql, productName, price,weight,quantity,productDescription,id);
-		 
+		productdao.productUpdateDao(productName, price, weight, quantity, productDescription, id);
 		
 		
 		
 	}
 	
-	
-	
-	
+
 	// To create the new product.
 	@Override
 	public void createProduct(Products products) {
@@ -74,6 +67,17 @@ public class ProductServiceImpl implements ProductService {
 		logger.debug("products are " + prods);
 		return prods;
 	}
+	// To delete the product.
+		@Override
+		public void deleteProduct(int id) {
+			productdao.deleteProductDao(id);
+		}
+		
+		@Override
+		public List<Products> searchForProduct(String search) {
+			
+		return 	productdao.searchForProductDao(search);
+		}
 
 	// To update the existing product.
 	@Override
@@ -83,8 +87,7 @@ public class ProductServiceImpl implements ProductService {
 		Products p = productRepository.save(product);
 		logger.debug("Product updated with id = " + product.getId() + " is " + p);
 		return p;
-		
-		
+
 	}
 
 	// List of products by the seller id .
@@ -101,14 +104,6 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findUserById(id);
 	}
 
-	// To delete the product.
-	@Override
-	public void deleteProduct(int id) {
-		logger.info("Deleting product");
-		String sql = "delete products where id = ?";
-        jdbcTemplate.update(sql, id);
-	}
-
 	@Override
 	public List<Products> getProductsbyproductname(String productName) {
 
@@ -121,17 +116,4 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findUseridByproductName(productName);
 	}
 
-	@Override
-	public List<Products> searchForProduct(String search) {
-		
-		String sql = "SELECT * FROM products p WHERE UPPER(p.product_name) LIKE UPPER('"+search+"%')";
-		
-		List<Products> product =jdbcTemplate.query(sql,BeanPropertyRowMapper.newInstance(Products.class));
-		//productRepository.searchProducts(search);
-		
-		return product;
-	}
-	
-	
-	
 }

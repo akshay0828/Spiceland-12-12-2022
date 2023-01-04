@@ -48,12 +48,12 @@ public interface UserDetailsService {
 	List<User> findAll();
 
 	UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
-
 	void forgotPassword(String username, String password) throws Exception;
 
 	// To update the details of the user.
 
 	void updateUser(String name, String email, String contact, String street, String area, String city, String pincode,
 			int id);
+	
 
 }
