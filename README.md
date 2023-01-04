@@ -7,7 +7,25 @@
     <li>Yeshaswini C</li>   
 </ul> 
 
- 	 
+ <ul> 
+    <li><b>Deployed project url:-http://192.168.141.36:8080/index</b></li>
+ </ul>
+ 
+ <ul>
+        <li>----Meta-data ADMIN DASHBOARD CREDENTIALS----</li>
+        <li>----UserName:akshay,Password:a123----</li>
+ </ul>
+ 
+  <ul>
+        <li>----Meta-data USER DASHBOARD CREDENTIALS----</li>
+        <li>----UserName:yesh,Password:y123----</li>
+ </ul>
+ 
+  <ul>
+        <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
+        <li>----UserName:Irfan,Password:i123----</li>
+ </ul>
+
 ## SpiceLand  Project
 
 Github url: https://github.com/akshay0828/Valtech-miniProject-Spice-Land<br/> 
