@@ -14,9 +14,9 @@
   ## Login Credentials
  
 
-       #  ADMIN/SELLER LOGIN CREDENTIALS
+        ADMIN/SELLER LOGIN CREDENTIALS
        
-        UserName:akshay<br>Password:a123
+        UserName:akshay   Password:a123
 
  
   <ul>
