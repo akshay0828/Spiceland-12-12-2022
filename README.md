@@ -19,10 +19,10 @@
         UserName:akshay   Password:a123
 
  
-  <ul>
-        <li>----Meta-data USER DASHBOARD CREDENTIALS----</li>
+
+      CUSTOMER LOGIN CREDENTIALS
         <li>----UserName:yesh,Password:y123----</li>
- </ul>
+
  
   <ul>
         <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
