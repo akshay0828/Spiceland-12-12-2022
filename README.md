@@ -14,14 +14,17 @@
   ## Login Credentials
  
 
-        ADMIN/SELLER LOGIN CREDENTIALS
-       
-        UserName:akshay   Password:a123
+    <ul>
+        <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
+        <li>----UserName:Irfan,Password:i123----</li>
+ </ul>
 
  
 
-      CUSTOMER LOGIN CREDENTIALS
-        <li>----UserName:yesh,Password:y123----</li>
+     <ul>
+        <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
+        <li>----UserName:Irfan,Password:i123----</li>
+ </ul>
 
  
   <ul>
