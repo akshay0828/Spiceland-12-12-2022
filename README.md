@@ -14,22 +14,22 @@
   ## Login Credentials
  
 
-    <ul>
-        <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
-        <li>----UserName:Irfan,Password:i123----</li>
+  <ul>
+        <li>Login Credentials for ADMIN/SELLER</li>
+        <li>UserName:akshay    Password:a123</li>
  </ul>
 
  
 
-     <ul>
-        <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
-        <li>----UserName:Irfan,Password:i123----</li>
+   <ul>
+        <li>Login Credentials for CUSTOMER</li>
+        <li>----UserName:yesh   Password:y123----</li>
  </ul>
 
  
   <ul>
-        <li>----Meta-data DELIVERY PERSON DASHBOARD CREDENTIALS----</li>
-        <li>----UserName:Irfan,Password:i123----</li>
+        <li>Login Credentials for DELIVERY PERSON </li>
+        <li>UserName:Irfan   Password:i123</li>
  </ul>
 
 ## SpiceLand  Project
