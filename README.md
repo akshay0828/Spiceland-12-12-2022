@@ -23,7 +23,7 @@
 
    <ul>
         <li>Login Credentials for CUSTOMER</li>
-        <li>----UserName:yesh   Password:y123----</li>
+        <li>UserName:yesh   Password:y123</li>
  </ul>
 
  
