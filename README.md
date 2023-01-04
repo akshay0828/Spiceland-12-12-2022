@@ -8,8 +8,8 @@
 </ul> 
 
 
-   ## TEAM 5: 
-Deployed project url: http://192.168.141.36:8080/index
+   ## Project Deployed in Tomcat
+ URL: http://192.168.141.36:8080/index
  
  <ul>
         <li>----Meta-data ADMIN DASHBOARD CREDENTIALS----</li>
