@@ -14,8 +14,8 @@
   ## Login Credentials
  
  <ul>
-        <li>----Meta-data ADMIN DASHBOARD CREDENTIALS----</li>
-        <li>----UserName:akshay,Password:a123----</li>
+       ##  ADMIN/SELLER LOGIN CREDENTIALS
+        <li>----UserName:akshay<br>Password:a123----</li>
  </ul>
  
   <ul>
