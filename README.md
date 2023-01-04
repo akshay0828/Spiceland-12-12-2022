@@ -13,10 +13,11 @@
  
   ## Login Credentials
  
- <ul>
-       ##  ADMIN/SELLER LOGIN CREDENTIALS
-        <li>----UserName:akshay<br>Password:a123----</li>
- </ul>
+
+       #  ADMIN/SELLER LOGIN CREDENTIALS
+       
+        UserName:akshay<br>Password:a123
+
  
   <ul>
         <li>----Meta-data USER DASHBOARD CREDENTIALS----</li>
