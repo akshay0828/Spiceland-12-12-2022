@@ -9,7 +9,7 @@
 
 
    ## Project Deployed in Tomcat
- URL: http://192.168.141.36:8080/index
+ URL: http://192.168.141.36:8080/SpiceLand/login
  
   ## Login Credentials
  
